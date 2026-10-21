@@ -1,0 +1,89 @@
+<view class="ss-page security">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <block wx:if="{{!loading && security}}">
+    <view class="ss-section-title">
+      <text>绑定与验证</text>
+    </view>
+    <view class="ss-card security__group">
+      <view class="security__row" bindtap="onGoRealname">
+        <view class="ss-list-item__icon">🪪</view>
+        <view class="ss-flex-1">
+          <text class="security__label">实名认证</text>
+          <text class="security__desc">{{security.realname_verified ? '已完成实名认证' : '未实名认证，开具专票前需要完成'}}</text>
+        </view>
+        <text class="ss-tag {{security.realname_verified ? 'ss-tag--success' : 'ss-tag--muted'}}">{{security.realname_verified ? '已认证' : '去认证'}}</text>
+      </view>
+      <view class="security__row">
+        <view class="ss-list-item__icon">📱</view>
+        <view class="ss-flex-1">
+          <text class="security__label">手机绑定</text>
+          <text class="security__desc">{{security.phone_bound ? '已绑定手机号' : '未绑定手机号'}}</text>
+        </view>
+        <text class="ss-tag {{security.phone_bound ? 'ss-tag--success' : 'ss-tag--muted'}}">{{security.phone_bound ? '已绑定' : '未绑定'}}</text>
+      </view>
+      <view class="security__row">
+        <view class="ss-list-item__icon">✉️</view>
+        <view class="ss-flex-1">
+          <text class="security__label">邮箱绑定</text>
+          <text class="security__desc">{{security.email_bound ? '已绑定邮箱' : '未绑定邮箱'}}</text>
+        </view>
+        <text class="ss-tag {{security.email_bound ? 'ss-tag--success' : 'ss-tag--muted'}}">{{security.email_bound ? '已绑定' : '未绑定'}}</text>
+      </view>
+      <view class="security__row">
+        <view class="ss-list-item__icon">💬</view>
+        <view class="ss-flex-1">
+          <text class="security__label">微信登录</text>
+          <text class="security__desc">{{security.wechat_bound ? '已绑定微信账号' : '未绑定微信账号'}}</text>
+        </view>
+        <text class="ss-tag {{security.wechat_bound ? 'ss-tag--success' : 'ss-tag--muted'}}">{{security.wechat_bound ? '已绑定' : '未绑定'}}</text>
+      </view>
+      <view class="security__row">
+        <view class="ss-list-item__icon">🔑</view>
+        <view class="ss-flex-1">
+          <text class="security__label">登录密码</text>
+          <text class="security__desc">{{security.password_set ? '已设置登录密码' : '尚未设置登录密码'}}</text>
+        </view>
+        <text class="ss-tag {{security.password_set ? 'ss-tag--success' : 'ss-tag--muted'}}">{{security.password_set ? '已设置' : '未设置'}}</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>安全状态</text>
+      <text class="ss-section-title__more">风险等级：{{security.risk_text}}</text>
+    </view>
+    <view class="ss-card security__group">
+      <view class="security__row">
+        <view class="ss-list-item__icon">🛡️</view>
+        <view class="ss-flex-1">
+          <text class="security__label">账号风险等级</text>
+          <text class="security__desc">{{security.risk_text}} · {{security.password_changed_text}}</text>
+        </view>
+        <text class="ss-tag {{security.risk_level === 0 ? 'ss-tag--success' : 'ss-tag--danger'}}">{{security.risk_text}}</text>
+      </view>
+      <view class="security__row" wx:for="{{security.warnings}}" wx:key="*this">
+        <view class="ss-list-item__icon">⚠️</view>
+        <view class="ss-flex-1">
+          <text class="security__label">安全提示</text>
+          <text class="security__desc">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="ss-card security__help" bindtap="onGoHelp">
+      <text class="ss-flex-1">账号与登录安全指南</text>
+      <text class="security__arrow">›</text>
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !security}}"
+    icon="🔐"
+    title="暂无法获取账号安全信息"
+    desc="请稍后重试，或联系客服协助处理"
+    actionText="重新加载"
+    bind:action="onReload"
+  />
+</view>

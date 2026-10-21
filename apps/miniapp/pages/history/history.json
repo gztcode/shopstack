@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "浏览足迹",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner",
+    "empty-state": "../../components/empty-state/empty-state"
+  }
+}

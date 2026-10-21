@@ -1,0 +1,23 @@
+<view class="ss-page favorites">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="card" rows="2" />
+
+  <view class="ss-grid" wx:if="{{!loading && products.length}}">
+    <view class="ss-grid__col" wx:for="{{products}}" wx:key="id">
+      <view class="fav" data-product-id="{{item.product_id}}" bindtap="onProductTap">
+        <image class="fav__img" src="{{item.cover}}" mode="aspectFill" />
+        <view class="fav__remove" data-product-id="{{item.product_id}}" catchtap="onRemove">✕</view>
+        <text class="fav__title ss-ellipsis-2">{{item.title}}</text>
+        <text class="fav__price">¥{{item.price_text}}</text>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !products.length}}"
+    icon="❤️"
+    title="还没有收藏商品"
+    desc="在商品详情页点击收藏即可加入"
+  />
+</view>

@@ -1,0 +1,28 @@
+.price {
+  color: var(--ss-color-text-danger);
+  font-family: var(--ss-font-family-numeric);
+  font-weight: var(--ss-font-weight-bold);
+}
+
+.price--sm {
+  font-size: var(--ss-font-size-sm);
+}
+
+.price--md {
+  font-size: var(--ss-font-size-lg);
+}
+
+.price--lg {
+  font-size: var(--ss-font-size-2xl);
+}
+
+.price--xl {
+  font-size: var(--ss-font-size-4xl);
+}
+
+.original {
+  margin-left: 10rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-quaternary);
+  text-decoration: line-through;
+}

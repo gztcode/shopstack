@@ -1,0 +1,101 @@
+.login {
+  padding-bottom: 60rpx;
+}
+
+.hero {
+  padding: 40rpx 40rpx 32rpx;
+}
+
+.hero__title {
+  display: block;
+  font-size: var(--ss-font-size-3xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-primary);
+}
+
+.hero__desc {
+  display: block;
+  margin-top: 12rpx;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+/* 页签 ---------------------------------------------------------------- */
+.tabs {
+  display: flex;
+  margin: 0 40rpx;
+  padding: 8rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-muted);
+}
+
+.tabs__item {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+  border-radius: var(--ss-radius-pill);
+}
+
+.tabs__item--active {
+  background: var(--ss-color-bg-card);
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+  box-shadow: var(--ss-shadow-sm);
+}
+
+/* 表单 ---------------------------------------------------------------- */
+.form {
+  margin: 32rpx 40rpx 0;
+  overflow: hidden;
+}
+
+.form__submit {
+  padding: 32rpx 24rpx 8rpx;
+}
+
+.form__btn {
+  width: 100%;
+}
+
+.form__divider {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 24rpx 24rpx;
+}
+
+.form__line {
+  flex: 1;
+  height: 1rpx;
+  background: var(--ss-color-border-subtle);
+}
+
+.form__line-text {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-quaternary);
+}
+
+.form__wechat {
+  margin: 0 24rpx 32rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-success-50);
+  color: var(--ss-color-text-success);
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.tip {
+  margin-top: 32rpx;
+  text-align: center;
+}
+
+.tip__text {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-quaternary);
+}

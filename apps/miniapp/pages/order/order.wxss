@@ -1,0 +1,175 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  background: var(--ss-color-bg-card);
+  padding: 0 8rpx;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--ss-shadow-xs);
+}
+
+.tabs__item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+  height: 88rpx;
+  position: relative;
+}
+
+.tabs__text {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.tabs__item--active .tabs__text {
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.tabs__item--active::after {
+  content: '';
+  position: absolute;
+  bottom: 12rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-brand-600);
+}
+
+.tabs__badge {
+  min-width: 28rpx;
+  height: 28rpx;
+  padding: 0 6rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-danger-500);
+  color: var(--ss-color-text-inverse);
+  font-size: 18rpx;
+  line-height: 28rpx;
+  text-align: center;
+}
+
+/* 订单卡片 ------------------------------------------------------------ */
+.order-card {
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+}
+
+.order-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16rpx;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.order-card__no {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.order-card__status {
+  font-size: var(--ss-font-size-base);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.order-card__status--brand {
+  color: var(--ss-color-text-brand);
+}
+
+.order-card__status--warning {
+  color: var(--ss-color-warning-600);
+}
+
+.order-card__status--info {
+  color: var(--ss-color-info-600);
+}
+
+.order-card__status--success {
+  color: var(--ss-color-text-success);
+}
+
+.order-card__status--danger {
+  color: var(--ss-color-text-danger);
+}
+
+.order-card__status--muted {
+  color: var(--ss-color-text-tertiary);
+}
+
+.order-card__goods {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx 0;
+}
+
+.order-card__img {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-muted);
+  flex-shrink: 0;
+}
+
+.order-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-card__title {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+  line-height: 1.4;
+}
+
+.order-card__spec {
+  display: block;
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.order-card__amount {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.order-card__price {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+  font-family: var(--ss-font-family-numeric);
+}
+
+.order-card__qty {
+  margin-top: 4rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.order-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.order-card__time {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.order-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  justify-content: flex-end;
+}

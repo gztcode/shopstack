@@ -1,0 +1,339 @@
+syntax = "proto3";
+
+package shopstack.notification.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/notification/v1;notificationv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+message Notification {
+  int64 id = 1;
+  int64 user_id = 2;
+  shopstack.common.v1.NotificationType type = 3;
+  string title = 4;
+  string content = 5;
+  string link = 6;
+  int64 biz_id = 7;
+  bool read = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp read_at = 10;
+}
+
+message SendNotificationRequest {
+  int64 user_id = 1;
+  int32 type = 2;
+  string title = 3;
+  string content = 4;
+  string link = 5;
+  int64 biz_id = 6;
+  repeated int64 user_ids = 7; // 群发时使用
+}
+
+message ListNotificationsRequest {
+  int64 user_id = 1;
+  int32 type = 2;
+  bool unread_only = 3;
+  shopstack.common.v1.PageRequest page = 4;
+  int32 category = 10; // 消息分类筛选
+}
+
+message ListNotificationsResponse {
+  repeated Notification notifications = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+  int32 unread_count = 3;
+}
+
+message MarkReadRequest {
+  int64 user_id = 1;
+  int64 id = 2;
+}
+
+message MarkAllReadRequest {
+  int64 user_id = 1;
+}
+
+message UnreadCountRequest {
+  int64 user_id = 1;
+}
+
+message UnreadCountResponse {
+  int32 count = 1;
+}
+
+message SmsRecord {
+  int64 id = 1;
+  string phone = 2;
+  string code = 3;
+  string scene = 4;
+  int32 status = 5;
+  string error_message = 6;
+  int32 send_count = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message ListSmsRecordsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string phone = 2;
+  string scene = 3;
+}
+
+message ListSmsRecordsResponse {
+  repeated SmsRecord records = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SendSmsRequest {
+  string phone = 1;
+  string scene = 2;
+}
+
+message SendSmsResponse {
+  bool success = 1;
+  string code = 2; // 演示环境下直接返回验证码
+  int32 expire_seconds = 3;
+}
+
+message AuditLog {
+  int64 id = 1;
+  int64 admin_id = 2;
+  string admin_name = 3;
+  string module = 4;   // product / order / user ...
+  string action = 5;   // create / update / delete / export
+  string target_type = 6;
+  string target_id = 7;
+  string detail = 8;
+  string ip = 9;
+  string user_agent = 10;
+  int32 result = 11;  // 1 成功 0 失败
+  string error_message = 12;
+  google.protobuf.Timestamp created_at = 13;
+}
+
+message ListAuditLogsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string module = 2;
+  string action = 3;
+  int64 admin_id = 4;
+  string keyword = 5;
+  int64 start_time = 6;
+  int64 end_time = 7;
+}
+
+message ListAuditLogsResponse {
+  repeated AuditLog logs = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+// ---------------------------------------------------------------------------
+// 系统配置
+// ---------------------------------------------------------------------------
+
+message SystemSetting {
+  int64 id = 1;
+  string key = 2;
+  string value = 3;
+  string name = 4;
+  string group = 5;
+  string description = 6;
+  string value_type = 7;  // string / number / bool / json
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message ListSystemSettingsRequest {
+  string group = 1;
+}
+
+message ListSystemSettingsResponse {
+  repeated SystemSetting settings = 1;
+}
+
+message UpdateSystemSettingsRequest {
+  string group = 1;
+  map<string, string> values = 2;
+}
+
+service NotificationService {
+  rpc Send(SendNotificationRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { post: "/api/v1/notifications/send" body: "*" };
+  }
+  rpc List(ListNotificationsRequest) returns (ListNotificationsResponse) {
+    option (google.api.http) = { get: "/api/v1/notifications" };
+  }
+  rpc MarkRead(MarkReadRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { put: "/api/v1/notifications/{id}/read" body: "*" };
+  }
+  rpc MarkAllRead(MarkAllReadRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { post: "/api/v1/notifications/read-all" body: "*" };
+  }
+  rpc GetUnreadCount(UnreadCountRequest) returns (UnreadCountResponse) {
+    option (google.api.http) = { get: "/api/v1/notifications/unread-count" };
+  }
+  rpc SendSms(SendSmsRequest) returns (SendSmsResponse) {
+    option (google.api.http) = { post: "/api/v1/sms/send" body: "*" };
+  }
+  rpc ListSmsRecords(ListSmsRecordsRequest) returns (ListSmsRecordsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/sms-records" };
+  }
+  rpc ListAuditLogs(ListAuditLogsRequest) returns (ListAuditLogsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/audit-logs" };
+  }
+  rpc ListSystemSettings(ListSystemSettingsRequest) returns (ListSystemSettingsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/settings" };
+  }
+  rpc UpdateSystemSettings(UpdateSystemSettingsRequest) returns (ListSystemSettingsResponse) {
+    option (google.api.http) = { put: "/api/v1/admin/settings" body: "*" };
+  }
+  rpc ListNotificationTemplates(ListNotificationTemplatesRequest) returns (ListNotificationTemplatesResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/notification-templates" };
+  }
+  rpc SaveNotificationTemplate(SaveNotificationTemplateRequest) returns (NotificationTemplate) {
+    option (google.api.http) = { post: "/api/v1/admin/notification-templates" body: "*" };
+  }
+  rpc DeleteNotificationTemplate(DeleteNotificationTemplateRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/notification-templates/{id}" };
+  }
+  rpc ListSmsTemplates(ListSmsTemplatesRequest) returns (ListSmsTemplatesResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/sms-templates" };
+  }
+  rpc SaveSmsTemplate(SaveSmsTemplateRequest) returns (SmsTemplate) {
+    option (google.api.http) = { post: "/api/v1/admin/sms-templates" body: "*" };
+  }
+  rpc DeleteSmsTemplate(DeleteSmsTemplateRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/sms-templates/{id}" };
+  }
+  rpc ListSensitiveWords(ListSensitiveWordsRequest) returns (ListSensitiveWordsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/sensitive-words" };
+  }
+  rpc SaveSensitiveWord(SaveSensitiveWordRequest) returns (SensitiveWord) {
+    option (google.api.http) = { post: "/api/v1/admin/sensitive-words" body: "*" };
+  }
+  rpc DeleteSensitiveWord(DeleteSensitiveWordRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/sensitive-words/{id}" };
+  }
+  rpc ListNotificationCategories(ListNotificationCategoriesRequest) returns (ListNotificationCategoriesResponse) {
+    option (google.api.http) = { get: "/api/v1/notifications/categories" };
+  }
+}
+
+// EXTRA_MARKER: 由 scripts/extend-proto.py 追加的消息定义
+
+// ---------------------------------------------------------------------------
+// 通知模板 / 短信模板 / 敏感词 / 消息分类
+// ---------------------------------------------------------------------------
+
+message NotificationTemplate {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  int32 type = 4;
+  string title = 5;
+  string content = 6;
+  string link = 7;
+  bool enabled = 8;
+  google.protobuf.Timestamp updated_at = 9;
+}
+
+message ListNotificationTemplatesRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 type = 2;
+  string keyword = 3;
+}
+
+message ListNotificationTemplatesResponse {
+  repeated NotificationTemplate templates = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveNotificationTemplateRequest {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  int32 type = 4;
+  string title = 5;
+  string content = 6;
+  string link = 7;
+  bool enabled = 8;
+}
+
+message DeleteNotificationTemplateRequest {
+  int64 id = 1;
+}
+
+message SmsTemplate {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  string content = 4;
+  bool enabled = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message ListSmsTemplatesRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+}
+
+message ListSmsTemplatesResponse {
+  repeated SmsTemplate templates = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveSmsTemplateRequest {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  string content = 4;
+  bool enabled = 5;
+}
+
+message DeleteSmsTemplateRequest {
+  int64 id = 1;
+}
+
+message SensitiveWord {
+  int64 id = 1;
+  string word = 2;
+  int32 category = 3; // 1 违规词 2 辱骂 3 广告 4 其他
+  int32 status = 4;   // 0 停用 1 启用
+  google.protobuf.Timestamp created_at = 5;
+}
+
+message ListSensitiveWordsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int32 category = 3;
+}
+
+message ListSensitiveWordsResponse {
+  repeated SensitiveWord words = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveSensitiveWordRequest {
+  int64 id = 1;
+  string word = 2;
+  int32 category = 3;
+  int32 status = 4;
+}
+
+message DeleteSensitiveWordRequest {
+  int64 id = 1;
+}
+
+message NotificationCategory {
+  int32 type = 1;
+  string name = 2;
+  string icon = 3;
+  int32 count = 4;
+  int32 unread_count = 5;
+}
+
+message ListNotificationCategoriesRequest {
+  int64 user_id = 1;
+}
+
+message ListNotificationCategoriesResponse {
+  repeated NotificationCategory categories = 1;
+}

@@ -1,0 +1,458 @@
+syntax = "proto3";
+
+package shopstack.order.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/order/v1;orderv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+// ---------------------------------------------------------------------------
+// 实体
+// ---------------------------------------------------------------------------
+
+message OrderItem {
+  int64 id = 1;
+  int64 order_id = 2;
+  int64 product_id = 3;
+  int64 sku_id = 4;
+  string product_title = 5;
+  string spec_text = 6;
+  string image = 7;
+  int64 price_cents = 8;
+  int32 quantity = 9;
+  int64 subtotal_cents = 10;
+  int64 refunded_cents = 11;
+  bool reviewed = 12;
+}
+
+message Order {
+  int64 id = 1;
+  string order_no = 2;
+  int64 user_id = 3;
+  string user_nickname = 4;
+  shopstack.common.v1.OrderStatus status = 5;
+  int64 total_amount_cents = 6;      // 商品总额
+  int64 discount_cents = 7;          // 优惠金额
+  int64 freight_cents = 8;           // 运费
+  int64 payable_cents = 9;           // 实付金额
+  int64 paid_cents = 10;             // 已付金额
+  int64 refunded_cents = 11;         // 已退金额
+  int32 item_count = 12;             // 商品件数
+  int32 total_quantity = 13;
+  shopstack.common.v1.Address address = 14;
+  string remark = 15;
+  string payment_method = 16;
+  google.protobuf.Timestamp paid_at = 17;
+  google.protobuf.Timestamp shipped_at = 18;
+  google.protobuf.Timestamp completed_at = 19;
+  google.protobuf.Timestamp cancelled_at = 20;
+  google.protobuf.Timestamp created_at = 21;
+  google.protobuf.Timestamp updated_at = 22;
+  string admin_remark = 23;
+  int64 shipment_id = 24;
+}
+
+message OrderDetail {
+  Order order = 1;
+  repeated OrderItem items = 2;
+  repeated OrderStatusLog logs = 3;
+  int64 coupon_id = 4;
+  string coupon_name = 5;
+  int64 payment_id = 6;
+  int64 shipment_id = 7;
+  string tracking_no = 8;
+  string logistics_company = 9;
+  repeated string logistics_tracks = 10;
+  bool can_cancel = 11;
+  bool can_pay = 12;
+  bool can_confirm = 13;
+  bool can_refund = 14;
+  bool can_review = 15;
+}
+
+message OrderStatusLog {
+  int64 id = 1;
+  int64 order_id = 2;
+  int32 from_status = 3;
+  int32 to_status = 4;
+  string action = 5;
+  string operator = 6;
+  string remark = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message Refund {
+  int64 id = 1;
+  string refund_no = 2;
+  int64 order_id = 3;
+  string order_no = 4;
+  int64 user_id = 5;
+  int64 amount_cents = 6;
+  string reason = 7;
+  string description = 8;
+  repeated int64 item_ids = 9;
+  int32 status = 10;  // 0 待审核 1 已通过 2 已驳回 3 已退款
+  string admin_remark = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp processed_at = 13;
+}
+
+// ---------------------------------------------------------------------------
+// 请求 / 响应
+// ---------------------------------------------------------------------------
+
+message CreateOrderItem {
+  int64 product_id = 1;
+  int64 sku_id = 2;
+  int32 quantity = 3;
+}
+
+message CreateOrderRequest {
+  int64 user_id = 1;
+  repeated CreateOrderItem items = 2;   // 直接下单
+  bool from_cart = 3;                   // 从购物车结算
+  repeated int64 cart_item_ids = 4;     // from_cart 时指定条目
+  int64 address_id = 5;
+  int64 coupon_id = 6;
+  string remark = 7;
+  string payment_method = 8; // wechat | alipay | balance
+  int64 points_used = 9;
+}
+
+message GetOrderRequest {
+  int64 id = 1;
+  int64 user_id = 2;
+}
+
+message ListOrdersRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int64 user_id = 2;
+  int32 status = 3;
+  string keyword = 4;   // 订单号
+  int64 start_time = 5; // unix 秒
+  int64 end_time = 6;
+  int32 payment_method = 10; // 支付方式筛选
+  int32 refund_status = 11; // 退款状态筛选
+}
+
+message ListOrdersResponse {
+  repeated Order orders = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+  int64 pending_payment_count = 3;
+  int64 pending_shipment_count = 4;
+  int64 pending_receipt_count = 5;
+  int64 refunding_count = 6;
+}
+
+message CancelOrderRequest {
+  int64 order_id = 1;
+  int64 user_id = 2;
+  string reason = 3;
+}
+
+message ConfirmReceiptRequest {
+  int64 order_id = 1;
+  int64 user_id = 2;
+}
+
+message ApplyRefundRequest {
+  int64 order_id = 1;
+  int64 user_id = 2;
+  repeated int64 item_ids = 3;
+  int64 amount_cents = 4;
+  string reason = 5;
+  string description = 6;
+}
+
+message ListRefundsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  int64 user_id = 3;
+  string keyword = 4;
+}
+
+message ListRefundsResponse {
+  repeated Refund refunds = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SetRefundStatusRequest {
+  int64 id = 1;
+  int32 status = 2;
+  string admin_remark = 3;
+}
+
+message AdminUpdateOrderRemarkRequest {
+  int64 id = 1;
+  string admin_remark = 2;
+}
+
+message ListOrderLogsRequest {
+  int64 order_id = 1;
+}
+
+message ListOrderLogsResponse {
+  repeated OrderStatusLog logs = 1;
+}
+
+message OrderCountRequest {
+  int64 user_id = 1;
+}
+
+message OrderCountResponse {
+  int64 pending_payment = 1;
+  int64 pending_shipment = 2;
+  int64 pending_receipt = 3;
+  int64 refunding = 4;
+}
+
+// AdminOrderStats 是订单侧的经营统计，供后台看板聚合使用。
+message AdminOrderStatsRequest {
+  int32 days = 1; // 统计周期，默认 30 天
+}
+
+message AdminOrderStatsResponse {
+  int64 total_orders = 1;
+  int64 paid_orders = 2;
+  int64 pending_payment = 3;
+  int64 pending_shipment = 4;
+  int64 pending_receipt = 5;
+  int64 refunding = 6;
+  int64 cancelled = 7;
+  int64 completed = 8;
+  int64 total_revenue_cents = 9;
+  int64 today_revenue_cents = 10;
+  int64 today_orders = 11;
+  int64 total_users = 12;
+  repeated OrderTrendPoint trend = 13;
+  repeated OrderCategoryStat category_stats = 14;
+  repeated OrderTopProduct top_products = 15;
+}
+
+message OrderTrendPoint {
+  string date = 1;
+  int64 order_count = 2;
+  int64 revenue_cents = 3;
+  int64 new_users = 4;
+}
+
+message OrderCategoryStat {
+  int64 category_id = 1;
+  string category_name = 2;
+  int64 sales_count = 3;
+  int64 revenue_cents = 4;
+}
+
+message OrderTopProduct {
+  int64 product_id = 1;
+  string title = 2;
+  string cover = 3;
+  int64 sales_count = 4;
+  int64 revenue_cents = 5;
+}
+
+// ---------------------------------------------------------------------------
+// 服务定义
+// ---------------------------------------------------------------------------
+
+service OrderService {
+  rpc CreateOrder(CreateOrderRequest) returns (Order) {
+    option (google.api.http) = { post: "/api/v1/orders" body: "*" };
+  }
+  rpc GetOrder(GetOrderRequest) returns (OrderDetail) {
+    option (google.api.http) = { get: "/api/v1/orders/{id}" };
+  }
+  rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse) {
+    option (google.api.http) = { get: "/api/v1/orders" };
+  }
+  rpc CancelOrder(CancelOrderRequest) returns (Order) {
+    option (google.api.http) = { post: "/api/v1/orders/{order_id}/cancel" body: "*" };
+  }
+  rpc ConfirmReceipt(ConfirmReceiptRequest) returns (Order) {
+    option (google.api.http) = { post: "/api/v1/orders/{order_id}/confirm" body: "*" };
+  }
+  rpc ApplyRefund(ApplyRefundRequest) returns (Refund) {
+    option (google.api.http) = { post: "/api/v1/orders/{order_id}/refund" body: "*" };
+  }
+  rpc ListRefunds(ListRefundsRequest) returns (ListRefundsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/refunds" };
+  }
+  rpc SetRefundStatus(SetRefundStatusRequest) returns (Refund) {
+    option (google.api.http) = { put: "/api/v1/admin/refunds/{id}/status" body: "*" };
+  }
+  rpc UpdateOrderRemark(AdminUpdateOrderRemarkRequest) returns (Order) {
+    option (google.api.http) = { put: "/api/v1/admin/orders/{id}/remark" body: "*" };
+  }
+  rpc ListOrderLogs(ListOrderLogsRequest) returns (ListOrderLogsResponse) {
+    option (google.api.http) = { get: "/api/v1/orders/{order_id}/logs" };
+  }
+  rpc GetOrderCount(OrderCountRequest) returns (OrderCountResponse) {
+    option (google.api.http) = { get: "/api/v1/orders/count" };
+  }
+  rpc AdminOrderStats(AdminOrderStatsRequest) returns (AdminOrderStatsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/orders/stats" };
+  }
+  rpc ListAfterSales(ListAfterSalesRequest) returns (ListAfterSalesResponse) {
+    option (google.api.http) = { get: "/api/v1/after-sales" };
+  }
+  rpc GetAfterSale(GetAfterSaleRequest) returns (AfterSale) {
+    option (google.api.http) = { get: "/api/v1/after-sales/{id}" };
+  }
+  rpc ListRefundReasons(ListRefundReasonsRequest) returns (ListRefundReasonsResponse) {
+    option (google.api.http) = { get: "/api/v1/refund-reasons" };
+  }
+  rpc AdminListAfterSales(AdminListAfterSalesRequest) returns (ListAfterSalesResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/after-sales" };
+  }
+  rpc SetAfterSaleStatus(SetAfterSaleStatusRequest) returns (AfterSale) {
+    option (google.api.http) = { put: "/api/v1/admin/after-sales/{id}/status" body: "*" };
+  }
+  rpc AdminListOrders(AdminListOrdersRequest) returns (ListOrdersResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/orders" };
+  }
+  rpc AdminOrderStatsByChannel(AdminOrderStatsRequest) returns (AdminOrderStatsByChannelResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/orders/stats/channels" };
+  }
+  rpc AdminOrderStatsByHour(AdminOrderStatsRequest) returns (AdminOrderStatsByHourResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/orders/stats/hours" };
+  }
+  rpc AdminOrderStatsByRegion(AdminOrderStatsRequest) returns (AdminOrderStatsByRegionResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/orders/stats/regions" };
+  }
+  rpc AdminListOrderLogs(ListOrderLogsRequest) returns (ListOrderLogsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/order-logs" };
+  }
+  rpc SaveRefundReason(SaveRefundReasonRequest) returns (RefundReason) {
+    option (google.api.http) = { post: "/api/v1/admin/refund-reasons" body: "*" };
+  }
+}
+
+// EXTRA_MARKER: 由 scripts/extend-proto.py 追加的消息定义
+
+// ---------------------------------------------------------------------------
+// 售后工单
+// ---------------------------------------------------------------------------
+
+message AfterSale {
+  int64 id = 1;
+  string after_sale_no = 2;
+  int64 order_id = 3;
+  string order_no = 4;
+  int64 user_id = 5;
+  string user_nickname = 6;
+  int32 type = 7;      // 1 仅退款 2 退货退款 3 换货
+  int64 amount_cents = 8;
+  string reason = 9;
+  string description = 10;
+  repeated int64 item_ids = 11;
+  int32 status = 12;   // 0 待审核 1 审核通过 2 审核驳回 3 已退款 4 已完成
+  string admin_remark = 13;
+  int64 refund_id = 14;
+  google.protobuf.Timestamp created_at = 15;
+  google.protobuf.Timestamp processed_at = 16;
+}
+
+message ListAfterSalesRequest {
+  int64 user_id = 1;
+  int32 status = 2;
+  int32 type = 3;
+  shopstack.common.v1.PageRequest page = 4;
+}
+
+message ListAfterSalesResponse {
+  repeated AfterSale after_sales = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message GetAfterSaleRequest {
+  int64 id = 1;
+  int64 user_id = 2;
+}
+
+message AdminListAfterSalesRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  int32 type = 3;
+  string keyword = 4;
+}
+
+message SetAfterSaleStatusRequest {
+  int64 id = 1;
+  int32 status = 2;
+  string admin_remark = 3;
+}
+
+// ---------------------------------------------------------------------------
+// 退款原因
+// ---------------------------------------------------------------------------
+
+message RefundReason {
+  int64 id = 1;
+  string name = 2;
+  int32 type = 3; // 1 仅退款 2 退货退款 3 换货
+  int32 sort = 4;
+  bool enabled = 5;
+}
+
+message ListRefundReasonsRequest {
+  int32 type = 1;
+}
+
+message ListRefundReasonsResponse {
+  repeated RefundReason reasons = 1;
+}
+
+message SaveRefundReasonRequest {
+  int64 id = 1;
+  string name = 2;
+  int32 type = 3;
+  int32 sort = 4;
+  bool enabled = 5;
+}
+
+// ---------------------------------------------------------------------------
+// 后台订单列表与多维统计
+// ---------------------------------------------------------------------------
+
+message AdminListOrdersRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int32 status = 3;
+  int32 payment_method = 4;
+  int64 user_id = 5;
+  int64 start_time = 6;
+  int64 end_time = 7;
+}
+
+message AdminOrderStatsByChannelResponse {
+  repeated OrderChannelStat channel_stats = 1;
+}
+
+message OrderChannelStat {
+  int32 channel = 1;
+  string channel_name = 2;
+  int64 order_count = 3;
+  int64 amount_cents = 4;
+}
+
+message AdminOrderStatsByHourResponse {
+  repeated OrderHourStat hour_stats = 1;
+}
+
+message OrderHourStat {
+  int32 hour = 1;
+  int64 order_count = 2;
+  int64 amount_cents = 3;
+}
+
+message AdminOrderStatsByRegionResponse {
+  repeated OrderRegionStat region_stats = 1;
+}
+
+message OrderRegionStat {
+  string region = 1;
+  int64 order_count = 2;
+  int64 amount_cents = 3;
+}

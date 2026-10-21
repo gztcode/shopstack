@@ -1,0 +1,18 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 14rpx 24rpx;
+  background: var(--ss-color-warning-50);
+  color: var(--ss-color-warning-700);
+  font-size: var(--ss-font-size-sm);
+  line-height: 1.5;
+}
+
+.banner__icon {
+  font-size: 26rpx;
+}
+
+.banner__text {
+  flex: 1;
+}

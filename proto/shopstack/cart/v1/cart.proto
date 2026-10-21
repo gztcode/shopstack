@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package shopstack.cart.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/cart/v1;cartv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+message CartItem {
+  int64 id = 1;
+  int64 user_id = 2;
+  int64 product_id = 3;
+  int64 sku_id = 4;
+  string product_title = 5;
+  string spec_text = 6;
+  string image = 7;
+  int64 price_cents = 8;
+  int32 quantity = 9;
+  int32 stock = 10;
+  bool selected = 11;
+  bool available = 12;  // 库存不足 / 已下架
+  int64 subtotal_cents = 13;
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+}
+
+message Cart {
+  int64 user_id = 1;
+  repeated CartItem items = 2;
+  int32 total_count = 3;          // 所有条目数量
+  int32 selected_count = 4;       // 选中条目数量
+  int64 selected_amount_cents = 5;// 选中商品总额
+  int64 selected_discount_cents = 6; // 选中优惠金额
+  int64 selected_payable_cents = 7;  // 选中应付金额
+}
+
+message GetCartRequest {
+  int64 user_id = 1;
+}
+
+message AddToCartRequest {
+  int64 user_id = 1;
+  int64 product_id = 2;
+  int64 sku_id = 3;
+  int32 quantity = 4;
+  bool selected = 5;
+}
+
+message UpdateCartItemRequest {
+  int64 user_id = 1;
+  int64 id = 2;
+  int32 quantity = 3;
+  bool selected = 4;
+}
+
+message RemoveCartItemRequest {
+  int64 user_id = 1;
+  int64 id = 2;
+}
+
+message ClearCartRequest {
+  int64 user_id = 1;
+}
+
+message SetAllSelectedRequest {
+  int64 user_id = 1;
+  bool selected = 2;
+}
+
+message GetCartCountRequest {
+  int64 user_id = 1;
+}
+
+message GetCartCountResponse {
+  int32 count = 1;
+}
+
+service CartService {
+  rpc GetCart(GetCartRequest) returns (Cart) {
+    option (google.api.http) = { get: "/api/v1/cart" };
+  }
+  rpc AddToCart(AddToCartRequest) returns (Cart) {
+    option (google.api.http) = { post: "/api/v1/cart/items" body: "*" };
+  }
+  rpc UpdateCartItem(UpdateCartItemRequest) returns (Cart) {
+    option (google.api.http) = { put: "/api/v1/cart/items/{id}" body: "*" };
+  }
+  rpc RemoveCartItem(RemoveCartItemRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/cart/items/{id}" };
+  }
+  rpc ClearCart(ClearCartRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { post: "/api/v1/cart/clear" body: "*" };
+  }
+  rpc SetAllSelected(SetAllSelectedRequest) returns (Cart) {
+    option (google.api.http) = { put: "/api/v1/cart/select-all" body: "*" };
+  }
+  rpc GetCount(GetCartCountRequest) returns (GetCartCountResponse) {
+    option (google.api.http) = { get: "/api/v1/cart/count" };
+  }
+}

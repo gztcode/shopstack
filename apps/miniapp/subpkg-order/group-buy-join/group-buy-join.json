@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "参团下单",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner",
+    "loading": "../../components/loading/loading"
+  }
+}

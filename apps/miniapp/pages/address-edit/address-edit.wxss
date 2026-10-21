@@ -1,0 +1,57 @@
+.address-edit {
+  padding-bottom: 0;
+}
+
+.form {
+  margin: 24rpx 24rpx 0;
+  overflow: hidden;
+}
+
+.block {
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+}
+
+.block__title {
+  display: block;
+  margin-bottom: 16rpx;
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.tags__item {
+  padding: 12rpx 32rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-subtle);
+  border: 1rpx solid var(--ss-color-border-default);
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.tags__item--active {
+  border-color: var(--ss-color-brand-600);
+  background: var(--ss-color-brand-50);
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.default {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.default__label {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}

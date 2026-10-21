@@ -1,0 +1,58 @@
+<view class="ss-page search">
+  <nav-bar title="搜索商品" />
+
+  <demo-banner />
+
+  <view class="bar">
+    <view class="bar__input">
+      <text class="bar__icon">🔍</text>
+      <input
+        class="bar__field"
+        placeholder="搜索商品、品牌或分类"
+        placeholder-class="ss-placeholder"
+        confirm-type="search"
+        value="{{keyword}}"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+      />
+      <text class="bar__clear" wx:if="{{keyword}}" bindtap="onClearInput">✕</text>
+    </view>
+    <view class="bar__submit" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <block wx:if="{{searched}}">
+    <loading wx:if="{{searching}}" type="card" rows="2" />
+    <view class="ss-grid" wx:if="{{!searching && products.length}}">
+      <view class="ss-grid__col" wx:for="{{products}}" wx:key="id">
+        <product-card product="{{item}}" bind:select="onProductSelect" bind:addcart="onAddCart" />
+      </view>
+    </view>
+    <empty-state
+      wx:if="{{!searching && !products.length}}"
+      icon="🔍"
+      title="没有找到相关商品"
+      desc="换个关键词试试吧"
+    />
+  </block>
+
+  <!-- 搜索历史与热门词 -->
+  <block wx:if="{{!searched}}">
+    <view class="ss-card block" wx:if="{{history.length}}">
+      <view class="block__head">
+        <text class="block__title">搜索历史</text>
+        <text class="block__more" bindtap="onClearHistory">清空</text>
+      </view>
+      <view class="words">
+        <text class="words__item" wx:for="{{history}}" wx:key="*this" data-word="{{item}}" bindtap="onWordTap">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="ss-card block">
+      <text class="block__title">热门搜索</text>
+      <view class="words">
+        <text class="words__item" wx:for="{{hotWords}}" wx:key="*this" data-word="{{item}}" bindtap="onWordTap">{{item}}</text>
+      </view>
+    </view>
+  </block>
+</view>

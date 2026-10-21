@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "物流查询",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner"
+  }
+}

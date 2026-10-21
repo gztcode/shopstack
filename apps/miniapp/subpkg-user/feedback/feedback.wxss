@@ -1,0 +1,33 @@
+.feedback__types {
+  margin: 0 24rpx;
+  padding: 20rpx 24rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.feedback__type {
+  padding: 10rpx 28rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-muted);
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.feedback__type--active {
+  background: var(--ss-color-brand-50);
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.feedback__contact {
+  margin: 0 24rpx;
+  padding: 0 24rpx;
+}
+
+.feedback__actions {
+  margin: 32rpx 24rpx 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}

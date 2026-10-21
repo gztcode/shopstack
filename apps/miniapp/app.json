@@ -1,0 +1,156 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/points/points",
+    "pages/invoices/invoices",
+    "pages/logistics/logistics",
+    "pages/coupon-center/coupon-center",
+    "pages/reviews/reviews",
+    "pages/refund/refund",
+    "pages/pay-result/pay-result",
+    "pages/history/history",
+    "pages/category/category",
+    "pages/detail/detail",
+    "pages/cart/cart",
+    "pages/checkout/checkout",
+    "pages/pay/pay",
+    "pages/order/order",
+    "pages/order-detail/order-detail",
+    "pages/login/login",
+    "pages/profile/profile",
+    "pages/address/address",
+    "pages/address-edit/address-edit",
+    "pages/favorites/favorites",
+    "pages/coupons/coupons",
+    "pages/notifications/notifications",
+    "pages/search/search",
+    "pages/sign-in/sign-in",
+    "pages/order-all/order-all"
+  ],
+  "subPackages": [
+    {
+      "root": "subpkg-shop",
+      "pages": [
+        "channels/channels",
+        "channel-recommend/channel-recommend",
+        "channel-newest/channel-newest",
+        "channel-hot/channel-hot",
+        "channel-flash/channel-flash",
+        "channel-presale/channel-presale",
+        "channel-clearance/channel-clearance",
+        "channel-freeship/channel-freeship",
+        "channel-cross/channel-cross",
+        "channel-fresh/channel-fresh",
+        "product-params/product-params",
+        "product-questions/product-questions",
+        "review-all/review-all",
+        "review-good/review-good",
+        "review-medium/review-medium",
+        "review-bad/review-bad",
+        "review-image/review-image",
+        "review-reply/review-reply",
+        "my-reviews/my-reviews",
+        "review-tags/review-tags"
+      ]
+    },
+    {
+      "root": "subpkg-order",
+      "pages": [
+        "sign-in-calendar/sign-in-calendar",
+        "task-center/task-center",
+        "task-detail/task-detail",
+        "promotion-list/promotion-list",
+        "promotion-flash/promotion-flash",
+        "promotion-presale/promotion-presale",
+        "group-buy-list/group-buy-list",
+        "group-buy-detail/group-buy-detail",
+        "group-buy-join/group-buy-join",
+        "promotion-session/promotion-session",
+        "my-group-buy/my-group-buy",
+        "order-pay/order-pay",
+        "order-ship/order-ship",
+        "order-receive/order-receive",
+        "order-done/order-done",
+        "order-cancel/order-cancel",
+        "order-refunding/order-refunding",
+        "after-sale-list/after-sale-list",
+        "after-sale-detail/after-sale-detail",
+        "after-sale-apply/after-sale-apply",
+        "refund-reason/refund-reason",
+        "order-confirm/order-confirm",
+        "logistics-trace/logistics-trace",
+        "logistics-track/logistics-track"
+      ]
+    },
+    {
+      "root": "subpkg-user",
+      "pages": [
+        "user-level/user-level",
+        "growth-logs/growth-logs",
+        "invoice-template/invoice-template",
+        "notification-setting/notification-setting",
+        "account-security/account-security",
+        "realname/realname",
+        "feedback/feedback",
+        "help-center/help-center",
+        "help-article/help-article",
+        "region/region"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["subpkg-shop", "subpkg-order"]
+    },
+    "pages/profile/profile": {
+      "network": "all",
+      "packages": ["subpkg-user"]
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "ShopStack 商城",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F7FA"
+  },
+  "tabBar": {
+    "color": "#6B7A8F",
+    "selectedColor": "#2A4AD9",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "images/tab-category.png",
+        "selectedIconPath": "images/tab-category-active.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "images/tab-cart.png",
+        "selectedIconPath": "images/tab-cart-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "demo-banner": "components/demo-banner/demo-banner"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

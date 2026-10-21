@@ -1,0 +1,42 @@
+<view class="ss-page region">
+  <demo-banner />
+
+  <view class="ss-section-title">
+    <text>选择收货地区</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <view class="ss-card region__pickers" wx:if="{{!loading}}">
+    <picker mode="selector" range="{{regions}}" range-key="name" value="{{provinceIndex}}" bindchange="onProvinceChange">
+      <view class="ss-field">
+        <text class="ss-field__label">省份</text>
+        <text class="ss-field__input ss-field__input--right {{provinceName ? '' : 'ss-placeholder'}}">{{provinceName || '请选择'}}</text>
+      </view>
+    </picker>
+    <picker mode="selector" range="{{cities}}" range-key="name" value="{{cityIndex}}" bindchange="onCityChange" disabled="{{provinceIndex < 0}}">
+      <view class="ss-field">
+        <text class="ss-field__label">城市</text>
+        <text class="ss-field__input ss-field__input--right {{cityName ? '' : 'ss-placeholder'}}">{{cityName || '请选择'}}</text>
+      </view>
+    </picker>
+    <picker mode="selector" range="{{districts}}" range-key="name" value="{{districtIndex}}" bindchange="onDistrictChange" disabled="{{cityIndex < 0}}">
+      <view class="ss-field">
+        <text class="ss-field__label">区 / 县</text>
+        <text class="ss-field__input ss-field__input--right {{districtName ? '' : 'ss-placeholder'}}">{{districtName || '请选择'}}</text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="ss-section-title">
+    <text>已选地区</text>
+  </view>
+  <view class="ss-card region__result">
+    <text class="region__result-text" wx:if="{{provinceName}}">{{provinceName}} {{cityName}} {{districtName}}</text>
+    <text class="region__result-text ss-placeholder" wx:else>还没有选择地区</text>
+  </view>
+
+  <view class="region__actions">
+    <view class="ss-btn ss-btn--primary" bindtap="onSave">保存地区</view>
+  </view>
+</view>

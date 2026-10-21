@@ -1,0 +1,78 @@
+.task__card {
+  margin: 24rpx 24rpx 0;
+  padding: 32rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.task__name {
+  font-size: var(--ss-font-size-xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-primary);
+}
+
+.task__desc {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.task__reward {
+  margin-top: 12rpx;
+  padding: 24rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-gradient-accent);
+  display: flex;
+  align-items: baseline;
+  gap: 12rpx;
+}
+
+.task__reward-value {
+  font-size: var(--ss-font-size-4xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-inverse);
+}
+
+.task__reward-label {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-inverse);
+  opacity: 0.9;
+}
+
+.task__progress {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 12rpx;
+}
+
+.task__bar {
+  flex: 1;
+  height: 12rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-muted);
+  overflow: hidden;
+}
+
+.task__bar-inner {
+  height: 100%;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-gradient-brand);
+}
+
+.task__progress-text {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.task__meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 8rpx;
+}
+
+.task__claimed {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}

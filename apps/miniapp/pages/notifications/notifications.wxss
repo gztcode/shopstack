@@ -1,0 +1,113 @@
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 24rpx;
+  background: var(--ss-color-bg-card);
+  box-shadow: var(--ss-shadow-xs);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.filters__item {
+  padding: 8rpx 20rpx;
+  border-radius: var(--ss-radius-pill);
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+  background: var(--ss-color-bg-subtle);
+}
+
+.filters__item--active {
+  background: var(--ss-color-brand-50);
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.head__read {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-brand);
+  flex-shrink: 0;
+}
+
+/* 消息条目 ------------------------------------------------------------ */
+.notice {
+  display: flex;
+  gap: 20rpx;
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+}
+
+.notice--unread {
+  border-left: 6rpx solid var(--ss-color-brand-600);
+}
+
+.notice__icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-brand-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.notice__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.notice__head {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.notice__title {
+  font-size: var(--ss-font-size-base);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.notice__dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: var(--ss-radius-circle);
+  background: var(--ss-color-danger-500);
+}
+
+.notice__content {
+  display: block;
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+  line-height: var(--ss-font-line-height-relaxed);
+}
+
+.notice__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+
+.notice__type {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-brand);
+  background: var(--ss-color-brand-50);
+  padding: 2rpx 12rpx;
+  border-radius: var(--ss-radius-xs);
+}
+
+.notice__time {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}

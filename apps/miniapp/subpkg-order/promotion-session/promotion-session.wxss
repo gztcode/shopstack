@@ -1,0 +1,58 @@
+.session__list {
+  padding: 0 24rpx;
+}
+
+.session__card {
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.session__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.session__name {
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.session__time {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.session__progress {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.session__bar {
+  flex: 1;
+  height: 12rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-muted);
+  overflow: hidden;
+}
+
+.session__bar-inner {
+  height: 100%;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-gradient-accent);
+}
+
+.session__stock {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-tertiary);
+}
+
+.session__btn {
+  align-self: flex-end;
+}

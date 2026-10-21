@@ -1,0 +1,49 @@
+<view class="ss-page as">
+  <demo-banner />
+
+  <view class="as__tabs">
+    <view
+      class="as__tab {{activeKey === item.key ? 'as__tab--active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTabTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <view class="as__list" wx:if="{{!loading && afterSales.length}}">
+    <view
+      class="ss-card as__card"
+      wx:for="{{afterSales}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onAfterSaleTap"
+    >
+      <view class="as__head">
+        <text class="as__no">售后单 {{item.after_sale_no}}</text>
+        <text class="ss-tag ss-tag--accent">{{item.status_text}}</text>
+      </view>
+      <text class="as__reason">{{item.reason}} · {{item.type_text}}</text>
+      <text class="as__order">关联订单 {{item.order_no}}</text>
+      <view class="as__foot">
+        <text class="as__time">{{item.created_text}}</text>
+        <text class="as__amount">退款金额 <text class="ss-price">¥{{item.amount_text}}</text></text>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !afterSales.length}}"
+    icon="🛠️"
+    title="暂无售后记录"
+    desc="订单有问题时可以发起售后申请，去订单里看看吧"
+    actionText="查看我的订单"
+    bind:action="onGoOrders"
+  />
+
+  <view class="ss-loading-more" wx:if="{{!loading && afterSales.length && !hasMore}}">没有更多售后记录了</view>
+</view>

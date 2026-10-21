@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner",
+    "nav-bar": "../../components/nav-bar/nav-bar"
+  }
+}

@@ -1,0 +1,53 @@
+<view class="ss-page feedback">
+  <demo-banner />
+
+  <view class="ss-section-title">
+    <text>反馈类型</text>
+  </view>
+  <view class="ss-card feedback__types">
+    <view
+      class="feedback__type {{type === item.key ? 'feedback__type--active' : ''}}"
+      wx:for="{{types}}"
+      wx:key="key"
+      data-type="{{item.key}}"
+      bindtap="onTypeTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="ss-section-title">
+    <text>问题描述</text>
+  </view>
+  <view class="ss-card">
+    <textarea
+      class="ss-textarea"
+      placeholder="请详细描述你遇到的问题或建议（不少于 5 个字）"
+      placeholder-class="ss-placeholder"
+      maxlength="300"
+      value="{{content}}"
+      bindinput="onInputContent"
+    />
+  </view>
+
+  <view class="ss-section-title">
+    <text>联系方式</text>
+  </view>
+  <view class="ss-card feedback__contact">
+    <view class="ss-field">
+      <text class="ss-field__label">手机 / 邮箱</text>
+      <input
+        class="ss-field__input"
+        placeholder="选填，方便我们回复你"
+        placeholder-class="ss-placeholder"
+        value="{{contact}}"
+        bindinput="onInputContact"
+      />
+    </view>
+  </view>
+
+  <view class="feedback__actions">
+    <view class="ss-btn ss-btn--primary" bindtap="onSubmit">{{submitting ? '提交中' : '提交反馈'}}</view>
+    <view class="ss-btn ss-btn--ghost" bindtap="onGoHelp">查看帮助中心</view>
+  </view>
+</view>

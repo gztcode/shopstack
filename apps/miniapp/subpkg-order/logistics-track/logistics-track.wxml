@@ -1,0 +1,44 @@
+<view class="ss-page query">
+  <demo-banner />
+
+  <view class="ss-card query__form">
+    <view class="ss-field">
+      <text class="ss-field__label">运单号</text>
+      <input
+        class="ss-field__input"
+        placeholder="请输入快递运单号"
+        placeholder-class="ss-placeholder"
+        value="{{trackingNo}}"
+        bindinput="onInput"
+        confirm-type="search"
+        bindconfirm="onSearch"
+      />
+      <text class="query__clear" wx:if="{{trackingNo}}" bindtap="onClear">✕</text>
+    </view>
+    <view class="ss-btn ss-btn--primary query__btn" bindtap="onSearch">{{searching ? '查询中' : '立即查询'}}</view>
+  </view>
+
+  <view class="query__tip ss-tip">演示环境可使用运单号 SF1234567890 或 ZT9876543210 查询。</view>
+
+  <block wx:if="{{searched && result}}">
+    <view class="ss-section-title">
+      <text>查询结果</text>
+      <text class="ss-section-title__more">{{result.company}} · {{result.status_text}}</text>
+    </view>
+
+    <view class="ss-card query__result">
+      <view class="query__result-head">
+        <text class="query__result-no">运单号 {{result.tracking_no}}</text>
+        <text class="ss-tag ss-tag--accent">{{result.status_text}}</text>
+      </view>
+      <view class="query__node" wx:for="{{result.tracks}}" wx:key="id">
+        <view class="query__dot {{index === 0 ? 'query__dot--active' : ''}}"></view>
+        <view class="ss-flex-1">
+          <text class="query__desc">{{item.description}}</text>
+          <text class="query__meta">{{item.occurred_text}} · {{item.location}}</text>
+        </view>
+      </view>
+      <view class="query__empty" wx:if="{{!result.tracks.length}}">该运单号暂无轨迹记录，商家发货后即可查询。</view>
+    </view>
+  </block>
+</view>

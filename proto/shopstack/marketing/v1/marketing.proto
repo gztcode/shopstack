@@ -1,0 +1,547 @@
+syntax = "proto3";
+
+package shopstack.marketing.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/marketing/v1;marketingv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+message Coupon {
+  int64 id = 1;
+  string name = 2;
+  string code = 3;
+  shopstack.common.v1.CouponType type = 4;
+  int64 face_value_cents = 5;  // 满减金额
+  int32 percent = 6;           // 折扣百分比，如 85 表示 8.5 折
+  int64 min_amount_cents = 7;  // 使用门槛
+  int64 max_discount_cents = 8;// 最大优惠金额
+  int64 total_quantity = 9;    // 发行总量
+  int64 received_quantity = 10;
+  int64 used_quantity = 11;
+  int64 per_user_limit = 12;
+  int64 start_time = 13;
+  int64 end_time = 14;
+  int64 category_id = 15;      // 限定分类，0 = 全场
+  bool enabled = 16;
+  google.protobuf.Timestamp created_at = 17;
+}
+
+message UserCoupon {
+  int64 id = 1;
+  int64 user_id = 2;
+  int64 coupon_id = 3;
+  Coupon coupon = 4;
+  shopstack.common.v1.UserCouponStatus status = 5;
+  int64 order_id = 6;
+  google.protobuf.Timestamp received_at = 7;
+  google.protobuf.Timestamp used_at = 8;
+}
+
+message Promotion {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 type = 4;       // 1 满减 2 折扣 3 秒杀 4 拼团
+  int32 status = 5;     // 0 未开始 1 进行中 2 已结束 3 已下线
+  int64 start_time = 6;
+  int64 end_time = 7;
+  int64 min_amount_cents = 8;
+  int64 discount_cents = 9;
+  int32 percent = 10;
+  int64 product_id = 11;
+  int32 limit_per_user = 12;
+  int64 sold_count = 13;
+  string banner_image = 14;
+  google.protobuf.Timestamp created_at = 15;
+}
+
+message ListCouponsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int32 type = 3;
+  bool enabled = 4;
+  bool available = 5; // 仅当前可领取
+  int64 min_amount_cents = 10; // 按使用门槛筛选
+  int32 coupon_category = 11; // 券分类：0 全部 1 临期 2 品类券 3 通用券
+}
+
+message ListCouponsResponse {
+  repeated Coupon coupons = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveCouponRequest {
+  int64 id = 1;
+  string name = 2;
+  string code = 3;
+  int32 type = 4;
+  int64 face_value_cents = 5;
+  int32 percent = 6;
+  int64 min_amount_cents = 7;
+  int64 max_discount_cents = 8;
+  int64 total_quantity = 9;
+  int64 per_user_limit = 10;
+  int64 start_time = 11;
+  int64 end_time = 12;
+  int64 category_id = 13;
+  bool enabled = 14;
+}
+
+message DeleteCouponRequest {
+  int64 id = 1;
+}
+
+message ReceiveCouponRequest {
+  int64 user_id = 1;
+  int64 coupon_id = 2;
+}
+
+message ListUserCouponsRequest {
+  int64 user_id = 1;
+  int32 status = 2;
+  shopstack.common.v1.PageRequest page = 3;
+}
+
+message ListUserCouponsResponse {
+  repeated UserCoupon coupons = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+  int32 available_count = 3;
+}
+
+message ListPromotionsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  string keyword = 3;
+  int32 type = 4;
+  int64 product_id = 10; // 按商品筛选活动
+  int32 promotion_type = 11; // 活动类型：1 满减 2 折扣 3 秒杀 4 拼团 5 新品首发 6 会员专享
+}
+
+message ListPromotionsResponse {
+  repeated Promotion promotions = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SavePromotionRequest {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 type = 4;
+  int32 status = 5;
+  int64 start_time = 6;
+  int64 end_time = 7;
+  int64 min_amount_cents = 8;
+  int64 discount_cents = 9;
+  int32 percent = 10;
+  int64 product_id = 11;
+  int32 limit_per_user = 12;
+  string banner_image = 13;
+}
+
+message DeletePromotionRequest {
+  int64 id = 1;
+}
+
+// 结算预览：计算可用券与最终应付
+message PreviewCheckoutRequest {
+  int64 user_id = 1;
+  repeated StockItem items = 2;
+  int64 address_id = 3;
+  int64 coupon_id = 4;
+  int64 points_used = 5;
+}
+
+message StockItem {
+  int64 sku_id = 1;
+  int64 product_id = 2;
+  int32 quantity = 3;
+  int64 price_cents = 4;
+}
+
+message PreviewCheckoutResponse {
+  int64 total_amount_cents = 1;
+  int64 discount_cents = 2;
+  int64 coupon_discount_cents = 3;
+  int64 points_discount_cents = 4;
+  int64 freight_cents = 5;
+  int64 payable_cents = 6;
+  repeated UserCoupon available_coupons = 7;
+  repeated Promotion active_promotions = 8;
+}
+
+service MarketingService {
+  rpc ListCoupons(ListCouponsRequest) returns (ListCouponsResponse) {
+    option (google.api.http) = { get: "/api/v1/coupons" };
+  }
+  rpc SaveCoupon(SaveCouponRequest) returns (Coupon) {
+    option (google.api.http) = { post: "/api/v1/admin/coupons" body: "*" };
+  }
+  rpc DeleteCoupon(DeleteCouponRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/coupons/{id}" };
+  }
+  rpc ReceiveCoupon(ReceiveCouponRequest) returns (UserCoupon) {
+    option (google.api.http) = { post: "/api/v1/coupons/{coupon_id}/receive" body: "*" };
+  }
+  rpc ListUserCoupons(ListUserCouponsRequest) returns (ListUserCouponsResponse) {
+    option (google.api.http) = { get: "/api/v1/users/coupons" };
+  }
+  rpc ListPromotions(ListPromotionsRequest) returns (ListPromotionsResponse) {
+    option (google.api.http) = { get: "/api/v1/promotions" };
+  }
+  rpc SavePromotion(SavePromotionRequest) returns (Promotion) {
+    option (google.api.http) = { post: "/api/v1/admin/promotions" body: "*" };
+  }
+  rpc DeletePromotion(DeletePromotionRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/promotions/{id}" };
+  }
+  rpc PreviewCheckout(PreviewCheckoutRequest) returns (PreviewCheckoutResponse) {
+    option (google.api.http) = { post: "/api/v1/marketing/preview" body: "*" };
+  }
+  rpc SignIn(SignInRequest) returns (GetSignInStatusResponse) {
+    option (google.api.http) = { post: "/api/v1/marketing/sign-in" body: "*" };
+  }
+  rpc GetSignInStatus(GetSignInStatusRequest) returns (GetSignInStatusResponse) {
+    option (google.api.http) = { get: "/api/v1/marketing/sign-in" };
+  }
+  rpc GetSignInConfig(GetSignInConfigRequest) returns (SignInConfig) {
+    option (google.api.http) = { get: "/api/v1/admin/sign-in-config" };
+  }
+  rpc SaveSignInConfig(SaveSignInConfigRequest) returns (SignInConfig) {
+    option (google.api.http) = { put: "/api/v1/admin/sign-in-config" body: "*" };
+  }
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {
+    option (google.api.http) = { get: "/api/v1/marketing/tasks" };
+  }
+  rpc ListAdminMarketingTasks(ListAdminMarketingTasksRequest) returns (ListAdminMarketingTasksResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/marketing-tasks" };
+  }
+  rpc SaveMarketingTask(SaveMarketingTaskRequest) returns (MarketingTask) {
+    option (google.api.http) = { post: "/api/v1/admin/marketing-tasks" body: "*" };
+  }
+  rpc UpdateMarketingTask(SaveMarketingTaskRequest) returns (MarketingTask) {
+    option (google.api.http) = { put: "/api/v1/admin/marketing-tasks" body: "*" };
+  }
+  rpc DeleteMarketingTask(DeleteMarketingTaskRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/marketing-tasks/{id}" };
+  }
+  rpc ClaimTask(ClaimTaskRequest) returns (UserTask) {
+    option (google.api.http) = { post: "/api/v1/marketing/tasks/{task_id}/claim" body: "*" };
+  }
+  rpc GetPromotion(GetPromotionRequest) returns (GetPromotionResponse) {
+    option (google.api.http) = { get: "/api/v1/promotions/{id}" };
+  }
+  rpc ListPromotionProducts(ListPromotionProductsRequest) returns (ListPromotionProductsResponse) {
+    option (google.api.http) = { get: "/api/v1/promotions/{promotion_id}/products" };
+  }
+  rpc ListPromotionSessions(ListPromotionSessionsRequest) returns (ListPromotionSessionsResponse) {
+    option (google.api.http) = { get: "/api/v1/promotions/{promotion_id}/sessions" };
+  }
+  rpc SavePromotionSession(SavePromotionSessionRequest) returns (PromotionSession) {
+    option (google.api.http) = { post: "/api/v1/admin/promotion-sessions" body: "*" };
+  }
+  rpc ListGroupBuys(ListGroupBuysRequest) returns (ListGroupBuysResponse) {
+    option (google.api.http) = { get: "/api/v1/group-buys" };
+  }
+  rpc GetGroupBuy(GetGroupBuyRequest) returns (GetGroupBuyResponse) {
+    option (google.api.http) = { get: "/api/v1/group-buys/{id}" };
+  }
+  rpc JoinGroupBuy(JoinGroupBuyRequest) returns (GroupBuy) {
+    option (google.api.http) = { post: "/api/v1/group-buys/{id}/join" body: "*" };
+  }
+  rpc SaveGroupBuy(SaveGroupBuyRequest) returns (GroupBuy) {
+    option (google.api.http) = { post: "/api/v1/admin/group-buys" body: "*" };
+  }
+  rpc ListUserLevels(ListUserLevelsRequest) returns (ListUserLevelsResponse) {
+    option (google.api.http) = { get: "/api/v1/marketing/levels" };
+  }
+}
+
+// EXTRA_MARKER: 由 scripts/extend-proto.py 追加的消息定义
+
+// ---------------------------------------------------------------------------
+// 签到
+// ---------------------------------------------------------------------------
+
+message SignInRequest {}
+
+message SignInCalendarDay {
+  string date = 1;
+  bool signed = 2;
+  int32 points = 3;
+}
+
+message GetSignInStatusRequest {}
+
+// SignInConfig 是签到活动的配置项。
+message SignInConfig {
+  bool enabled = 1;                    // 是否开启签到活动
+  int32 points_awarded = 2;            // 每日签到基础积分
+  int32 continuous_step = 3;           // 连续签到每多一天额外增加的积分
+  int32 max_points = 4;                // 单次签到积分上限
+  int32 continuous_days_required = 5;  // 连续签到奖励所需天数
+  int32 calendar_days = 6;             // 签到日历展示天数
+  string description = 7;              // 配置说明
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message GetSignInConfigRequest {}
+
+message SaveSignInConfigRequest {
+  bool enabled = 1;
+  int32 points_awarded = 2;
+  int32 continuous_step = 3;
+  int32 max_points = 4;
+  int32 continuous_days_required = 5;
+  int32 calendar_days = 6;
+  string description = 7;
+}
+
+message GetSignInStatusResponse {
+  bool signed_today = 1;
+  int32 continuous_days = 2;
+  int32 total_days = 3;
+  int32 points_awarded = 4;
+  int32 next_points = 5;
+  repeated SignInCalendarDay calendar = 6;
+}
+
+// ---------------------------------------------------------------------------
+// 任务中心
+// ---------------------------------------------------------------------------
+
+message MarketingTask {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 type = 4;   // 1 浏览 2 下单 3 分享 4 评价 5 签到 6 邀请
+  int32 target_count = 5;
+  int32 reward_points = 6;
+  int64 reward_coupon_id = 7;
+  int32 sort = 8;
+  bool enabled = 9;
+  string icon = 10;
+}
+
+message UserTask {
+  int64 task_id = 1;
+  string name = 2;
+  string description = 3;
+  int32 type = 4;
+  int32 progress = 5;
+  int32 target_count = 6;
+  bool completed = 7;
+  bool claimed = 8;
+  int32 reward_points = 9;
+  int64 reward_coupon_id = 10;
+  string icon = 11;
+}
+
+message ListTasksRequest {
+  shopstack.common.v1.PageRequest page = 1;
+}
+
+message ListTasksResponse {
+  repeated UserTask tasks = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message ClaimTaskRequest {
+  int64 task_id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 任务中心 · 后台管理
+// ---------------------------------------------------------------------------
+
+// ListAdminMarketingTasksRequest 后台任务列表查询条件。
+message ListAdminMarketingTasksRequest {
+  string keyword = 1; // 按名称模糊匹配
+  shopstack.common.v1.PageRequest page = 2;
+}
+
+// ListAdminMarketingTasksResponse 后台任务列表。
+message ListAdminMarketingTasksResponse {
+  repeated MarketingTask tasks = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+// SaveMarketingTaskRequest 新增/更新任务；id 大于 0 表示更新。
+message SaveMarketingTaskRequest {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int32 type = 4; // 1 浏览 2 下单 3 分享 4 评价 5 签到 6 邀请
+  int32 target_count = 5;
+  int32 reward_points = 6;
+  int64 reward_coupon_id = 7;
+  int32 sort = 8;
+  // optional 以便区分「未传」与「显式 false」：
+  // 新增时未传默认启用，更新时未传则保持原状态。
+  optional bool enabled = 9;
+  string icon = 10;
+}
+
+// DeleteMarketingTaskRequest 删除任务。
+message DeleteMarketingTaskRequest {
+  int64 id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 活动详情 / 场次
+// ---------------------------------------------------------------------------
+
+// PromotionProduct 是营销域内嵌的商品摘要，避免跨域依赖商品域消息。
+message PromotionProduct {
+  int64 id = 1;
+  string title = 2;
+  string image = 3;
+  int64 min_price_cents = 4;
+  int64 max_price_cents = 5;
+  int32 stock_total = 6;
+  int32 sales = 7;
+  int32 status = 8;
+}
+
+message GetPromotionRequest {
+  int64 id = 1;
+}
+
+message GetPromotionResponse {
+  Promotion promotion = 1;
+  repeated PromotionProduct products = 2;
+  repeated PromotionSession sessions = 3;
+}
+
+message ListPromotionProductsRequest {
+  int64 promotion_id = 1;
+  shopstack.common.v1.PageRequest page = 2;
+}
+
+message ListPromotionProductsResponse {
+  repeated PromotionProduct products = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message PromotionSession {
+  int64 id = 1;
+  int64 promotion_id = 2;
+  string name = 3;
+  int64 start_time = 4; // unix 秒
+  int64 end_time = 5;   // unix 秒
+  int32 stock = 6;
+  int32 sold_count = 7;
+  int32 status = 8; // 0 未开始 1 进行中 2 已结束
+}
+
+message ListPromotionSessionsRequest {
+  int64 promotion_id = 1;
+  shopstack.common.v1.PageRequest page = 2;
+}
+
+message ListPromotionSessionsResponse {
+  repeated PromotionSession sessions = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SavePromotionSessionRequest {
+  int64 id = 1;
+  int64 promotion_id = 2;
+  string name = 3;
+  int64 start_time = 4;
+  int64 end_time = 5;
+  int32 stock = 6;
+}
+
+// ---------------------------------------------------------------------------
+// 拼团
+// ---------------------------------------------------------------------------
+
+message GroupBuy {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int64 promotion_id = 4;
+  int64 product_id = 5;
+  string product_title = 6;
+  string product_image = 7;
+  int64 price_cents = 8;
+  int64 original_price_cents = 9;
+  int32 required_members = 10;
+  int32 joined_members = 11;
+  int32 group_size = 12;
+  int32 status = 13; // 0 未开始 1 进行中 2 已结束 3 已下线
+  int64 start_time = 14;
+  int64 end_time = 15;
+  string banner_image = 16;
+}
+
+message GroupBuyMember {
+  int64 id = 1;
+  int64 group_buy_id = 2;
+  int64 user_id = 3;
+  string user_nickname = 4;
+  google.protobuf.Timestamp joined_at = 5;
+}
+
+message ListGroupBuysRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int32 status = 3;
+}
+
+message ListGroupBuysResponse {
+  repeated GroupBuy group_buys = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message GetGroupBuyRequest {
+  int64 id = 1;
+}
+
+message GetGroupBuyResponse {
+  GroupBuy group_buy = 1;
+  repeated GroupBuyMember members = 2;
+}
+
+message JoinGroupBuyRequest {
+  int64 id = 1;
+  int32 quantity = 2;
+}
+
+message SaveGroupBuyRequest {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  int64 promotion_id = 4;
+  int64 product_id = 5;
+  int64 price_cents = 6;
+  int32 required_members = 7;
+  int64 start_time = 8;
+  int64 end_time = 9;
+  string banner_image = 10;
+}
+
+// ---------------------------------------------------------------------------
+// 会员等级说明
+// ---------------------------------------------------------------------------
+
+message MarketingUserLevel {
+  int64 id = 1;
+  string name = 2;
+  int32 level = 3;
+  int32 min_growth = 4;
+  int32 max_growth = 5;
+  int32 discount_percent = 6;
+  string icon = 7;
+  string description = 8;
+  repeated string benefits = 9;
+  int32 sort = 10;
+}
+
+message ListUserLevelsRequest {}
+
+message ListUserLevelsResponse {
+  repeated MarketingUserLevel levels = 1;
+}

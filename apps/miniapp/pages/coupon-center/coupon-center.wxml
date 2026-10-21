@@ -1,0 +1,42 @@
+<view class="ss-page coupon-center">
+  <demo-banner />
+
+  <view class="hero">
+    <text class="hero__title">领券中心</text>
+    <text class="hero__desc">先领券再下单，下单时自动抵扣</text>
+    <view class="hero__action" bindtap="onMyCoupons">我的优惠券 ›</view>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <view class="ss-card coupon" wx:for="{{coupons}}" wx:key="id">
+    <view class="coupon__left">
+      <text class="coupon__value">{{item.value}}</text>
+      <text class="coupon__threshold">{{item.threshold}}</text>
+    </view>
+    <view class="coupon__body">
+      <text class="coupon__name">{{item.name}}</text>
+      <text class="coupon__desc" wx:if="{{item.description}}">{{item.description}}</text>
+      <text class="coupon__meta">有效期至 {{item.expire_text}} · 券码 {{item.code}}</text>
+      <text class="coupon__meta">已领 {{item.received}} / {{item.total}}，剩余 {{item.remaining}} 张</text>
+    </view>
+    <view class="coupon__right">
+      <view
+        class="coupon__btn {{item.received_flag || claiming === item.id ? 'coupon__btn--disabled' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onReceive"
+      >
+        {{item.received_flag ? '已领取' : claiming === item.id ? '领取中' : '立即领取'}}
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !coupons.length}}"
+    icon="🎟️"
+    title="暂无可领取的优惠券"
+    desc="稍后再来看看吧"
+    actionText="重新加载"
+    bind:action="onRetry"
+  />
+</view>

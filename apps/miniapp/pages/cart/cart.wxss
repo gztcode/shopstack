@@ -1,0 +1,147 @@
+.cart {
+  padding-bottom: 0;
+}
+
+/* 购物车条目 ---------------------------------------------------------- */
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+}
+
+.item--disabled {
+  opacity: 0.55;
+}
+
+.item__img {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-muted);
+  flex-shrink: 0;
+}
+
+.item__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.item__title {
+  font-size: var(--ss-font-size-base);
+  font-weight: var(--ss-font-weight-medium);
+  color: var(--ss-color-text-primary);
+  line-height: 1.4;
+  padding-right: 80rpx;
+}
+
+.item__spec {
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+  background: var(--ss-color-bg-subtle);
+  align-self: flex-start;
+  padding: 4rpx 12rpx;
+  border-radius: var(--ss-radius-xs);
+}
+
+.item__invalid {
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-danger);
+}
+
+.item__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16rpx;
+}
+
+.item__price {
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-danger);
+  font-family: var(--ss-font-family-numeric);
+}
+
+.item__delete {
+  position: absolute;
+  right: 24rpx;
+  top: 24rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+  padding: 4rpx 8rpx;
+}
+
+.item__remove {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-danger);
+}
+
+/* 复选框 -------------------------------------------------------------- */
+.check {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: var(--ss-radius-circle);
+  border: 2rpx solid var(--ss-color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.check--on {
+  background: var(--ss-color-brand-600);
+  border-color: var(--ss-color-brand-600);
+}
+
+.check--bar {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.check__mark {
+  color: var(--ss-color-text-inverse);
+  font-size: 26rpx;
+  line-height: 1;
+}
+
+/* 底部结算栏 ---------------------------------------------------------- */
+.bar__all {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.bar__amount {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.bar__label {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.bar__price {
+  font-size: var(--ss-font-size-2xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-danger);
+  font-family: var(--ss-font-family-numeric);
+}
+
+.bar__count {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-tertiary);
+}
+
+.bar__btn {
+  width: 200rpx;
+  height: 76rpx;
+  font-size: var(--ss-font-size-base);
+}

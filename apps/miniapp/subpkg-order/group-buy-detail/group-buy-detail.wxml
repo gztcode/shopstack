@@ -1,0 +1,57 @@
+<view class="ss-page gb">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <block wx:if="{{!loading && groupBuy}}">
+    <image class="gb__cover" src="{{groupBuy.product_cover}}" mode="aspectFill" />
+
+    <view class="ss-card gb__card">
+      <text class="gb__name">{{groupBuy.name}}</text>
+      <view class="gb__price-row">
+        <text class="gb__price">¥{{groupBuy.price_text}}</text>
+        <text class="gb__origin">¥{{groupBuy.origin_text}}</text>
+        <text class="ss-tag ss-tag--accent">{{groupBuy.status_text}}</text>
+      </view>
+      <text class="gb__end">{{groupBuy.end_text}}</text>
+
+      <view class="gb__progress">
+        <view class="gb__bar">
+          <view class="gb__bar-inner" style="width: {{groupBuy.percent}}%;"></view>
+        </view>
+        <text class="gb__progress-text">{{groupBuy.joined_count}}/{{groupBuy.group_size}} 人已参团，还差 {{groupBuy.need_count}} 人</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>参团成员</text>
+      <text class="ss-section-title__more">{{groupBuy.members.length}} 人</text>
+    </view>
+
+    <view class="ss-card gb__members">
+      <view class="gb__member" wx:for="{{groupBuy.members}}" wx:key="id">
+        <view class="ss-list-item__icon">{{item.nickname_initial}}</view>
+        <view class="ss-flex-1">
+          <text class="gb__member-name">{{item.user_nickname}}</text>
+          <text class="gb__member-time">{{item.joined_text}}</text>
+        </view>
+        <text class="ss-tag ss-tag--muted" wx:if="{{item.is_owner}}">团长</text>
+      </view>
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !groupBuy}}"
+    icon="👥"
+    title="拼团不存在或已结束"
+    desc="去看看其它正在进行的拼团吧"
+    actionText="查看拼团列表"
+    bind:action="onGoList"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading && groupBuy}}">
+    <view class="ss-btn ss-btn--line ss-flex-1" bindtap="onProductTap">看商品</view>
+    <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onJoin">{{groupBuy.status === 1 ? '立即参团' : '拼团已结束'}}</view>
+  </view>
+  <view class="ss-action-bar__spacer" wx:if="{{!loading && groupBuy}}"></view>
+</view>

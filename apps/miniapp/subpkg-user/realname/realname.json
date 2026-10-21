@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "实名认证",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner"
+  }
+}

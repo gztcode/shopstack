@@ -1,0 +1,141 @@
+.review__head {
+  padding: 28rpx 24rpx 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.review__title {
+  font-size: var(--ss-font-size-2xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-primary);
+}
+
+.review__desc {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.review__count {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.review__list {
+  padding: 0 24rpx;
+}
+
+.review__card {
+  background: var(--ss-color-bg-card);
+  border-radius: var(--ss-radius-lg);
+  box-shadow: var(--ss-shadow-xs);
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.review__user {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.review__avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: var(--ss-radius-circle);
+  background: var(--ss-color-bg-muted);
+}
+
+.review__nick {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.review__stars {
+  display: block;
+  margin-top: 2rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.review__content {
+  display: block;
+  margin-top: 16rpx;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+  line-height: var(--ss-font-line-height-relaxed);
+}
+
+.review__images {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 16rpx;
+  flex-wrap: wrap;
+}
+
+.review__image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-muted);
+}
+
+.review__tags {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 16rpx;
+  flex-wrap: wrap;
+}
+
+.review__reply {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-subtle);
+  font-size: var(--ss-font-size-sm);
+}
+
+.review__reply-label {
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.review__reply-text {
+  color: var(--ss-color-text-secondary);
+}
+
+.review__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.review__product {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.review__like {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-tertiary);
+}
+
+.review__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 6rpx;
+}
+
+.review__summary-item {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-tertiary);
+}

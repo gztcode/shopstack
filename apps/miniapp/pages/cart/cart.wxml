@@ -1,0 +1,63 @@
+<view class="ss-page cart">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <block wx:if="{{!loading && items.length}}">
+    <view class="ss-card item {{item.available ? '' : 'item--disabled'}}" wx:for="{{items}}" wx:key="id">
+      <view
+        class="check {{item.selected && item.available ? 'check--on' : ''}}"
+        data-id="{{item.id}}"
+        data-selected="{{item.selected}}"
+        bindtap="onToggleSelect"
+      >
+        <text class="check__mark" wx:if="{{item.selected && item.available}}">✓</text>
+      </view>
+      <image class="item__img" src="{{item.image}}" mode="aspectFill" data-product-id="{{item.product_id}}" bindtap="onProductTap" />
+      <view class="item__body">
+        <text class="item__title ss-ellipsis-2">{{item.product_title}}</text>
+        <text class="item__spec ss-ellipsis">{{item.spec_text}}</text>
+        <text class="item__invalid" wx:if="{{!item.available}}">商品失效或库存不足</text>
+        <view class="item__footer">
+          <text class="item__price">¥{{item.price_text}}</text>
+          <quantity-stepper
+            wx:if="{{item.available}}"
+            value="{{item.quantity}}"
+            min="1"
+            max="{{item.stock || 1}}"
+            data-id="{{item.id}}"
+            bind:change="onQuantityChange"
+          />
+          <text class="item__remove" wx:else data-id="{{item.id}}" bindtap="onDelete">删除</text>
+        </view>
+      </view>
+      <text class="item__delete" wx:if="{{item.available}}" data-id="{{item.id}}" bindtap="onDelete">删除</text>
+    </view>
+
+    <view class="ss-action-bar__spacer"></view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !items.length}}"
+    icon="🛒"
+    title="购物车还是空的"
+    desc="去挑选心仪的好物吧"
+    actionText="去逛逛"
+    bind:action="onGoShopping"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading && items.length}}">
+    <view class="check check--bar {{allSelected ? 'check--on' : ''}}" bindtap="onToggleAll">
+      <text class="check__mark" wx:if="{{allSelected}}">✓</text>
+    </view>
+    <text class="bar__all">全选</text>
+    <view class="ss-flex-1">
+      <view class="bar__amount">
+        <text class="bar__label">合计</text>
+        <text class="bar__price">¥{{selectedAmountText}}</text>
+      </view>
+      <text class="bar__count">已选 {{selectedCount}} 件 / 共 {{totalCount}} 件</text>
+    </view>
+    <view class="ss-btn ss-btn--primary bar__btn" bindtap="onCheckout">结算</view>
+  </view>
+</view>

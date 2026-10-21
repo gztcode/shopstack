@@ -1,0 +1,39 @@
+<view class="ss-page channels">
+  <demo-banner />
+
+  <view class="ss-section-title">
+    <text>全部频道</text>
+    <text class="ss-section-title__more">共 {{channels.length}} 个</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="card" rows="2" />
+
+  <view class="channels__list" wx:if="{{!loading && channels.length}}">
+    <view
+      class="channels__item"
+      wx:for="{{channels}}"
+      wx:key="id"
+      data-code="{{item.code}}"
+      bindtap="onChannelTap"
+    >
+      <image class="channels__banner" src="{{item.banner_url}}" mode="aspectFill" />
+      <view class="channels__body">
+        <view class="channels__title-row">
+          <text class="channels__icon">{{item.icon_text}}</text>
+          <text class="channels__name">{{item.name}}</text>
+          <text class="channels__count">{{item.product_count}} 件</text>
+        </view>
+        <text class="channels__desc">{{item.description}}</text>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !channels.length}}"
+    icon="🧭"
+    title="暂时没有可用频道"
+    desc="频道配置更新后会第一时间展示，先去首页逛逛"
+    actionText="去首页看看"
+    bind:action="onGoHome"
+  />
+</view>

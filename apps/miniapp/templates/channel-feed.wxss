@@ -1,0 +1,59 @@
+.feed__hero {
+  position: relative;
+  margin: 24rpx 24rpx 0;
+  border-radius: var(--ss-radius-lg);
+  overflow: hidden;
+  background: var(--ss-gradient-hero);
+  box-shadow: var(--ss-shadow-brand);
+}
+
+.feed__banner {
+  width: 100%;
+  height: 200rpx;
+  opacity: 0.85;
+}
+
+.feed__hero-text {
+  padding: 24rpx;
+  color: var(--ss-color-text-inverse);
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.feed__title {
+  font-size: var(--ss-font-size-xl);
+  font-weight: var(--ss-font-weight-bold);
+}
+
+.feed__intro {
+  font-size: var(--ss-font-size-base);
+  opacity: 0.9;
+}
+
+.feed__count {
+  font-size: var(--ss-font-size-sm);
+  opacity: 0.75;
+}
+
+.feed__sorts {
+  display: flex;
+  gap: 12rpx;
+  padding: 24rpx 24rpx 0;
+  flex-wrap: wrap;
+}
+
+.feed__sort {
+  padding: 10rpx 24rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-card);
+  box-shadow: var(--ss-shadow-xs);
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.feed__sort--active {
+  background: var(--ss-color-brand-50);
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}

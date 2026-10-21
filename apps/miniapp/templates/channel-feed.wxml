@@ -1,0 +1,45 @@
+<template name="channel-feed">
+  <view class="ss-page feed">
+    <demo-banner />
+
+    <view class="feed__hero">
+      <image class="feed__banner" src="{{view.channel.banner_url}}" mode="aspectFill" wx:if="{{view.channel}}" />
+      <view class="feed__hero-text">
+        <text class="feed__title">{{view.title}}</text>
+        <text class="feed__intro">{{view.intro}}</text>
+        <text class="feed__count" wx:if="{{view.channel}}">{{view.channel.product_count}} 件商品 · {{view.channel.description}}</text>
+      </view>
+    </view>
+
+    <view class="feed__sorts">
+      <view
+        class="feed__sort {{view.sort === item.key ? 'feed__sort--active' : ''}}"
+        wx:for="{{view.sorts}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onSortTap"
+      >
+        {{item.label}}
+      </view>
+    </view>
+
+    <loading wx:if="{{view.loading}}" type="card" rows="2" />
+
+    <view class="ss-grid" wx:if="{{!view.loading && view.products.length}}">
+      <view class="ss-grid__col" wx:for="{{view.products}}" wx:key="id">
+        <product-card product="{{item}}" bind:select="onProductTap" bind:addcart="onAddCart" />
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!view.loading && !view.products.length}}"
+      icon="🧺"
+      title="该频道暂时没有商品"
+      desc="换个频道逛逛，热门好物随时在架"
+      actionText="去首页看看"
+      bind:action="onGoHome"
+    />
+
+    <view class="ss-loading-more" wx:if="{{!view.loading && view.products.length && !view.hasMore}}">没有更多商品了</view>
+  </view>
+</template>

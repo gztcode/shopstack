@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "签到中心",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner"
+  }
+}

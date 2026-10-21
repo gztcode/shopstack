@@ -1,0 +1,39 @@
+# ---------------------------------------------------------------------------
+# ShopStack 忽略规则
+# ---------------------------------------------------------------------------
+
+# 编译产物
+/backend/**/bin/
+/backend/**/*.test
+*.exe
+*.dll
+*.so
+*.dylib
+/bin/
+/dist/
+# 各层级的构建产物：Flutter 的 build/、前端的 dist/、截图交付目录
+build/
+dist/
+*.zip
+# 本地编译出的命令行工具
+/smoketest
+
+# 依赖
+node_modules/
+.pub-cache/
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# 环境
+.env
+.env.local
+.env.*.local
+*.log
+
+# 编辑器
+.idea/
+.vscode/
+*.iml
+.DS_Store

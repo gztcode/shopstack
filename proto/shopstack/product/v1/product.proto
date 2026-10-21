@@ -1,0 +1,621 @@
+syntax = "proto3";
+
+package shopstack.product.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/product/v1;productv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+// ---------------------------------------------------------------------------
+// 实体
+// ---------------------------------------------------------------------------
+
+message Category {
+  int64 id = 1;
+  string name = 2;
+  int64 parent_id = 3;
+  string icon = 4;
+  string description = 5;
+  int32 sort = 6;
+  bool visible = 7;
+  int32 product_count = 8;
+  repeated Category children = 9;
+}
+
+message Product {
+  int64 id = 1;
+  string title = 2;
+  string subtitle = 3;
+  string cover = 4;
+  int64 category_id = 5;
+  string category_name = 6;
+  int64 min_price_cents = 7;
+  int64 max_price_cents = 8;
+  int64 sales_count = 9;
+  int32 stock_total = 10;
+  shopstack.common.v1.ProductStatus status = 11;
+  string description = 12;
+  repeated string tags = 13;
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+}
+
+message ProductSku {
+  int64 id = 1;
+  int64 product_id = 2;
+  string sku_code = 3;
+  string spec_text = 4;         // 规格文案，如 "红色 / XL"
+  map<string, string> specs = 5; // 属性键值
+  int64 price_cents = 6;
+  int64 original_price_cents = 7;
+  int32 stock = 8;
+  int32 locked_stock = 9;
+  string image = 10;
+  int32 sort = 11;
+  int32 sales_count = 12;
+  bool enabled = 13;
+  int64 weight_grams = 14;
+}
+
+message ProductDetail {
+  Product product = 1;
+  repeated ProductSku skus = 2;
+  repeated shopstack.common.v1.ImageItem images = 3;
+  repeated ProductAttribute attributes = 4;
+  repeated Review reviews = 5;
+  int32 review_count = 6;
+  double review_rating = 7;
+  repeated Product related = 8;
+  ReviewSummary review_summary = 9;
+}
+
+message ProductAttribute {
+  int64 id = 1;
+  int64 product_id = 2;
+  string name = 3;
+  string value = 4;
+  int32 sort = 5;
+}
+
+message Banner {
+  int64 id = 1;
+  string title = 2;
+  string image = 3;
+  string link = 4;
+  int32 sort = 5;
+  string position = 6; // home_banner | home_float | category
+  bool visible = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message Review {
+  int64 id = 1;
+  int64 product_id = 2;
+  string product_title = 3;
+  int64 user_id = 4;
+  string user_nickname = 5;
+  string user_avatar = 6;
+  int32 rating = 7;
+  string content = 8;
+  repeated string images = 9;
+  int32 sku_id = 10;
+  string sku_text = 11;
+  shopstack.common.v1.ReviewStatus status = 12;
+  string admin_reply = 13;
+  int32 like_count = 14;
+  google.protobuf.Timestamp created_at = 15;
+}
+
+message ReviewSummary {
+  int32 total = 1;
+  int32 good = 2;      // 4-5 星
+  int32 medium = 3;    // 3 星
+  int32 bad = 4;       // 1-2 星
+  double average = 5;
+}
+
+// ---------------------------------------------------------------------------
+// 请求 / 响应
+// ---------------------------------------------------------------------------
+
+message ListProductsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int64 category_id = 3;
+  int32 status = 4;
+  int64 min_price_cents = 5;
+  int64 max_price_cents = 6;
+  string sort = 7; // default | sales | price_asc | price_desc | newest
+  bool only_in_stock = 8;
+  repeated string tags = 9;
+  int64 channel_id = 10; // 频道 ID，用于首页频道页筛选
+  int32 sale_type = 11; // 售卖类型：0 全部 1 现货 2 预售 3 跨境 4 进口
+}
+
+message ListProductsResponse {
+  repeated Product products = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message GetProductRequest {
+  int64 id = 1;
+}
+
+message SaveProductRequest {
+  int64 id = 1;
+  string title = 2;
+  string subtitle = 3;
+  string cover = 4;
+  int64 category_id = 5;
+  int64 min_price_cents = 6;
+  int64 max_price_cents = 7;
+  string description = 8;
+  repeated string tags = 9;
+  int32 status = 10;
+  repeated shopstack.common.v1.ImageItem images = 11;
+  repeated ProductAttribute attributes = 12;
+  repeated ProductSku skus = 13;
+}
+
+message DeleteProductRequest {
+  int64 id = 1;
+}
+
+message SetProductStatusRequest {
+  int64 id = 1;
+  int32 status = 2;
+}
+
+message SaveSkuRequest {
+  int64 id = 1;
+  int64 product_id = 2;
+  string sku_code = 3;
+  string spec_text = 4;
+  map<string, string> specs = 5;
+  int64 price_cents = 6;
+  int64 original_price_cents = 7;
+  int32 stock = 8;
+  string image = 9;
+  int32 sort = 10;
+  bool enabled = 11;
+  int64 weight_grams = 12;
+}
+
+message ListCategoriesRequest {
+  int64 parent_id = 1;
+  bool tree = 2;
+}
+
+message ListCategoriesResponse {
+  repeated Category categories = 1;
+}
+
+message SaveCategoryRequest {
+  int64 id = 1;
+  string name = 2;
+  int64 parent_id = 3;
+  string icon = 4;
+  string description = 5;
+  int32 sort = 6;
+  bool visible = 7;
+}
+
+message DeleteCategoryRequest {
+  int64 id = 1;
+}
+
+message ListBannersRequest {
+  string position = 1;
+}
+
+message ListBannersResponse {
+  repeated Banner banners = 1;
+}
+
+message SaveBannerRequest {
+  int64 id = 1;
+  string title = 2;
+  string image = 3;
+  string link = 4;
+  int32 sort = 5;
+  string position = 6;
+  bool visible = 7;
+}
+
+message DeleteBannerRequest {
+  int64 id = 1;
+}
+
+message ListReviewsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int64 product_id = 2;
+  int32 status = 3;
+  int64 user_id = 4;
+  string keyword = 5;
+  int32 filter = 10; // 筛选：0 全部 1 有图 2 好评 3 中差评
+  int64 sku_id = 11; // 按 SKU 筛选
+}
+
+message ListReviewsResponse {
+  repeated Review reviews = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+  ReviewSummary summary = 3;
+}
+
+message CreateReviewRequest {
+  int64 user_id = 1;
+  int64 product_id = 2;
+  int64 sku_id = 3;
+  int32 rating = 4;
+  string content = 5;
+  repeated string images = 6;
+}
+
+message SetReviewStatusRequest {
+  int64 id = 1;
+  int32 status = 2;
+  string admin_reply = 3;
+}
+
+message ListProductAttributesRequest {
+  int64 product_id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 素材库
+// ---------------------------------------------------------------------------
+
+message Material {
+  int64 id = 1;
+  string name = 2;
+  string url = 3;
+  string type = 4;      // image / video
+  int64 size = 5;
+  string folder = 6;
+  int32 sort = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+message ListMaterialsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  string type = 3;
+  string folder = 4;
+}
+
+message ListMaterialsResponse {
+  repeated Material materials = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveMaterialRequest {
+  int64 id = 1;
+  string name = 2;
+  string url = 3;
+  string type = 4;
+  int64 size = 5;
+  string folder = 6;
+  int32 sort = 7;
+}
+
+message DeleteMaterialRequest {
+  int64 id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 服务定义
+// ---------------------------------------------------------------------------
+
+service ProductService {
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {
+    option (google.api.http) = { get: "/api/v1/products" };
+  }
+  rpc GetProduct(GetProductRequest) returns (ProductDetail) {
+    option (google.api.http) = { get: "/api/v1/products/{id}" };
+  }
+  rpc CreateProduct(SaveProductRequest) returns (Product) {
+    option (google.api.http) = { post: "/api/v1/admin/products" body: "*" };
+  }
+  rpc UpdateProduct(SaveProductRequest) returns (Product) {
+    option (google.api.http) = { put: "/api/v1/admin/products" body: "*" };
+  }
+  rpc DeleteProduct(DeleteProductRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/products/{id}" };
+  }
+  rpc SetProductStatus(SetProductStatusRequest) returns (Product) {
+    option (google.api.http) = { put: "/api/v1/admin/products/{id}/status" body: "*" };
+  }
+  rpc SaveSku(SaveSkuRequest) returns (ProductSku) {
+    option (google.api.http) = { post: "/api/v1/admin/skus" body: "*" };
+  }
+  rpc ListBanners(ListBannersRequest) returns (ListBannersResponse) {
+    option (google.api.http) = { get: "/api/v1/banners" };
+  }
+  rpc SaveBanner(SaveBannerRequest) returns (Banner) {
+    option (google.api.http) = { post: "/api/v1/admin/banners" body: "*" };
+  }
+  rpc DeleteBanner(DeleteBannerRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/banners/{id}" };
+  }
+  rpc ListMaterials(ListMaterialsRequest) returns (ListMaterialsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/materials" };
+  }
+  rpc SaveMaterial(SaveMaterialRequest) returns (Material) {
+    option (google.api.http) = { post: "/api/v1/admin/materials" body: "*" };
+  }
+  rpc DeleteMaterial(DeleteMaterialRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/materials/{id}" };
+  }
+  rpc ListChannels(ListChannelsRequest) returns (ListChannelsResponse) {
+    option (google.api.http) = { get: "/api/v1/channels" };
+  }
+  rpc GetChannel(GetChannelRequest) returns (Channel) {
+    option (google.api.http) = { get: "/api/v1/channels/{id}" };
+  }
+  rpc ListChannelProducts(ListChannelProductsRequest) returns (ListChannelProductsResponse) {
+    option (google.api.http) = { get: "/api/v1/channels/{channel_id}/products" };
+  }
+  rpc SaveChannel(SaveChannelRequest) returns (Channel) {
+    option (google.api.http) = { post: "/api/v1/admin/channels" body: "*" };
+  }
+  rpc UpdateChannel(SaveChannelRequest) returns (Channel) {
+    option (google.api.http) = { put: "/api/v1/admin/channels" body: "*" };
+  }
+  rpc DeleteChannel(DeleteChannelRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/channels/{id}" };
+  }
+  rpc ListReviewTags(ListReviewTagsRequest) returns (ListReviewTagsResponse) {
+    option (google.api.http) = { get: "/api/v1/reviews/tags" };
+  }
+  rpc SaveReviewTag(SaveReviewTagRequest) returns (ReviewTag) {
+    option (google.api.http) = { post: "/api/v1/admin/review-tags" body: "*" };
+  }
+  rpc DeleteReviewTag(DeleteReviewTagRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/review-tags/{id}" };
+  }
+  rpc ListGuarantees(ListGuaranteesRequest) returns (ListGuaranteesResponse) {
+    option (google.api.http) = { get: "/api/v1/guarantees" };
+  }
+  rpc SaveGuarantee(SaveGuaranteeRequest) returns (Guarantee) {
+    option (google.api.http) = { post: "/api/v1/admin/guarantees" body: "*" };
+  }
+  rpc DeleteGuarantee(DeleteGuaranteeRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/guarantees/{id}" };
+  }
+  rpc ListProductParams(ListProductParamsRequest) returns (ListProductParamsResponse) {
+    option (google.api.http) = { get: "/api/v1/products/{product_id}/params" };
+  }
+}
+
+service CategoryService {
+  rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse) {
+    option (google.api.http) = { get: "/api/v1/categories" };
+  }
+  rpc CreateCategory(SaveCategoryRequest) returns (Category) {
+    option (google.api.http) = { post: "/api/v1/admin/categories" body: "*" };
+  }
+  rpc UpdateCategory(SaveCategoryRequest) returns (Category) {
+    option (google.api.http) = { put: "/api/v1/admin/categories" body: "*" };
+  }
+  rpc DeleteCategory(DeleteCategoryRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/categories/{id}" };
+  }
+}
+
+service ReviewService {
+  rpc ListReviews(ListReviewsRequest) returns (ListReviewsResponse) {
+    option (google.api.http) = { get: "/api/v1/reviews" };
+  }
+  rpc CreateReview(CreateReviewRequest) returns (Review) {
+    option (google.api.http) = { post: "/api/v1/reviews" body: "*" };
+  }
+  rpc SetReviewStatus(SetReviewStatusRequest) returns (Review) {
+    option (google.api.http) = { put: "/api/v1/admin/reviews/{id}/status" body: "*" };
+  }
+  rpc ListProductQuestions(ListProductQuestionsRequest) returns (ListProductQuestionsResponse) {
+    option (google.api.http) = { get: "/api/v1/products/{product_id}/questions" };
+  }
+  rpc CreateQuestion(CreateQuestionRequest) returns (ProductQuestion) {
+    option (google.api.http) = { post: "/api/v1/questions" body: "*" };
+  }
+  rpc ListQuestions(ListQuestionsRequest) returns (ListQuestionsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/questions" };
+  }
+  rpc AnswerQuestion(AnswerQuestionRequest) returns (ProductQuestion) {
+    option (google.api.http) = { post: "/api/v1/admin/questions/{id}/answer" body: "*" };
+  }
+}
+
+// EXTRA_MARKER: 由 scripts/extend-proto.py 追加的消息定义
+
+// ---------------------------------------------------------------------------
+// 频道 / 楼层
+// ---------------------------------------------------------------------------
+
+message Channel {
+  int64 id = 1;
+  string name = 2;
+  string code = 3;
+  string icon = 4;
+  string banner_url = 5;
+  string description = 6;
+  int32 sort = 7;
+  int32 type = 8;   // 1 推荐 2 新品 3 热销 4 限时 5 预售 6 清仓 7 包邮 8 跨境 9 楼层
+  int32 status = 9; // 0 停用 1 启用
+  int32 product_count = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+message ListChannelsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int32 type = 3;
+}
+
+message ListChannelsResponse {
+  repeated Channel channels = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message GetChannelRequest {
+  int64 id = 1;
+}
+
+message ListChannelProductsRequest {
+  int64 channel_id = 1;
+  shopstack.common.v1.PageRequest page = 2;
+  string keyword = 3;
+  string sort = 4; // default | sales | price_asc | price_desc | newest
+}
+
+message ListChannelProductsResponse {
+  Channel channel = 1;
+  repeated Product products = 2;
+  shopstack.common.v1.PageMeta meta = 3;
+}
+
+message SaveChannelRequest {
+  int64 id = 1;
+  string name = 2;
+  string code = 3;
+  string icon = 4;
+  string banner_url = 5;
+  string description = 6;
+  int32 sort = 7;
+  int32 type = 8;
+  int32 status = 9;
+}
+
+message DeleteChannelRequest {
+  int64 id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 评价标签
+// ---------------------------------------------------------------------------
+
+message ReviewTag {
+  int64 id = 1;
+  string name = 2;
+  int32 sort = 3;
+  bool enabled = 4;
+}
+
+message ListReviewTagsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+}
+
+message ListReviewTagsResponse {
+  repeated ReviewTag tags = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveReviewTagRequest {
+  int64 id = 1;
+  string name = 2;
+  int32 sort = 3;
+  bool enabled = 4;
+}
+
+message DeleteReviewTagRequest {
+  int64 id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 商品保障项
+// ---------------------------------------------------------------------------
+
+message Guarantee {
+  int64 id = 1;
+  string name = 2;
+  string icon = 3;
+  string description = 4;
+  int32 sort = 5;
+  bool enabled = 6;
+}
+
+message ListGuaranteesRequest {
+  shopstack.common.v1.PageRequest page = 1;
+}
+
+message ListGuaranteesResponse {
+  repeated Guarantee guarantees = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveGuaranteeRequest {
+  int64 id = 1;
+  string name = 2;
+  string icon = 3;
+  string description = 4;
+  int32 sort = 5;
+  bool enabled = 6;
+}
+
+message DeleteGuaranteeRequest {
+  int64 id = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 商品参数
+// ---------------------------------------------------------------------------
+
+message ListProductParamsRequest {
+  int64 product_id = 1;
+}
+
+message ListProductParamsResponse {
+  repeated ProductAttribute params = 1;
+}
+
+// ---------------------------------------------------------------------------
+// 商品问答
+// ---------------------------------------------------------------------------
+
+message ProductQuestion {
+  int64 id = 1;
+  int64 product_id = 2;
+  string product_title = 3;
+  int64 user_id = 4;
+  string user_nickname = 5;
+  string content = 6;
+  repeated string images = 7;
+  string reply = 8;
+  string reply_at = 9;
+  google.protobuf.Timestamp created_at = 10;
+}
+
+message ListProductQuestionsRequest {
+  int64 product_id = 1;
+  shopstack.common.v1.PageRequest page = 2;
+}
+
+message ListProductQuestionsResponse {
+  repeated ProductQuestion questions = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message CreateQuestionRequest {
+  int64 product_id = 1;
+  string content = 2;
+  repeated string images = 3;
+}
+
+message AnswerQuestionRequest {
+  int64 id = 1;
+  string reply = 2;
+}
+
+message ListQuestionsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int64 product_id = 3;
+}
+
+message ListQuestionsResponse {
+  repeated ProductQuestion questions = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}

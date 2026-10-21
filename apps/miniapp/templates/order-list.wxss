@@ -1,0 +1,109 @@
+.order__head {
+  padding: 28rpx 24rpx 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.order__title {
+  font-size: var(--ss-font-size-2xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-primary);
+}
+
+.order__count {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.order__list {
+  padding: 0 24rpx;
+}
+
+.order__card {
+  background: var(--ss-color-bg-card);
+  border-radius: var(--ss-radius-lg);
+  box-shadow: var(--ss-shadow-xs);
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.order__head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.order__no {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.order__item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.order__image {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-muted);
+  flex-shrink: 0;
+}
+
+.order__title-text {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.order__spec {
+  display: block;
+  margin-top: 6rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.order__goods-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.order__qty {
+  display: block;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.order__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.order__time {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.order__total {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.order__actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}

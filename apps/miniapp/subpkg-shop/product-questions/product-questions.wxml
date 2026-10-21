@@ -1,0 +1,39 @@
+<view class="ss-page qa">
+  <demo-banner />
+
+  <view class="qa__head">
+    <text class="qa__title">商品问答</text>
+    <text class="qa__subtitle" wx:if="{{title}}">{{title}}</text>
+    <text class="qa__count">共 {{questions.length}} 个问答</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <view class="qa__list" wx:if="{{!loading && questions.length}}">
+    <view class="qa__card" wx:for="{{questions}}" wx:key="id">
+      <view class="qa__question">
+        <text class="qa__label">问</text>
+        <view class="ss-flex-1">
+          <text class="qa__content">{{item.content}}</text>
+          <text class="qa__meta">{{item.user_nickname}} · {{item.created_text}}</text>
+        </view>
+      </view>
+      <view class="qa__answer">
+        <text class="qa__label qa__label--answer">答</text>
+        <view class="ss-flex-1">
+          <text class="qa__answer-text">{{item.reply}}</text>
+          <text class="qa__meta" wx:if="{{item.replied_text}}">商家回复于 {{item.replied_text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !questions.length}}"
+    icon="❓"
+    title="还没有人提问"
+    desc="可以先到商品详情页看看参数与规格说明"
+    actionText="查看商品详情"
+    bind:action="onGoDetail"
+  />
+</view>

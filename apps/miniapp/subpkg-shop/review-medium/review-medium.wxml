@@ -1,0 +1,2 @@
+<import src="../../templates/review-list.wxml" />
+<template is="review-list" data="{{view}}" />

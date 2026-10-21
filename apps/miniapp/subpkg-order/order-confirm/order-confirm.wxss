@@ -1,0 +1,113 @@
+.confirm__addresses {
+  margin: 0 24rpx;
+  padding: 8rpx 24rpx;
+}
+
+.confirm__address {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.confirm__address:last-child {
+  border-bottom: none;
+}
+
+.confirm__address--active .confirm__receiver {
+  color: var(--ss-color-text-brand);
+}
+
+.confirm__receiver {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.confirm__detail {
+  display: block;
+  margin-top: 6rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.confirm__items {
+  margin: 0 24rpx;
+  padding: 8rpx 24rpx;
+}
+
+.confirm__item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.confirm__item:last-child {
+  border-bottom: none;
+}
+
+.confirm__image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-muted);
+  flex-shrink: 0;
+}
+
+.confirm__item-title {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.confirm__item-spec {
+  display: block;
+  margin-top: 6rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.confirm__amount {
+  margin: 0 24rpx;
+  padding: 8rpx 24rpx;
+}
+
+.confirm__amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.confirm__amount-row:last-child {
+  border-bottom: none;
+}
+
+.confirm__amount-label {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.confirm__amount-value {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.ss-action-bar__info {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.ss-action-bar__label {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.ss-action-bar__value {
+  font-size: var(--ss-font-size-xl);
+}

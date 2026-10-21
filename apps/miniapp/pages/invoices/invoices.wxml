@@ -1,0 +1,147 @@
+<view class="ss-page invoices">
+  <demo-banner />
+
+  <view class="tabs">
+    <view
+      class="tabs__item {{activeStatus === item.key ? 'tabs__item--active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTabTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <view class="ss-card invoice" wx:for="{{invoices}}" wx:key="id">
+    <view class="invoice__head">
+      <text class="invoice__title">{{item.title}}</text>
+      <text class="invoice__status invoice__status--{{item.tone}}">{{item.status_text}}</text>
+    </view>
+    <view class="invoice__row">
+      <text class="invoice__label">订单号</text>
+      <text class="invoice__value">{{item.order_no}}</text>
+    </view>
+    <view class="invoice__row">
+      <text class="invoice__label">发票类型</text>
+      <text class="invoice__value">{{item.type_text}}{{item.tax_no ? ' · ' + item.tax_no : ''}}</text>
+    </view>
+    <view class="invoice__row">
+      <text class="invoice__label">接收邮箱</text>
+      <text class="invoice__value">{{item.email}}</text>
+    </view>
+    <view class="invoice__row">
+      <text class="invoice__label">申请时间</text>
+      <text class="invoice__value">{{item.created_text}}</text>
+    </view>
+    <text class="invoice__remark" wx:if="{{item.remark}}">备注：{{item.remark}}</text>
+    <view class="invoice__foot">
+      <text class="invoice__amount">¥{{item.amount_text}}</text>
+      <view
+        class="ss-btn ss-btn--line ss-btn--sm invoice__btn"
+        wx:if="{{item.invoice_url}}"
+        data-url="{{item.invoice_url}}"
+        bindtap="onViewInvoice"
+      >
+        查看发票
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !invoices.length}}"
+    icon="🧾"
+    title="暂无发票记录"
+    desc="下单后可申请开具电子发票"
+    actionText="申请开票"
+    bind:action="onOpenPanel"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading}}">
+    <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onOpenPanel">申请开票</view>
+  </view>
+
+  <!-- 申请开票面板 -->
+  <view class="mask" wx:if="{{panelVisible}}" bindtap="onClosePanel">
+    <view class="panel" catchtap="onStopTap">
+      <view class="panel__head">
+        <text class="panel__title">申请开票</text>
+        <text class="panel__close" bindtap="onClosePanel">✕</text>
+      </view>
+      <scroll-view class="panel__scroll" scroll-y>
+        <text class="panel__label">选择订单</text>
+        <view class="order" wx:for="{{orders}}" wx:key="order_no" data-no="{{item.order_no}}" bindtap="onOrderTap">
+          <view class="order__body">
+            <text class="order__no">{{item.order_no}}</text>
+            <text class="order__time">{{item.created_text}}</text>
+          </view>
+          <text class="order__amount">¥{{item.amount_text}}</text>
+          <view class="order__radio {{selectedOrderNo === item.order_no ? 'order__radio--on' : ''}}">
+            <text class="order__check" wx:if="{{selectedOrderNo === item.order_no}}">✓</text>
+          </view>
+        </view>
+        <text class="panel__label">发票抬头</text>
+        <input
+          class="panel__input"
+          placeholder="个人姓名或企业名称"
+          placeholder-class="ss-placeholder"
+          value="{{title}}"
+          data-field="title"
+          bindinput="onInput"
+        />
+        <text class="panel__label">纳税人识别号</text>
+        <input
+          class="panel__input"
+          placeholder="企业发票必填"
+          placeholder-class="ss-placeholder"
+          value="{{taxNo}}"
+          data-field="taxNo"
+          bindinput="onInput"
+        />
+        <text class="panel__label">发票类型</text>
+        <view class="types">
+          <view
+            class="types__item {{type === 'personal' ? 'types__item--active' : ''}}"
+            data-type="personal"
+            bindtap="onTypeTap"
+          >
+            个人
+          </view>
+          <view
+            class="types__item {{type === 'company' ? 'types__item--active' : ''}}"
+            data-type="company"
+            bindtap="onTypeTap"
+          >
+            企业
+          </view>
+        </view>
+        <text class="panel__label">接收邮箱</text>
+        <input
+          class="panel__input"
+          type="text"
+          placeholder="电子发票发送邮箱"
+          placeholder-class="ss-placeholder"
+          value="{{email}}"
+          data-field="email"
+          bindinput="onInput"
+        />
+        <text class="panel__label">备注</text>
+        <textarea
+          class="ss-textarea"
+          placeholder="选填"
+          maxlength="100"
+          value="{{remark}}"
+          data-field="remark"
+          bindinput="onInput"
+        />
+      </scroll-view>
+      <view class="panel__footer">
+        <view class="ss-btn ss-btn--primary panel__confirm {{submitting ? 'ss-btn--disabled' : ''}}" bindtap="onSubmit">
+          {{submitting ? '提交中…' : '提交申请'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,16 @@
+<view class="coupon {{disabled ? 'coupon--disabled' : ''}}" bindtap="onSelect">
+  <view class="coupon__left">
+    <text class="coupon__value">{{value}}</text>
+    <text class="coupon__threshold">{{threshold}}</text>
+  </view>
+  <view class="coupon__body">
+    <text class="coupon__name">{{name}}</text>
+    <text class="coupon__period">{{period}}</text>
+  </view>
+  <view class="coupon__right">
+    <text class="coupon__status" wx:if="{{statusText}}">{{statusText}}</text>
+    <view class="coupon__radio {{selected ? 'coupon__radio--on' : ''}}">
+      <text class="coupon__check" wx:if="{{selected}}">✓</text>
+    </view>
+  </view>
+</view>

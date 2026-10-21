@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "预售专区",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner",
+    "loading": "../../components/loading/loading",
+    "empty-state": "../../components/empty-state/empty-state",
+    "product-card": "../../components/product-card/product-card"
+  }
+}

@@ -1,0 +1,39 @@
+<view class="ss-page calendar">
+  <demo-banner />
+
+  <view class="calendar__summary">
+    <view class="calendar__summary-item">
+      <text class="calendar__summary-value">{{continuousDays}}</text>
+      <text class="calendar__summary-label">连续签到（天）</text>
+    </view>
+    <view class="calendar__summary-item">
+      <text class="calendar__summary-value">{{totalDays}}</text>
+      <text class="calendar__summary-label">累计签到（天）</text>
+    </view>
+  </view>
+
+  <view class="ss-section-title">
+    <text>{{monthText}}签到记录</text>
+    <text class="ss-section-title__more" bindtap="onGoSignIn">去签到 ›</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <view class="ss-card calendar__card" wx:if="{{!loading}}">
+    <view class="calendar__week">
+      <text class="calendar__week-item" wx:for="{{week}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="calendar__grid">
+      <view
+        class="calendar__cell {{item.empty ? 'calendar__cell--empty' : ''}} {{item.signed ? 'calendar__cell--signed' : ''}} {{item.today ? 'calendar__cell--today' : ''}}"
+        wx:for="{{days}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onDayTap"
+      >
+        <text class="calendar__day" wx:if="{{!item.empty}}">{{item.day}}</text>
+        <text class="calendar__points" wx:if="{{item.signed}}">+{{item.points}}</text>
+      </view>
+    </view>
+  </view>
+</view>

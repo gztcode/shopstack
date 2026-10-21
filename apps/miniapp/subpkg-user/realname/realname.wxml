@@ -1,0 +1,47 @@
+<view class="ss-page realname">
+  <demo-banner />
+
+  <view class="realname__head">
+    <text class="realname__title">实名认证</text>
+    <text class="realname__desc">用于购买生鲜、跨境商品以及开具增值税专用发票，信息加密存储。</text>
+  </view>
+
+  <view class="ss-card realname__form" wx:if="{{!verified}}">
+    <view class="ss-field">
+      <text class="ss-field__label">真实姓名</text>
+      <input
+        class="ss-field__input"
+        placeholder="请输入与证件一致的姓名"
+        placeholder-class="ss-placeholder"
+        value="{{realName}}"
+        bindinput="onInputName"
+      />
+    </view>
+    <view class="ss-field">
+      <text class="ss-field__label">身份证号</text>
+      <input
+        class="ss-field__input"
+        placeholder="请输入 18 位身份证号"
+        placeholder-class="ss-placeholder"
+        type="idcard"
+        maxlength="18"
+        value="{{idCard}}"
+        bindinput="onInputIdCard"
+      />
+    </view>
+    <view class="realname__tips">
+      <text class="realname__tips-title">温馨提示</text>
+      <text class="realname__tips-item">· 认证信息仅用于履约与开票，不做其它用途</text>
+      <text class="realname__tips-item">· 请确保姓名与身份证号完全一致，否则审核不通过</text>
+      <text class="realname__tips-item">· 提交后如需修改，请联系客服并提供有效证明</text>
+    </view>
+    <view class="ss-btn ss-btn--primary realname__btn" bindtap="onSubmit">{{submitting ? '提交中' : '提交认证'}}</view>
+  </view>
+
+  <view class="ss-card realname__done" wx:if="{{verified}}">
+    <text class="realname__done-icon">✅</text>
+    <text class="realname__done-title">实名认证已提交</text>
+    <text class="realname__done-desc">我们会在 1 个工作日内完成审核，结果会通过短信通知你</text>
+    <view class="ss-btn ss-btn--line realname__btn" bindtap="onGoSecurity">返回账号安全</view>
+  </view>
+</view>

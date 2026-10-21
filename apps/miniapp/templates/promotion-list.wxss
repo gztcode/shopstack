@@ -1,0 +1,91 @@
+.promo__head {
+  padding: 28rpx 24rpx 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.promo__title {
+  font-size: var(--ss-font-size-2xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-primary);
+}
+
+.promo__desc {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.promo__list {
+  padding: 0 24rpx;
+}
+
+.promo__card {
+  background: var(--ss-color-bg-card);
+  border-radius: var(--ss-radius-lg);
+  box-shadow: var(--ss-shadow-sm);
+  overflow: hidden;
+  margin-bottom: 24rpx;
+}
+
+.promo__banner {
+  width: 100%;
+  height: 220rpx;
+  background: var(--ss-color-bg-muted);
+}
+
+.promo__body {
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.promo__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.promo__name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.promo__desc-text {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.promo__meta {
+  display: flex;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.promo__time {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.promo__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  margin-top: 8rpx;
+}
+
+.promo__sold {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-tertiary);
+}
+
+.promo__actions {
+  display: flex;
+  gap: 12rpx;
+}

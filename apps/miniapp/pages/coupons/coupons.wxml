@@ -1,0 +1,56 @@
+<view class="ss-page coupons">
+  <demo-banner />
+
+  <view class="tabs">
+    <view
+      class="tabs__item {{activeStatus === item.key ? 'tabs__item--active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-status="{{item.key}}"
+      bindtap="onTabTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <view class="list" wx:if="{{!loading && coupons.length}}">
+    <coupon-item
+      wx:for="{{coupons}}"
+      wx:key="id"
+      coupon="{{item}}"
+      disabled="{{activeStatus !== 1}}"
+    />
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !coupons.length}}"
+    icon="🎟️"
+    title="暂无该状态的优惠券"
+    desc="下方可领取更多优惠券"
+  />
+
+  <!-- 可领取 -->
+  <view class="ss-section-title">
+    <text>领券中心</text>
+    <text class="ss-section-title__more" bindtap="onGoShopping">去逛逛 ›</text>
+  </view>
+
+  <view class="list" wx:if="{{claimable.length}}">
+    <view class="claim" wx:for="{{claimable}}" wx:key="id">
+      <view class="claim__info">
+        <text class="claim__name">{{item.name}}</text>
+        <text class="claim__code">券码 {{item.code}} · 满 {{item.min_amount_cents / 100}} 元可用</text>
+        <text class="claim__count">已领 {{item.received_quantity}} / {{item.total_quantity}}</text>
+      </view>
+      <view
+        class="ss-btn ss-btn--accent ss-btn--sm claim__btn {{claiming === item.id ? 'ss-btn--disabled' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onReceive"
+      >
+        {{claiming === item.id ? '领取中' : '立即领取'}}
+      </view>
+    </view>
+  </view>
+</view>

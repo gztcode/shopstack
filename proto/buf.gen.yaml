@@ -1,0 +1,15 @@
+version: v2
+plugins:
+  - local: protoc-gen-go
+    out: ../gen/go
+    opt:
+      - module=github.com/shopstack/platform/gen/go
+  - local: protoc-gen-go-grpc
+    out: ../gen/go
+    opt:
+      - module=github.com/shopstack/platform/gen/go
+  - local: protoc-gen-grpc-gateway
+    out: ../gen/go
+    opt:
+      - module=github.com/shopstack/platform/gen/go
+      - generate_unbound_methods=false

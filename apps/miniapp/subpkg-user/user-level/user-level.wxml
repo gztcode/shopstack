@@ -1,0 +1,58 @@
+<view class="ss-page level">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <block wx:if="{{!loading && level}}">
+    <view class="level__hero">
+      <text class="level__icon">🏅</text>
+      <text class="level__name">{{level.level_name}}</text>
+      <text class="level__discount">{{level.discount_text}}</text>
+      <text class="level__growth">当前成长值 {{level.growth}}</text>
+      <view class="level__bar">
+        <view class="level__bar-inner" style="width: {{level.progress_percent}}%;"></view>
+      </view>
+      <text class="level__next" wx:if="{{level.next_level_name}}">
+        再获得 {{level.growth_to_next}} 成长值即可升级为 {{level.next_level_name}}
+      </text>
+      <text class="level__next" wx:else>已达最高等级，继续消费可累积成长值</text>
+    </view>
+
+    <view class="ss-section-title">
+      <text>我的权益</text>
+    </view>
+    <view class="ss-card level__benefits">
+      <view class="level__benefit" wx:for="{{level.benefits}}" wx:key="*this">
+        <text class="level__benefit-dot">✓</text>
+        <text class="ss-flex-1">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>等级体系</text>
+      <text class="ss-section-title__more" bindtap="onGoGrowth">成长值明细 ›</text>
+    </view>
+
+    <view class="ss-card level__list">
+      <view class="level__item {{item.reached ? 'level__item--reached' : ''}}" wx:for="{{levels}}" wx:key="id">
+        <text class="level__item-icon">🏅</text>
+        <view class="ss-flex-1">
+          <text class="level__item-name">{{item.name}}</text>
+          <text class="level__item-need">{{item.min_growth}} - {{item.max_growth}} 成长值 · {{item.discount_text}}</text>
+          <text class="level__item-benefit">{{item.description}}</text>
+          <text class="level__item-benefit">{{item.benefits_text}}</text>
+        </view>
+        <text class="ss-tag {{item.reached ? 'ss-tag--success' : 'ss-tag--muted'}}">{{item.reached ? '已达成' : '未达成'}}</text>
+      </view>
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !level}}"
+    icon="🏅"
+    title="暂无会员等级信息"
+    desc="完成购物后即可自动获得成长值与会员权益"
+    actionText="去首页看看"
+    bind:action="onGoHome"
+  />
+</view>

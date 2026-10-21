@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+package shopstack.common.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/common/v1;commonv1";
+
+
+// ---------------------------------------------------------------------------
+// 分页
+// ---------------------------------------------------------------------------
+
+message PageRequest {
+  int32 page = 1;        // 页码，从 1 开始
+  int32 page_size = 2;   // 每页条数，默认 20，上限 100
+  string order_by = 3;   // 排序字段（白名单校验）
+  string order_dir = 4;  // asc | desc
+}
+
+message PageMeta {
+  int32 page = 1;
+  int32 page_size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+}
+
+// ---------------------------------------------------------------------------
+// 通用结构
+// ---------------------------------------------------------------------------
+
+// 金额一律使用「分」为单位的 int64，避免浮点精度问题。
+message Money {
+  int64 amount_cents = 1;
+  string currency = 2;  // CNY
+}
+
+message Image {
+  string url = 1;
+  string alt = 2;
+}
+
+message Address {
+  int64 id = 1;
+  string receiver = 2;
+  string phone = 3;
+  string province = 4;
+  string city = 5;
+  string district = 6;
+  string detail = 7;
+  string postal_code = 8;
+  string tag = 9;  // 家 / 公司 / ���他
+  bool is_default = 10;
+}
+
+message ImageItem {
+  string url = 1;
+  string alt = 2;
+  int32 sort = 3;
+}
+
+// ---------------------------------------------------------------------------
+// 枚举
+// ---------------------------------------------------------------------------
+
+enum Gender {
+  GENDER_UNSPECIFIED = 0;
+  GENDER_MALE = 1;
+  GENDER_FEMALE = 2;
+  GENDER_UNKNOWN = 3;
+}
+
+enum UserStatus {
+  USER_STATUS_UNSPECIFIED = 0;
+  USER_STATUS_ACTIVE = 1;   // 正常
+  USER_STATUS_DISABLED = 2; // 禁用
+  USER_STATUS_FROZEN = 3;   // 冻结
+}
+
+enum ProductStatus {
+  PRODUCT_STATUS_UNSPECIFIED = 0;
+  PRODUCT_STATUS_DRAFT = 1;     // 草稿
+  PRODUCT_STATUS_ON_SHELF = 2;   // 已上架
+  PRODUCT_STATUS_OFF_SHELF = 3;  // 已下架
+}
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_PENDING_PAYMENT = 1;  // 待付款
+  ORDER_STATUS_PAID = 2;             // 已付款/待发货
+  ORDER_STATUS_SHIPPED = 3;          // 待收货
+  ORDER_STATUS_COMPLETED = 4;        // 已完成
+  ORDER_STATUS_CANCELLED = 5;        // 已取消
+  ORDER_STATUS_REFUNDING = 6;        // 退款中
+  ORDER_STATUS_REFUNDED = 7;         // 已退款
+  ORDER_STATUS_CLOSED = 8;           // 已关闭
+}
+
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PAYMENT_STATUS_PENDING = 1;
+  PAYMENT_STATUS_SUCCESS = 2;
+  PAYMENT_STATUS_FAILED = 3;
+  PAYMENT_STATUS_CLOSED = 4;
+}
+
+enum PaymentChannel {
+  PAYMENT_CHANNEL_UNSPECIFIED = 0;
+  PAYMENT_CHANNEL_WECHAT = 1;   // 微信支付
+  PAYMENT_CHANNEL_ALIPAY = 2;   // 支付宝
+  PAYMENT_CHANNEL_BALANCE = 3;  // 余额支付
+}
+
+enum ReviewStatus {
+  REVIEW_STATUS_UNSPECIFIED = 0;
+  REVIEW_STATUS_PENDING = 1;
+  REVIEW_STATUS_APPROVED = 2;
+  REVIEW_STATUS_REJECTED = 3;
+}
+
+enum CouponType {
+  COUPON_TYPE_UNSPECIFIED = 0;
+  COUPON_TYPE_FIXED = 1;  // 满减券
+  COUPON_TYPE_PERCENT = 2; // 折扣券
+  COUPON_TYPE_SHIPPING = 3;// 免运费券
+}
+
+enum UserCouponStatus {
+  USER_COUPON_STATUS_UNSPECIFIED = 0;
+  USER_COUPON_STATUS_UNUSED = 1;
+  USER_COUPON_STATUS_USED = 2;
+  USER_COUPON_STATUS_EXPIRED = 3;
+}
+
+enum ShipmentStatus {
+  SHIPMENT_STATUS_UNSPECIFIED = 0;
+  SHIPMENT_STATUS_PENDING = 1;   // 待发货
+  SHIPMENT_STATUS_SHIPPED = 2;   // 已发货
+  SHIPMENT_STATUS_DELIVERED = 3; // 已签收
+  SHIPMENT_STATUS_EXCEPTION = 4; // 异常
+}
+
+enum NotificationType {
+  NOTIFICATION_TYPE_UNSPECIFIED = 0;
+  NOTIFICATION_TYPE_ORDER = 1;
+  NOTIFICATION_TYPE_LOGISTICS = 2;
+  NOTIFICATION_TYPE_PROMOTION = 3;
+  NOTIFICATION_TYPE_SYSTEM = 4;
+}
+
+// ---------------------------------------------------------------------------
+// 基础消息
+// ---------------------------------------------------------------------------
+
+message IdRequest {
+  int64 id = 1;
+}
+
+message BatchIdsRequest {
+  repeated int64 ids = 1;
+}
+
+message OperationResult {
+  bool success = 1;
+  string message = 2;
+}
+
+message Empty {}

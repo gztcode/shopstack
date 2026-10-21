@@ -1,0 +1,45 @@
+.fav {
+  position: relative;
+  background: var(--ss-color-bg-card);
+  border-radius: var(--ss-radius-lg);
+  box-shadow: var(--ss-shadow-sm);
+  overflow: hidden;
+  padding-bottom: 16rpx;
+}
+
+.fav__img {
+  width: 100%;
+  height: 340rpx;
+  background: var(--ss-color-bg-muted);
+}
+
+.fav__remove {
+  position: absolute;
+  right: 16rpx;
+  top: 16rpx;
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: var(--ss-radius-circle);
+  background: rgba(18, 27, 38, 0.45);
+  color: var(--ss-color-text-inverse);
+  font-size: 26rpx;
+  line-height: 48rpx;
+  text-align: center;
+}
+
+.fav__title {
+  display: block;
+  padding: 16rpx 16rpx 0;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+  line-height: 1.4;
+}
+
+.fav__price {
+  display: block;
+  padding: 10rpx 16rpx 0;
+  font-size: var(--ss-font-size-xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-danger);
+  font-family: var(--ss-font-family-numeric);
+}

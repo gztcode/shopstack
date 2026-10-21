@@ -1,0 +1,2 @@
+<text class="price price--{{size}}">¥{{value}}</text>
+<text class="original" wx:if="{{showOriginal}}">¥{{originalValue}}</text>

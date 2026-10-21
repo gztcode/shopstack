@@ -1,0 +1,58 @@
+.address-page {
+  padding-bottom: 0;
+}
+
+.addr {
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+}
+
+.addr__head {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.addr__name {
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.addr__phone {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.addr__detail {
+  display: block;
+  margin-top: 12rpx;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+  line-height: var(--ss-font-line-height-relaxed);
+}
+
+.addr__postal {
+  display: block;
+  margin-top: 6rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.addr__ops {
+  display: flex;
+  justify-content: flex-end;
+  gap: 32rpx;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.addr__op {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.addr__op--danger {
+  color: var(--ss-color-text-danger);
+}

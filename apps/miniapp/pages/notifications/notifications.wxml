@@ -1,0 +1,44 @@
+<view class="ss-page notifications">
+  <demo-banner />
+
+  <view class="head">
+    <view class="filters">
+      <view
+        class="filters__item {{activeType === item.key ? 'filters__item--active' : ''}}"
+        wx:for="{{filters}}"
+        wx:key="key"
+        data-type="{{item.key}}"
+        bindtap="onFilterTap"
+      >
+        {{item.label}}
+      </view>
+    </view>
+    <view class="head__read" wx:if="{{unreadCount}}" bindtap="onMarkAllRead">
+      全部已读（{{unreadCount}}）
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <view class="ss-card notice {{item.read ? '' : 'notice--unread'}}" wx:for="{{notifications}}" wx:key="id" data-id="{{item.id}}" data-link="{{item.link}}" bindtap="onNotificationTap">
+    <view class="notice__icon">{{item.icon}}</view>
+    <view class="notice__body">
+      <view class="notice__head">
+        <text class="notice__title">{{item.title}}</text>
+        <text class="notice__dot" wx:if="{{!item.read}}"></text>
+      </view>
+      <text class="notice__content">{{item.content}}</text>
+      <view class="notice__foot">
+        <text class="notice__type">{{item.type_text}}</text>
+        <text class="notice__time">{{item.time_text}}</text>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !notifications.length}}"
+    icon="🔔"
+    title="暂无消息通知"
+    desc="订单与物流动态会在这里提醒你"
+  />
+</view>

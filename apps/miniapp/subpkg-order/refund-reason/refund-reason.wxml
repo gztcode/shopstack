@@ -1,0 +1,38 @@
+<view class="ss-page reason">
+  <demo-banner />
+
+  <view class="reason__head">
+    <text class="reason__title">退款原因</text>
+    <text class="reason__desc">选择最接近的原因，有助于更快处理</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <view class="ss-card reason__card" wx:if="{{!loading && reasons.length}}">
+    <view
+      class="reason__row"
+      wx:for="{{reasons}}"
+      wx:key="id"
+      data-name="{{item.name}}"
+      bindtap="onReasonTap"
+    >
+      <view class="ss-flex-1">
+        <text class="reason__name">
+          {{item.name}}
+          <text class="ss-tag ss-tag--muted">{{item.type_text}}</text>
+        </text>
+        <text class="reason__desc-text">排序 {{item.sort}}</text>
+      </view>
+      <text class="reason__arrow">›</text>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !reasons.length}}"
+    icon="📝"
+    title="暂无可选原因"
+    desc="可以先从订单列表发起售后申请"
+    actionText="查看售后列表"
+    bind:action="onGoApply"
+  />
+</view>

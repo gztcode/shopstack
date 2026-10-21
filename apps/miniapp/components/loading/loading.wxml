@@ -1,0 +1,23 @@
+<view class="skeleton" wx:if="{{type === 'list'}}">
+  <view class="skeleton__row" wx:for="{{rowList}}" wx:key="*this">
+    <view class="skeleton__block skeleton__block--thumb"></view>
+    <view class="skeleton__lines">
+      <view class="skeleton__block skeleton__block--line"></view>
+      <view class="skeleton__block skeleton__block--line skeleton__block--short"></view>
+    </view>
+  </view>
+</view>
+
+<view class="skeleton" wx:elif="{{type === 'detail'}}">
+  <view class="skeleton__block skeleton__block--hero"></view>
+  <view class="skeleton__block skeleton__block--line"></view>
+  <view class="skeleton__block skeleton__block--line skeleton__block--short"></view>
+</view>
+
+<view class="skeleton skeleton--grid" wx:else>
+  <view class="skeleton__card" wx:for="{{rowList}}" wx:key="*this">
+    <view class="skeleton__block skeleton__block--cover"></view>
+    <view class="skeleton__block skeleton__block--line"></view>
+    <view class="skeleton__block skeleton__block--line skeleton__block--short"></view>
+  </view>
+</view>

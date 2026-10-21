@@ -1,0 +1,96 @@
+.gb__cover {
+  width: 100%;
+  height: 360rpx;
+  background: var(--ss-color-bg-muted);
+}
+
+.gb__card {
+  margin: -40rpx 24rpx 0;
+  padding: 24rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.gb__name {
+  font-size: var(--ss-font-size-xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-primary);
+}
+
+.gb__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16rpx;
+}
+
+.gb__price {
+  font-size: var(--ss-font-size-3xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-danger);
+}
+
+.gb__origin {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-quaternary);
+  text-decoration: line-through;
+}
+
+.gb__end {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.gb__progress {
+  margin-top: 8rpx;
+}
+
+.gb__bar {
+  height: 12rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-muted);
+  overflow: hidden;
+}
+
+.gb__bar-inner {
+  height: 100%;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-gradient-accent);
+}
+
+.gb__progress-text {
+  display: block;
+  margin-top: 10rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.gb__members {
+  margin: 0 24rpx;
+  padding: 8rpx 24rpx;
+}
+
+.gb__member {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.gb__member:last-child {
+  border-bottom: none;
+}
+
+.gb__member-name {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.gb__member-time {
+  display: block;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}

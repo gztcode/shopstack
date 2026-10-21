@@ -1,0 +1,304 @@
+/* 全局样式 —— 依据 design-tokens 的间距、圆角与阴影 */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f5f7fa;
+  color: #1e2a38;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 布局 ---------- */
+.app-layout {
+  min-height: 100vh;
+}
+
+.app-sider {
+  border-right: 1px solid #e6ebf0;
+  overflow-y: auto;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 56px;
+  padding: 0 20px;
+  color: #2a4ad9;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.app-logo__icon {
+  font-size: 20px;
+}
+
+.app-logo__text {
+  white-space: nowrap;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e6ebf0;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.app-header__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-collapse {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #4b586a;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.app-collapse:hover {
+  background: #f1f5f9;
+  color: #2a4ad9;
+}
+
+.app-breadcrumb {
+  white-space: nowrap;
+}
+
+.app-content {
+  position: relative;
+  padding: 20px;
+  min-height: calc(100vh - 56px);
+}
+
+/* 全屏加载遮罩 */
+.app-loading-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 250, 252, 0.55);
+  backdrop-filter: blur(1px);
+}
+
+/* ---------- 页面容器 ---------- */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.page-container__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-container__desc {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.page-container__extra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-container__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- 组件 ---------- */
+.demo-mode-alert {
+  border-radius: 10px;
+}
+
+.stat-card .ant-card-body {
+  padding: 18px 20px;
+}
+
+.stat-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.stat-card__title {
+  color: #6b7a8f;
+  font-size: 13px;
+}
+
+.stat-card__icon {
+  font-size: 18px;
+}
+
+.stat-card__hint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #8a99ab;
+}
+
+.search-form {
+  margin-bottom: 16px;
+  row-gap: 12px;
+}
+
+.search-form .ant-form-item {
+  margin-bottom: 0;
+}
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.table-toolbar__left {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dashboard-row {
+  margin-bottom: 16px;
+}
+
+.dashboard-block {
+  padding: 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.dashboard-block__value {
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e2a38;
+}
+
+.user-menu {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+
+.user-menu:hover {
+  background: #f8fafc;
+}
+
+.user-menu__meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.user-menu__name {
+  font-size: 13px;
+}
+
+.user-menu__role {
+  font-size: 11px;
+}
+
+/* ---------- 登录页 ---------- */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 16px;
+  background: linear-gradient(135deg, #2a4ad9 0%, #2239ac 55%, #1a2865 100%);
+}
+
+.login-page__brand {
+  text-align: center;
+  color: #ffffff;
+}
+
+.login-page__logo {
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.login-page__title {
+  color: #ffffff !important;
+  margin: 8px 0 4px !important;
+}
+
+.login-page__slogan {
+  color: rgba(255, 255, 255, 0.75) !important;
+  margin-bottom: 0 !important;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(18, 27, 38, 0.16);
+}
+
+.login-card__tips {
+  width: 100%;
+  padding-top: 4px;
+  border-top: 1px dashed #e6ebf0;
+}
+
+/* ---------- 表格 ---------- */
+.ant-table-wrapper .ant-table-thead > tr > th {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: 12px;
+  }
+
+  .global-search {
+    display: none;
+  }
+}

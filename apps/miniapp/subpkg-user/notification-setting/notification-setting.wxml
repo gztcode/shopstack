@@ -1,0 +1,25 @@
+<view class="ss-page setting">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <block wx:if="{{!loading}}">
+    <view class="ss-section-title" wx:for="{{groups}}" wx:key="title">
+      <text>{{item.title}}</text>
+    </view>
+    <view class="ss-card setting__group" wx:for="{{groups}}" wx:key="title">
+      <view class="setting__row" wx:for="{{item.items}}" wx:for-item="option" wx:key="key">
+        <view class="ss-flex-1">
+          <text class="setting__label">{{option.label}}</text>
+          <text class="setting__desc">{{option.desc}}</text>
+        </view>
+        <switch
+          checked="{{settings[option.key]}}"
+          color="#2A4AD9"
+          data-key="{{option.key}}"
+          bindchange="onToggle"
+        />
+      </view>
+    </view>
+  </block>
+</view>

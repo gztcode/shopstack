@@ -1,0 +1,89 @@
+.as__tabs {
+  display: flex;
+  background: var(--ss-color-bg-card);
+  box-shadow: var(--ss-shadow-xs);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.as__tab {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+  position: relative;
+}
+
+.as__tab--active {
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.as__tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: 12rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-brand-600);
+}
+
+.as__list {
+  padding: 24rpx 24rpx 0;
+}
+
+.as__card {
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.as__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.as__no {
+  font-size: var(--ss-font-size-base);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.as__reason {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}
+
+.as__order {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.as__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.as__time {
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.as__amount {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}

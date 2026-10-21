@@ -1,0 +1,41 @@
+<view class="ss-page tasks">
+  <demo-banner />
+
+  <view class="tasks__head">
+    <text class="tasks__title">任务中心</text>
+    <text class="tasks__desc">已完成 {{completedCount}}/{{totalCount}} 个任务，奖励积分实时到账</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <view class="tasks__list" wx:if="{{!loading && tasks.length}}">
+    <view class="tasks__card" wx:for="{{tasks}}" wx:key="id">
+      <view class="tasks__top" data-id="{{item.id}}" data-status="{{item.status}}" bindtap="onTaskTap">
+        <view class="ss-flex-1">
+          <text class="tasks__name">{{item.icon}} {{item.name}}</text>
+          <text class="tasks__desc-text">{{item.description}}</text>
+        </view>
+        <text class="tasks__reward">+{{item.reward_points}} 积分</text>
+      </view>
+      <view class="tasks__progress">
+        <view class="tasks__bar">
+          <view class="tasks__bar-inner" style="width: {{item.percent}}%;"></view>
+        </view>
+        <text class="tasks__progress-text">{{item.progress_text}}</text>
+      </view>
+      <view class="tasks__foot">
+        <text class="ss-tag {{item.claimed ? 'ss-tag--success' : 'ss-tag--accent'}}">{{item.status_text}}</text>
+        <view class="ss-btn ss-btn--ghost ss-btn--sm" data-link="{{item.link}}" catchtap="onGoLink">{{item.action_text}}</view>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !tasks.length}}"
+    icon="📋"
+    title="暂无可参与的任务"
+    desc="每日签到、浏览商品等任务会陆续开放"
+    actionText="去签到"
+    bind:action="onGoSignIn"
+  />
+</view>

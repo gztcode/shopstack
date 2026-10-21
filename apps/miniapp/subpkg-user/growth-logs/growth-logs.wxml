@@ -1,0 +1,31 @@
+<view class="ss-page growth">
+  <demo-banner />
+
+  <view class="growth__summary">
+    <text class="growth__summary-label">当前成长值</text>
+    <text class="growth__summary-value">{{currentGrowth}}</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <view class="ss-card growth__list" wx:if="{{!loading && logs.length}}">
+    <view class="growth__row" wx:for="{{logs}}" wx:key="id">
+      <view class="ss-flex-1">
+        <text class="growth__title">{{item.title}}</text>
+        <text class="growth__time">{{item.created_text}} · 余额 {{item.balance}}</text>
+      </view>
+      <text class="growth__change {{item.change > 0 ? 'growth__change--up' : 'growth__change--down'}}">{{item.change_text}}</text>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !logs.length}}"
+    icon="📈"
+    title="暂无成长值记录"
+    desc="完成订单、评价商品都可以获得成长值"
+    actionText="查看会员等级"
+    bind:action="onGoLevel"
+  />
+
+  <view class="ss-loading-more" wx:if="{{!loading && logs.length && !hasMore}}">没有更多记录了</view>
+</view>

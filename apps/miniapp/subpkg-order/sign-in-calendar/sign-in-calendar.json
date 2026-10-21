@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "签到日历",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner",
+    "loading": "../../components/loading/loading"
+  }
+}

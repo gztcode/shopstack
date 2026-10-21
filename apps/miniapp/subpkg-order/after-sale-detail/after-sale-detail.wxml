@@ -1,0 +1,79 @@
+<view class="ss-page asd">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <block wx:if="{{!loading && detail}}">
+    <view class="ss-card asd__status">
+      <text class="asd__status-text">{{detail.status_text}}</text>
+      <text class="asd__status-sub">售后单 {{detail.after_sale_no}} · {{detail.type_text}}</text>
+      <text class="asd__status-sub">申请时间 {{detail.created_text}}</text>
+    </view>
+
+    <view class="ss-section-title">
+      <text>退款金额</text>
+    </view>
+    <view class="ss-card asd__amount">
+      <text class="asd__amount-value">¥{{detail.amount_text}}</text>
+    </view>
+
+    <view class="ss-section-title">
+      <text>售后信息</text>
+    </view>
+    <view class="ss-card asd__info">
+      <view class="asd__row">
+        <text class="asd__label">退款原因</text>
+        <text class="asd__value ss-flex-1">{{detail.reason}}</text>
+      </view>
+      <view class="asd__row">
+        <text class="asd__label">补充说明</text>
+        <text class="asd__value ss-flex-1">{{detail.description}}</text>
+      </view>
+      <view class="asd__row">
+        <text class="asd__label">关联订单</text>
+        <text class="asd__value ss-flex-1">{{detail.order_no}}</text>
+      </view>
+      <view class="asd__row">
+        <text class="asd__label">处理时间</text>
+        <text class="asd__value ss-flex-1">{{detail.processed_text || '等待平台处理'}}</text>
+      </view>
+      <view class="asd__row">
+        <text class="asd__label">平台意见</text>
+        <text class="asd__value ss-flex-1">{{detail.admin_remark}}</text>
+      </view>
+      <view class="asd__row">
+        <text class="asd__label">最近更新</text>
+        <text class="asd__value ss-flex-1">{{detail.updated_text}}</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>关联商品</text>
+    </view>
+    <view class="ss-card asd__items">
+      <view class="asd__item" wx:for="{{items}}" wx:key="id">
+        <image class="asd__image" src="{{item.image}}" mode="aspectFill" />
+        <view class="ss-flex-1">
+          <text class="asd__item-title ss-ellipsis-2">{{item.product_title}}</text>
+          <text class="asd__item-spec">{{item.spec_text}} × {{item.quantity}}</text>
+        </view>
+        <text class="ss-price">¥{{item.price_text}}</text>
+      </view>
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !detail}}"
+    icon="🛠️"
+    title="售后单不存在"
+    desc="返回售后列表查看全部处理记录"
+    actionText="返回售后列表"
+    bind:action="onGoList"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading && detail}}">
+    <view class="ss-btn ss-btn--line ss-flex-1" bindtap="onGoList">售后列表</view>
+    <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onGoOrder">查看订单</view>
+  </view>
+  <view class="ss-action-bar__spacer" wx:if="{{!loading && detail}}"></view>
+</view>

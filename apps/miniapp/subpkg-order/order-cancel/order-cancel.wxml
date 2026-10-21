@@ -1,0 +1,2 @@
+<import src="../../templates/order-list.wxml" />
+<template is="order-list" data="{{view}}" />

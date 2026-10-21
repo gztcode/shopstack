@@ -1,0 +1,55 @@
+<template name="group-buy-list">
+  <view class="ss-page group">
+    <demo-banner />
+
+    <view class="group__head">
+      <text class="group__title">{{view.title}}</text>
+      <text class="group__desc" wx:if="{{view.desc}}">{{view.desc}}</text>
+    </view>
+
+    <loading wx:if="{{view.loading}}" type="list" rows="2" />
+
+    <view class="group__list" wx:if="{{!view.loading && view.groupBuys.length}}">
+      <view class="group__card" wx:for="{{view.groupBuys}}" wx:key="id">
+        <view class="group__top" data-id="{{item.id}}" bindtap="onDetailTap">
+          <image class="group__cover" src="{{item.product_cover}}" mode="aspectFill" />
+          <view class="ss-flex-1">
+            <text class="group__name ss-ellipsis-2">{{item.name}}</text>
+            <view class="group__price-row">
+              <text class="group__price">¥{{item.price_text}}</text>
+              <text class="group__origin">¥{{item.origin_text}}</text>
+            </view>
+            <text class="group__end">{{item.end_text}}</text>
+          </view>
+        </view>
+
+        <view class="group__progress">
+          <view class="group__bar">
+            <view class="group__bar-inner" style="width: {{item.percent}}%;"></view>
+          </view>
+          <text class="group__progress-text">{{item.joined_count}}/{{item.group_size}} 人已参团</text>
+        </view>
+
+
+        <view class="group__foot">
+          <text class="ss-tag {{item.status === 'succeeded' ? 'ss-tag--success' : 'ss-tag--accent'}}">{{item.status_text}}</text>
+          <view class="group__actions">
+            <view class="ss-btn ss-btn--line ss-btn--sm" data-id="{{item.id}}" bindtap="onDetailTap">详情</view>
+            <view class="ss-btn ss-btn--primary ss-btn--sm" wx:if="{{item.status === 'ongoing'}}" data-id="{{item.id}}" bindtap="onJoinTap">去参团</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!view.loading && !view.groupBuys.length}}"
+      icon="👥"
+      title="暂时没有可参与的拼团"
+      desc="拼团商品由商家定时开团，先去首页看看其他好物"
+      actionText="去首页看看"
+      bind:action="onGoHome"
+    />
+
+    <view class="ss-loading-more" wx:if="{{!view.loading && view.groupBuys.length && !view.hasMore}}">没有更多拼团了</view>
+  </view>
+</template>

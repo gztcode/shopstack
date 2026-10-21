@@ -1,0 +1,67 @@
+<view class="ss-page apply">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <block wx:if="{{!loading && order}}">
+    <view class="ss-section-title">
+      <text>申请商品</text>
+      <text class="ss-section-title__more">订单 {{order.order_no}}</text>
+    </view>
+
+    <view class="ss-card apply__items">
+      <view class="apply__item" wx:for="{{order.items}}" wx:key="id">
+        <image class="apply__image" src="{{item.image}}" mode="aspectFill" />
+        <view class="ss-flex-1">
+          <text class="apply__item-title ss-ellipsis-2">{{item.product_title}}</text>
+          <text class="apply__item-spec">{{item.spec_text}} × {{item.quantity}}</text>
+        </view>
+        <text class="ss-price">¥{{item.price_text}}</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>售后信息</text>
+    </view>
+
+    <view class="ss-card apply__form">
+      <view class="ss-field" bindtap="onPickReason">
+        <text class="ss-field__label">退款原因</text>
+        <text class="ss-field__input {{reason ? '' : 'ss-placeholder'}} ss-field__input--right">{{reason || '请选择'}}</text>
+        <text class="apply__arrow">›</text>
+      </view>
+      <view class="apply__amount-row">
+        <text class="ss-field__label">退款金额</text>
+        <text class="ss-price">¥{{amountText}}</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>问题描述</text>
+    </view>
+    <view class="ss-card">
+      <textarea
+        class="ss-textarea"
+        placeholder="请描述遇到的问题，附上照片或视频可以加快处理"
+        placeholder-class="ss-placeholder"
+        maxlength="200"
+        value="{{description}}"
+        bindinput="onInputDescription"
+      />
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !order}}"
+    icon="📦"
+    title="订单不存在"
+    desc="请从订单列表选择需要申请售后的订单"
+    actionText="查看我的订单"
+    bind:action="onGoOrders"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading && order}}">
+    <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onSubmit">{{submitting ? '提交中' : '提交申请'}}</view>
+  </view>
+  <view class="ss-action-bar__spacer" wx:if="{{!loading && order}}"></view>
+</view>

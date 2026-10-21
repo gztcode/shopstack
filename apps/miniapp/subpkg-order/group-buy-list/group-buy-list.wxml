@@ -1,0 +1,2 @@
+<import src="../../templates/group-buy-list.wxml" />
+<template is="group-buy-list" data="{{view}}" />

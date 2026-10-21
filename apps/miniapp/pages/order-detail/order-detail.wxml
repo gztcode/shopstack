@@ -1,0 +1,129 @@
+<view class="ss-page order-detail">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <block wx:if="{{!loading}}">
+    <!-- 状态条 -->
+    <view class="status status--{{tone}}">
+      <text class="status__text">{{statusText}}</text>
+      <text class="status__desc" wx:if="{{order.remark}}">备注：{{order.remark}}</text>
+    </view>
+
+    <!-- 状态时间线 -->
+    <view class="ss-card block" wx:if="{{logs.length}}">
+      <text class="block__title">订单跟踪</text>
+      <view class="timeline">
+        <view class="timeline__item" wx:for="{{logs}}" wx:key="id">
+          <view class="timeline__dot"></view>
+          <view class="timeline__body">
+            <text class="timeline__remark">{{item.remark}}</text>
+            <text class="timeline__time">{{item.time_text}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 收货地址 -->
+    <view class="ss-card block">
+      <view class="address">
+        <view class="address__row">
+          <text class="address__name">{{address.receiver}}</text>
+          <text class="address__phone">{{address.phone}}</text>
+        </view>
+        <text class="address__detail">{{address.detail}}</text>
+      </view>
+    </view>
+
+    <!-- 物流 -->
+    <view class="ss-card block" wx:if="{{trackingNo}}">
+      <text class="block__title">物流信息</text>
+      <view class="row row--between">
+        <text class="row__label">{{logisticsCompany}}</text>
+        <text class="row__value" bindtap="onCopyOrderNo">{{trackingNo}}</text>
+      </view>
+      <view class="track" wx:for="{{logisticsTracks}}" wx:key="*this">
+        <text class="track__text">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 商品清单 -->
+    <view class="ss-card block">
+      <text class="block__title">商品信息</text>
+      <view class="goods" wx:for="{{items}}" wx:key="id">
+        <image
+          class="goods__img"
+          src="{{item.image}}"
+          mode="aspectFill"
+          data-product-id="{{item.product_id}}"
+          bindtap="onProductTap"
+        />
+        <view class="goods__body">
+          <text class="goods__title ss-ellipsis-2">{{item.product_title}}</text>
+          <text class="goods__spec">{{item.spec_text}}</text>
+          <text class="goods__subtotal">小计 ¥{{item.subtotal_text}}</text>
+        </view>
+        <view class="goods__right">
+          <text class="goods__price">¥{{item.price_text}}</text>
+          <text class="goods__qty">x{{item.quantity}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 金额明细 -->
+    <view class="ss-card block">
+      <view class="amount-row">
+        <text class="amount-row__label">商品总额</text>
+        <text class="amount-row__value">¥{{totalText}}</text>
+      </view>
+      <view class="amount-row">
+        <text class="amount-row__label">优惠减免</text>
+        <text class="amount-row__value amount-row__value--cut">-¥{{discountText}}</text>
+      </view>
+      <view class="amount-row">
+        <text class="amount-row__label">运费</text>
+        <text class="amount-row__value">¥{{freightText}}</text>
+      </view>
+      <view class="amount-row amount-row--total">
+        <text class="amount-row__label">实付金额</text>
+        <text class="amount-row__total">¥{{payableText}}</text>
+      </view>
+    </view>
+
+    <!-- 订单信息 -->
+    <view class="ss-card block">
+      <text class="block__title">订单信息</text>
+      <view class="info-row">
+        <text class="info-row__label">订单编号</text>
+        <text class="info-row__value" bindtap="onCopyOrderNo">{{order.order_no}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-row__label">下单时间</text>
+        <text class="info-row__value">{{order.created_at}}</text>
+      </view>
+      <view class="info-row" wx:if="{{order.paid_at}}">
+        <text class="info-row__label">支付时间</text>
+        <text class="info-row__value">{{order.paid_at}}</text>
+      </view>
+      <view class="info-row" wx:if="{{order.shipped_at}}">
+        <text class="info-row__label">发货时间</text>
+        <text class="info-row__value">{{order.shipped_at}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-row__label">售后服务</text>
+        <text class="info-row__value" bindtap="onCallService">联系客服 / 申请售后</text>
+      </view>
+    </view>
+
+    <view class="ss-action-bar__spacer"></view>
+  </block>
+
+  <view class="ss-action-bar" wx:if="{{!loading}}">
+    <view class="ss-btn ss-btn--line bar__btn" wx:if="{{trackingNo}}" bindtap="onLogistics">物流跟踪</view>
+    <view class="ss-btn ss-btn--line bar__btn" wx:if="{{canCancel}}" bindtap="onCancel">取消订单</view>
+    <view class="ss-btn ss-btn--line bar__btn" wx:if="{{canRefund}}" bindtap="onRefund">售后申请</view>
+    <view class="ss-btn ss-btn--line bar__btn" wx:if="{{canReview}}" bindtap="onReview">去评价</view>
+    <view class="ss-btn ss-btn--line bar__btn" wx:if="{{canConfirm}}" bindtap="onConfirm">确认收货</view>
+    <view class="ss-btn ss-btn--primary bar__btn" wx:if="{{canPay}}" bindtap="onPay">去支付</view>
+  </view>
+</view>

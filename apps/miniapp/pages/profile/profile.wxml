@@ -1,0 +1,79 @@
+<view class="ss-page profile">
+  <demo-banner />
+
+  <!-- 用户信息卡 -->
+  <view class="user" bindtap="onUserTap">
+    <image class="user__avatar" src="{{user.avatar || 'https://placehold.co/120x120/6B7A8F/FFFFFF?text=User'}}" mode="aspectFill" />
+    <view class="user__info">
+      <text class="user__name">{{loggedIn ? (user.nickname || user.username) : '点击登录 / 注册'}}</text>
+      <text class="user__desc" wx:if="{{loggedIn}}">欢迎回来，继续挑选好物吧</text>
+      <text class="user__desc" wx:else>登录后同步购物车、订单与优惠券</text>
+    </view>
+    <text class="user__arrow">›</text>
+  </view>
+
+  <!-- 资产 -->
+  <view class="ss-card assets">
+    <view class="assets__item">
+      <text class="assets__value">{{pointsText}}</text>
+      <text class="assets__label">积分</text>
+    </view>
+    <view class="assets__divider"></view>
+    <view class="assets__item">
+      <text class="assets__value">¥{{balanceText}}</text>
+      <text class="assets__label">余额</text>
+    </view>
+    <view class="assets__divider"></view>
+    <view class="assets__item" bindtap="onService">
+      <text class="assets__value assets__value--icon">🎧</text>
+      <text class="assets__label">客服</text>
+    </view>
+  </view>
+
+  <!-- 订单状态入口 -->
+  <view class="ss-card block">
+    <view class="block__head">
+      <text class="block__title">我的订单</text>
+      <text class="block__more" bindtap="onAllOrders">全部订单 ›</text>
+    </view>
+    <view class="orders">
+      <view
+        class="orders__item"
+        wx:for="{{orderEntries}}"
+        wx:key="key"
+        data-status="{{item.key}}"
+        bindtap="onOrderEntryTap"
+      >
+        <view class="orders__icon-wrap">
+          <text class="orders__icon">{{item.icon}}</text>
+          <text class="orders__badge" wx:if="{{counts[item.countKey]}}">{{counts[item.countKey]}}</text>
+        </view>
+        <text class="orders__label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能宫格 -->
+  <view class="ss-card block">
+    <text class="block__title">常用功能</text>
+    <view class="menu">
+      <view class="menu__item" wx:for="{{menuEntries}}" wx:key="key" data-key="{{item.key}}" bindtap="onMenuTap">
+        <text class="menu__icon">{{item.icon}}</text>
+        <text class="menu__label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 扩展服务 -->
+  <view class="ss-card block">
+    <text class="block__title">更多服务</text>
+    <view class="menu">
+      <view class="menu__item" wx:for="{{moreEntries}}" wx:key="key" data-key="{{item.key}}" bindtap="onMenuTap">
+        <text class="menu__icon">{{item.icon}}</text>
+        <text class="menu__label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="logout" wx:if="{{loggedIn}}" bindtap="onLogout">退出登录</view>
+</view>

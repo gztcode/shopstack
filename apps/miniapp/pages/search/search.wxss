@@ -1,0 +1,91 @@
+.search {
+  padding-bottom: 40rpx;
+}
+
+/* 搜索框 -------------------------------------------------------------- */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 24rpx;
+  background: var(--ss-color-bg-card);
+  box-shadow: var(--ss-shadow-xs);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.bar__input {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  height: 72rpx;
+  padding: 0 24rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-muted);
+}
+
+.bar__icon {
+  font-size: 26rpx;
+}
+
+.bar__field {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.bar__clear {
+  font-size: 26rpx;
+  color: var(--ss-color-text-placeholder);
+  padding: 6rpx;
+}
+
+.bar__submit {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+  flex-shrink: 0;
+}
+
+/* 通用块 -------------------------------------------------------------- */
+.block {
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+}
+
+.block__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.block__title {
+  display: block;
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+  margin-bottom: 16rpx;
+}
+
+.block__more {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.words__item {
+  padding: 12rpx 28rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-bg-subtle);
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+}

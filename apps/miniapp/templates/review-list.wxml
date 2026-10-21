@@ -1,0 +1,61 @@
+<template name="review-list">
+  <view class="ss-page review">
+    <demo-banner />
+
+    <view class="review__head">
+      <text class="review__title">{{view.title}}</text>
+      <text class="review__desc" wx:if="{{view.desc}}">{{view.desc}}</text>
+      <view class="review__summary">
+        <text class="review__summary-item">共 {{view.summary.total}} 条</text>
+        <text class="review__summary-item">好评 {{view.summary.good}}</text>
+        <text class="review__summary-item">中评 {{view.summary.medium}}</text>
+        <text class="review__summary-item">差评 {{view.summary.bad}}</text>
+        <text class="review__summary-item">均分 {{view.summary.average}}</text>
+      </view>
+    </view>
+
+    <loading wx:if="{{view.loading}}" type="list" rows="3" />
+
+    <view class="review__list" wx:if="{{!view.loading && view.reviews.length}}">
+      <view
+        class="review__card"
+        wx:for="{{view.reviews}}"
+        wx:key="id"
+        data-product-id="{{item.product_id}}"
+        bindtap="onReviewTap"
+      >
+        <view class="review__user">
+          <image class="review__avatar" src="{{item.user_avatar}}" mode="aspectFill" />
+          <view class="ss-flex-1">
+            <text class="review__nick">{{item.user_nickname}}</text>
+            <text class="review__stars">{{item.rating}} 星 · {{item.created_text}}</text>
+          </view>
+          <text class="ss-tag ss-tag--muted" wx:if="{{item.admin_reply}}">已回复</text>
+        </view>
+        <text class="review__content">{{item.content}}</text>
+        <view class="review__images" wx:if="{{item.images.length}}">
+          <image class="review__image" src="{{img}}" mode="aspectFill" wx:for="{{item.images}}" wx:for-item="img" wx:key="*this" />
+        </view>
+        <view class="review__reply" wx:if="{{item.admin_reply}}">
+          <text class="review__reply-label">商家回复：</text>
+          <text class="review__reply-text">{{item.admin_reply}}</text>
+        </view>
+        <view class="review__foot">
+          <text class="review__product ss-ellipsis">{{item.product_title}} · {{item.sku_text}}</text>
+          <text class="review__like">👍 {{item.like_count}}</text>
+        </view>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!view.loading && !view.reviews.length}}"
+      icon="💬"
+      title="暂时没有相关评价"
+      desc="换个筛选条件看看，或者去商品详情留下第一条评价"
+      actionText="去写评价"
+      bind:action="onGoPublish"
+    />
+
+    <view class="ss-loading-more" wx:if="{{!view.loading && view.reviews.length && !view.hasMore}}">没有更多评价了</view>
+  </view>
+</template>

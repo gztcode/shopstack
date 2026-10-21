@@ -1,0 +1,66 @@
+<template name="order-list">
+  <view class="ss-page order">
+    <demo-banner />
+
+    <view class="order__head">
+      <text class="order__title">{{view.title}}</text>
+      <text class="order__count">
+        待付款 {{view.counts.pending_payment}} · 待发货 {{view.counts.pending_shipment}} · 待收货 {{view.counts.pending_receipt}}
+      </text>
+    </view>
+
+    <loading wx:if="{{view.loading}}" type="list" rows="2" />
+
+    <view class="order__list" wx:if="{{!view.loading && view.orders.length}}">
+      <view class="order__card" wx:for="{{view.orders}}" wx:key="id">
+        <view class="order__head-row" data-id="{{item.id}}" bindtap="onOrderTap">
+          <text class="order__no">订单号 {{item.order_no}}</text>
+          <text class="ss-tag ss-tag--{{item.tone}}">{{item.status_text}}</text>
+        </view>
+
+        <view
+          class="order__item"
+          wx:for="{{item.items}}"
+          wx:for-item="goods"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onOrderTap"
+        >
+          <image class="order__image" src="{{goods.image}}" mode="aspectFill" />
+          <view class="ss-flex-1">
+            <text class="order__title-text ss-ellipsis-2">{{goods.product_title}}</text>
+            <text class="order__spec">{{goods.spec_text}}</text>
+          </view>
+          <view class="order__goods-price">
+            <text class="ss-price">¥{{goods.price_text}}</text>
+            <text class="order__qty">×{{goods.quantity}}</text>
+          </view>
+        </view>
+
+        <view class="order__foot">
+          <text class="order__time">{{item.created_text}} · 共 {{item.count}} 件</text>
+          <text class="order__total">实付 <text class="ss-price">¥{{item.total_text}}</text></text>
+        </view>
+
+        <view class="order__actions">
+          <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_logistics}}" data-id="{{item.id}}" bindtap="onLogistics">物流轨迹</view>
+          <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_refund}}" data-id="{{item.id}}" bindtap="onRefund">申请售后</view>
+          <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_cancel}}" data-id="{{item.id}}" bindtap="onCancel">取消订单</view>
+          <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_confirm}}" data-id="{{item.id}}" bindtap="onConfirm">确认收货</view>
+          <view class="ss-btn ss-btn--primary ss-btn--sm" wx:if="{{item.can_pay}}" data-id="{{item.id}}" data-amount="{{item.payable_cents}}" bindtap="onPay">去支付</view>
+        </view>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!view.loading && !view.orders.length}}"
+      icon="🧾"
+      title="这里还没有订单"
+      desc="{{view.emptyDesc}}"
+      actionText="去逛逛"
+      bind:action="onGoShopping"
+    />
+
+    <view class="ss-loading-more" wx:if="{{!view.loading && view.orders.length && !view.hasMore}}">没有更多订单了</view>
+  </view>
+</template>

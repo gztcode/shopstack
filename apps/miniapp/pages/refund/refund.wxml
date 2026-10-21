@@ -1,0 +1,95 @@
+<view class="ss-page refund">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <block wx:if="{{!loading}}">
+    <!-- 可申请售后的订单 -->
+    <view class="ss-section-title">
+      <text>选择订单</text>
+    </view>
+
+    <view class="ss-card order" wx:for="{{orders}}" wx:key="id" data-id="{{item.id}}" bindtap="onOrderTap">
+      <view class="order__body">
+        <text class="order__no">{{item.order_no}}</text>
+        <text class="order__meta">{{item.created_text}} · 共 {{item.item_count}} 件</text>
+      </view>
+      <view class="order__right">
+        <text class="order__status">{{item.status_text}}</text>
+        <text class="order__amount">¥{{item.total_text}}</text>
+      </view>
+      <view class="order__radio {{selectedOrderId === item.id ? 'order__radio--on' : ''}}">
+        <text class="order__check" wx:if="{{selectedOrderId === item.id}}">✓</text>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!orders.length}}"
+      icon="🛠️"
+      title="暂无可申请售后的订单"
+      desc="已付款或待收货的订单可申请售后"
+      actionText="去逛逛"
+      bind:action="onGoShopping"
+    />
+
+    <!-- 申请表单 -->
+    <view class="ss-card block" wx:if="{{selectedOrder}}">
+      <text class="block__title">售后信息</text>
+
+      <view class="field">
+        <text class="field__label">退款原因</text>
+        <picker class="field__picker" mode="selector" range="{{reasons}}" value="{{reasonIndex}}" bindchange="onReasonChange">
+          <view class="field__value">{{reasons[reasonIndex]}} ›</view>
+        </picker>
+      </view>
+
+      <view class="field">
+        <text class="field__label">退款金额</text>
+        <input
+          class="field__input"
+          type="digit"
+          placeholder="请输入退款金额（元）"
+          placeholder-class="ss-placeholder"
+          value="{{amount}}"
+          bindinput="onAmountInput"
+        />
+      </view>
+      <text class="field__hint">最多可退 ¥{{maxAmountText}}</text>
+
+      <text class="block__title">问题描述</text>
+      <textarea
+        class="ss-textarea"
+        placeholder="请描述遇到的问题，便于商家快速处理（选填）"
+        maxlength="200"
+        value="{{description}}"
+        bindinput="onDescriptionInput"
+      />
+
+      <view class="ss-btn ss-btn--primary submit {{submitting ? 'ss-btn--disabled' : ''}}" bindtap="onSubmit">
+        {{submitting ? '提交中…' : '提交售后申请'}}
+      </view>
+    </view>
+
+    <!-- 提交结果 -->
+    <view class="ss-card block result" wx:if="{{result}}">
+      <text class="block__title">申请已提交</text>
+      <view class="result__row">
+        <text class="result__label">退款单号</text>
+        <text class="result__value">{{result.refund_no}}</text>
+      </view>
+      <view class="result__row">
+        <text class="result__label">退款金额</text>
+        <text class="result__value">¥{{result.amount_text}}</text>
+      </view>
+      <view class="result__row">
+        <text class="result__label">退款原因</text>
+        <text class="result__value">{{result.reason}}</text>
+      </view>
+      <view class="result__row">
+        <text class="result__label">处理状态</text>
+        <text class="result__value">{{result.status_text}}</text>
+      </view>
+      <view class="ss-btn ss-btn--ghost submit" bindtap="onOrderDetail">查看订单详情</view>
+    </view>
+  </block>
+</view>

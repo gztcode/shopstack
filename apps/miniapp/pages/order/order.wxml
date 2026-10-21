@@ -1,0 +1,76 @@
+<view class="ss-page order">
+  <demo-banner />
+
+  <view class="tabs">
+    <view
+      class="tabs__item {{activeKey === item.key ? 'tabs__item--active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTabTap"
+    >
+      <text class="tabs__text">{{item.label}}</text>
+      <text
+        class="tabs__badge"
+        wx:if="{{item.key === 'ORDER_STATUS_PENDING_PAYMENT' && counts.pending_payment}}"
+      >
+        {{counts.pending_payment}}
+      </text>
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <view class="ss-card order-card" wx:for="{{orders}}" wx:key="id" data-id="{{item.id}}" bindtap="onOrderTap">
+    <view class="order-card__head">
+      <text class="order-card__no">订单号 {{item.order_no}}</text>
+      <text class="order-card__status order-card__status--{{item.tone}}">{{item.status_text}}</text>
+    </view>
+
+    <view class="order-card__goods" wx:for="{{item.items}}" wx:for-item="goods" wx:key="id">
+      <image
+        class="order-card__img"
+        src="{{goods.image}}"
+        mode="aspectFill"
+        data-product-id="{{goods.product_id}}"
+        catchtap="onProductTap"
+      />
+      <view class="order-card__info">
+        <text class="order-card__title ss-ellipsis-2">{{goods.product_title}}</text>
+        <text class="order-card__spec">{{goods.spec_text}}</text>
+      </view>
+      <view class="order-card__amount">
+        <text class="order-card__price">¥{{goods.price_text}}</text>
+        <text class="order-card__qty">x{{goods.quantity}}</text>
+      </view>
+    </view>
+
+    <view class="order-card__foot">
+      <text class="order-card__time">共 {{item.count}} 件，合计 ¥{{item.total_text}}</text>
+      <view class="order-card__actions">
+        <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_cancel}}" data-id="{{item.id}}" catchtap="onCancel">取消订单</view>
+        <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_refund}}" data-id="{{item.id}}" catchtap="onRefund">售后申请</view>
+        <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_review}}" data-id="{{item.id}}" catchtap="onReview">去评价</view>
+        <view class="ss-btn ss-btn--line ss-btn--sm" wx:if="{{item.can_confirm}}" data-id="{{item.id}}" catchtap="onConfirm">确认收货</view>
+        <view
+          class="ss-btn ss-btn--primary ss-btn--sm"
+          wx:if="{{item.can_pay}}"
+          data-id="{{item.id}}"
+          data-amount="{{item.payable_cents}}"
+          catchtap="onPay"
+        >
+          去支付
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !orders.length}}"
+    icon="📋"
+    title="暂无相关订单"
+    desc="去首页挑选好物下单吧"
+  />
+
+  <view class="ss-loading-more" wx:if="{{!loading && orders.length && !hasMore}}">没有更多订单了</view>
+</view>

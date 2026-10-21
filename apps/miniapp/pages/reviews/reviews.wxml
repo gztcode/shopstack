@@ -1,0 +1,123 @@
+<view class="ss-page reviews">
+  <demo-banner />
+
+  <view class="tabs">
+    <view class="tabs__item {{tab === 'publish' ? 'tabs__item--active' : ''}}" data-tab="publish" bindtap="onTabTap">
+      发表评价
+    </view>
+    <view class="tabs__item {{tab === 'list' ? 'tabs__item--active' : ''}}" data-tab="list" bindtap="onTabTap">
+      评价列表
+    </view>
+  </view>
+
+  <!-- 发表评价 -->
+  <block wx:if="{{tab === 'publish'}}">
+    <loading wx:if="{{loading}}" type="list" rows="2" />
+
+    <view class="ss-card block" wx:if="{{!loading}}">
+      <text class="block__title">选择商品</text>
+      <view class="goods" wx:for="{{products}}" wx:key="product_id" data-id="{{item.product_id}}" bindtap="onProductTap">
+        <image class="goods__img" src="{{item.cover}}" mode="aspectFill" />
+        <view class="goods__body">
+          <text class="goods__title ss-ellipsis-2">{{item.title}}</text>
+          <text class="goods__spec">{{item.spec_text}}</text>
+        </view>
+        <view class="goods__radio {{selectedProductId === item.product_id ? 'goods__radio--on' : ''}}">
+          <text class="goods__check" wx:if="{{selectedProductId === item.product_id}}">✓</text>
+        </view>
+      </view>
+      <empty-state
+        wx:if="{{!products.length}}"
+        icon="📦"
+        title="还没有可评价的商品"
+        desc="下单收货后即可发表评价"
+        actionText="去下单"
+        bind:action="onGoShopping"
+      />
+    </view>
+
+    <view class="ss-card block" wx:if="{{selectedProduct}}">
+      <text class="block__title">商品规格</text>
+      <view class="skus">
+        <view
+          class="skus__item {{selectedSkuId === item.id ? 'skus__item--active' : ''}}"
+          wx:for="{{skus}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onSkuTap"
+        >
+          <text class="skus__text">{{item.spec_text}}</text>
+          <text class="skus__price">¥{{item.price_text}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="ss-card block" wx:if="{{selectedProduct}}">
+      <text class="block__title">综合评分</text>
+      <view class="stars">
+        <text
+          class="stars__item {{rating >= score ? 'stars__item--on' : ''}}"
+          wx:for="{{[1, 2, 3, 4, 5]}}"
+          wx:key="*this"
+          data-score="{{item}}"
+          bindtap="onRateTap"
+        >
+          ★
+        </text>
+        <text class="stars__text">{{rating}} 分</text>
+      </view>
+
+      <text class="block__title">评价内容</text>
+      <textarea
+        class="ss-textarea"
+        placeholder="说说商品的使用感受，帮助更多买家做选择"
+        maxlength="300"
+        value="{{content}}"
+        bindinput="onContentInput"
+      />
+
+      <text class="block__title">晒图（最多 3 张）</text>
+      <view class="images">
+        <view class="images__item" wx:for="{{images}}" wx:key="*this">
+          <image class="images__img" src="{{item}}" mode="aspectFill" />
+          <text class="images__remove" data-index="{{index}}" bindtap="onRemoveImage">✕</text>
+        </view>
+        <view class="images__add" wx:if="{{images.length < 3}}" bindtap="onAddImage">
+          <text class="images__plus">＋</text>
+          <text class="images__hint">添加图片</text>
+        </view>
+      </view>
+
+      <view class="ss-btn ss-btn--primary submit {{submitting ? 'ss-btn--disabled' : ''}}" bindtap="onSubmit">
+        {{submitting ? '发表中…' : '发表评价'}}
+      </view>
+    </view>
+  </block>
+
+  <!-- 评价列表 -->
+  <block wx:if="{{tab === 'list'}}">
+    <loading wx:if="{{reviewsLoading}}" type="list" rows="3" />
+
+    <view class="ss-card review" wx:for="{{reviews}}" wx:key="id" data-id="{{item.product_id}}" bindtap="onProductTap">
+      <view class="review__head">
+        <text class="review__nickname">{{item.nickname || '匿名用户'}}</text>
+        <text class="review__stars">{{item.rating}} 星</text>
+      </view>
+      <text class="review__content">{{item.content}}</text>
+      <view class="review__images" wx:if="{{item.images.length}}">
+        <image class="review__img" wx:for="{{item.images}}" wx:for-item="photo" wx:key="*this" src="{{photo}}" mode="aspectFill" />
+      </view>
+      <view class="review__foot">
+        <text class="review__product">{{item.product_title}}</text>
+        <text class="review__time">{{item.created_text}}</text>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!reviewsLoading && !reviews.length}}"
+      icon="💬"
+      title="还没有评价"
+      desc="发表第一条评价，分享你的使用体验"
+    />
+  </block>
+</view>

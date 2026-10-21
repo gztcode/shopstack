@@ -1,0 +1,109 @@
+.sign__hero {
+  margin: 24rpx 24rpx 0;
+  padding: 32rpx 24rpx;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-gradient-hero);
+  box-shadow: var(--ss-shadow-brand);
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  color: var(--ss-color-text-inverse);
+}
+
+.sign__hero-title {
+  font-size: var(--ss-font-size-3xl);
+  font-weight: var(--ss-font-weight-bold);
+}
+
+.sign__hero-sub {
+  font-size: var(--ss-font-size-sm);
+  opacity: 0.85;
+}
+
+.sign__stats {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.sign__stat {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: var(--ss-radius-md);
+  padding: 16rpx 12rpx;
+  text-align: center;
+}
+
+.sign__stat-value {
+  display: block;
+  font-size: var(--ss-font-size-2xl);
+  font-weight: var(--ss-font-weight-bold);
+}
+
+.sign__stat-label {
+  display: block;
+  margin-top: 4rpx;
+  font-size: var(--ss-font-size-xs);
+  opacity: 0.8;
+}
+
+.sign__btn {
+  margin-top: 24rpx;
+  color: var(--ss-color-text-inverse);
+}
+
+.sign__btn--done {
+  background: rgba(255, 255, 255, 0.24);
+  color: var(--ss-color-text-inverse);
+}
+
+.sign__records {
+  margin: 0 24rpx;
+  padding: 8rpx 24rpx;
+}
+
+.sign__record {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.sign__record:last-child {
+  border-bottom: none;
+}
+
+.sign__record-date {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.sign__record-points {
+  font-size: var(--ss-font-size-sm);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-success);
+}
+
+.sign__links {
+  margin: 24rpx 24rpx 0;
+  padding: 0 24rpx;
+}
+
+.sign__link-title {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.sign__link-desc {
+  display: block;
+  margin-top: 4rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.sign__arrow {
+  font-size: var(--ss-font-size-lg);
+  color: var(--ss-color-text-placeholder);
+}

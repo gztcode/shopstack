@@ -1,0 +1,256 @@
+syntax = "proto3";
+
+package shopstack.logistics.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/logistics/v1;logisticsv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+message Shipment {
+  int64 id = 1;
+  int64 order_id = 2;
+  string order_no = 3;
+  string tracking_no = 4;   // 运单号
+  string company = 5;       // 快递公司
+  string company_code = 6;
+  shopstack.common.v1.ShipmentStatus status = 7;
+  string receiver = 8;
+  string phone = 9;
+  string address = 10;
+  int64 freight_cents = 11;
+  int32 item_count = 12;
+  google.protobuf.Timestamp shipped_at = 13;
+  google.protobuf.Timestamp delivered_at = 14;
+  google.protobuf.Timestamp created_at = 15;
+  string remark = 16;
+}
+
+message ShipmentTrack {
+  int64 id = 1;
+  int64 shipment_id = 2;
+  string tracking_no = 3;
+  string location = 4;
+  string description = 5;
+  google.protobuf.Timestamp occurred_at = 6;
+  int32 sort = 7;
+}
+
+message LogisticTemplate {
+  int64 id = 1;
+  string name = 2;
+  string company = 3;
+  string company_code = 4;
+  int64 freight_cents = 5;
+  int64 free_freight_amount_cents = 6;
+  bool enabled = 7;
+  int32 sort = 8;
+  string regions = 9; // 适用地区，逗号分隔
+}
+
+message GetShipmentRequest {
+  int64 order_id = 1;
+  int64 user_id = 2;
+}
+
+message CreateShipmentRequest {
+  int64 order_id = 1;
+  string company = 2;
+  string company_code = 3;
+  string tracking_no = 4;
+  int64 freight_cents = 5;
+  string remark = 6;
+}
+
+message ListShipmentsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  string keyword = 3;
+  int64 order_id = 4;
+}
+
+message ListShipmentsResponse {
+  repeated Shipment shipments = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message ListShipmentTracksRequest {
+  int64 shipment_id = 1;
+  int64 order_id = 2;
+}
+
+message ListShipmentTracksResponse {
+  repeated ShipmentTrack tracks = 1;
+  Shipment shipment = 2;
+}
+
+message ListTemplatesRequest {}
+
+message ListTemplatesResponse {
+  repeated LogisticTemplate templates = 1;
+}
+
+message SaveTemplateRequest {
+  int64 id = 1;
+  string name = 2;
+  string company = 3;
+  string company_code = 4;
+  int64 freight_cents = 5;
+  int64 free_freight_amount_cents = 6;
+  bool enabled = 7;
+  int32 sort = 8;
+  string regions = 9;
+}
+
+message DeleteTemplateRequest {
+  int64 id = 1;
+}
+
+message UpdateShipmentStatusRequest {
+  int64 id = 1;
+  int32 status = 2;
+  string location = 3;
+  string description = 4;
+}
+
+service LogisticsService {
+  rpc GetShipment(GetShipmentRequest) returns (ListShipmentTracksResponse) {
+    option (google.api.http) = { get: "/api/v1/logistics/order/{order_id}" };
+  }
+  rpc CreateShipment(CreateShipmentRequest) returns (Shipment) {
+    option (google.api.http) = { post: "/api/v1/admin/shipments" body: "*" };
+  }
+  rpc ListShipments(ListShipmentsRequest) returns (ListShipmentsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/shipments" };
+  }
+  rpc ListTracks(ListShipmentTracksRequest) returns (ListShipmentTracksResponse) {
+    option (google.api.http) = { get: "/api/v1/logistics/tracks" };
+  }
+  rpc UpdateStatus(UpdateShipmentStatusRequest) returns (Shipment) {
+    option (google.api.http) = { put: "/api/v1/admin/shipments/{id}/status" body: "*" };
+  }
+  rpc ListTemplates(ListTemplatesRequest) returns (ListTemplatesResponse) {
+    option (google.api.http) = { get: "/api/v1/logistics/templates" };
+  }
+  rpc SaveTemplate(SaveTemplateRequest) returns (LogisticTemplate) {
+    option (google.api.http) = { post: "/api/v1/admin/logistics/templates" body: "*" };
+  }
+  rpc DeleteTemplate(DeleteTemplateRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/logistics/templates/{id}" };
+  }
+  rpc ListLogisticsCompanies(ListLogisticsCompaniesRequest) returns (ListLogisticsCompaniesResponse) {
+    option (google.api.http) = { get: "/api/v1/logistics/companies" };
+  }
+  rpc CalculateFreight(CalculateFreightRequest) returns (CalculateFreightResponse) {
+    option (google.api.http) = { post: "/api/v1/logistics/freight" body: "*" };
+  }
+  rpc ListDeliveryRanges(ListDeliveryRangesRequest) returns (ListDeliveryRangesResponse) {
+    option (google.api.http) = { get: "/api/v1/logistics/ranges" };
+  }
+  rpc GetShipmentByTrackingNo(GetShipmentByTrackingNoRequest) returns (Shipment) {
+    option (google.api.http) = { get: "/api/v1/logistics/tracking/{tracking_no}" };
+  }
+  rpc SaveLogisticsCompany(SaveLogisticsCompanyRequest) returns (LogisticsCompany) {
+    option (google.api.http) = { post: "/api/v1/admin/logistics/companies" body: "*" };
+  }
+  rpc DeleteLogisticsCompany(DeleteLogisticsCompanyRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/logistics/companies/{id}" };
+  }
+  rpc SaveDeliveryRange(SaveDeliveryRangeRequest) returns (DeliveryRange) {
+    option (google.api.http) = { post: "/api/v1/admin/logistics/ranges" body: "*" };
+  }
+  rpc ListReturnShipments(ListShipmentsRequest) returns (ListShipmentsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/return-shipments" };
+  }
+}
+
+// EXTRA_MARKER: 由 scripts/extend-proto.py 追加的消息定义
+
+// ---------------------------------------------------------------------------
+// 快递公司 / 运费试算 / 配送范围
+// ---------------------------------------------------------------------------
+
+message LogisticsCompany {
+  int64 id = 1;
+  string name = 2;
+  string code = 3;
+  string logo = 4;
+  string phone = 5;
+  bool enabled = 6;
+  int32 sort = 7;
+  bool supports_cod = 8; // 是否支持货到付款
+}
+
+message ListLogisticsCompaniesRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+}
+
+message ListLogisticsCompaniesResponse {
+  repeated LogisticsCompany companies = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveLogisticsCompanyRequest {
+  int64 id = 1;
+  string name = 2;
+  string code = 3;
+  string logo = 4;
+  string phone = 5;
+  bool enabled = 6;
+  int32 sort = 7;
+  bool supports_cod = 8;
+}
+
+message DeleteLogisticsCompanyRequest {
+  int64 id = 1;
+}
+
+message CalculateFreightRequest {
+  int64 template_id = 1;
+  int64 amount_cents = 2;
+  string region = 3;
+  int32 quantity = 4;
+}
+
+message CalculateFreightResponse {
+  int64 freight_cents = 1;
+  int64 free_freight_amount_cents = 2;
+  bool free = 3;
+  string template_name = 4;
+  string remark = 5;
+}
+
+message DeliveryRange {
+  int64 id = 1;
+  int64 template_id = 2;
+  string template_name = 3;
+  string regions = 4;
+  int64 freight_cents = 5;
+  int64 free_freight_amount_cents = 6;
+  bool enabled = 7;
+}
+
+message ListDeliveryRangesRequest {
+  int64 template_id = 1;
+  shopstack.common.v1.PageRequest page = 2;
+}
+
+message ListDeliveryRangesResponse {
+  repeated DeliveryRange ranges = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveDeliveryRangeRequest {
+  int64 id = 1;
+  int64 template_id = 2;
+  string regions = 3;
+  int64 freight_cents = 4;
+  int64 free_freight_amount_cents = 5;
+  bool enabled = 6;
+}
+
+message GetShipmentByTrackingNoRequest {
+  string tracking_no = 1;
+}

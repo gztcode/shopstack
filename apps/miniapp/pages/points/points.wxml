@@ -1,0 +1,52 @@
+<view class="ss-page points">
+  <demo-banner />
+
+  <view class="summary">
+    <text class="summary__label">当前积分</text>
+    <text class="summary__value">{{currentPoints}}</text>
+    <view class="summary__row">
+      <view class="summary__cell">
+        <text class="summary__num">+{{earned}}</text>
+        <text class="summary__text">累计获得</text>
+      </view>
+      <view class="summary__split"></view>
+      <view class="summary__cell">
+        <text class="summary__num summary__num--minus">-{{consumed}}</text>
+        <text class="summary__text">累计消费</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="ss-section-title">
+    <text>积分变动记录</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <view class="ss-card log" wx:for="{{logs}}" wx:key="id">
+    <view class="log__body">
+      <text class="log__title">{{item.title}}</text>
+      <view class="log__meta">
+        <text class="ss-tag ss-tag--muted">{{item.type_text}}</text>
+        <text class="log__time">{{item.created_text}}</text>
+      </view>
+      <text class="log__order" wx:if="{{item.order_no}}">关联订单 {{item.order_no}}</text>
+    </view>
+    <view class="log__right">
+      <text class="log__change {{item.change > 0 ? 'log__change--plus' : ''}}">{{item.change_text}}</text>
+      <text class="log__balance">余额 {{item.balance}}</text>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !logs.length}}"
+    icon="⭐"
+    title="暂无积分记录"
+    desc="下单、评价都可获得积分"
+    actionText="去逛逛"
+    bind:action="onGoShopping"
+  />
+
+  <view class="ss-loading-more" wx:if="{{loadingMore}}">加载中…</view>
+  <view class="ss-loading-more" wx:if="{{!loading && logs.length && !hasMore}}">没有更多记录了</view>
+</view>

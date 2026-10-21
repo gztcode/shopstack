@@ -1,0 +1,250 @@
+syntax = "proto3";
+
+package shopstack.payment.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/payment/v1;paymentv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+message Payment {
+  int64 id = 1;
+  string payment_no = 2;
+  int64 order_id = 3;
+  string order_no = 4;
+  int64 user_id = 5;
+  int64 amount_cents = 6;
+  int64 refunded_cents = 7;
+  shopstack.common.v1.PaymentStatus status = 8;
+  shopstack.common.v1.PaymentChannel channel = 9;
+  string transaction_id = 10;  // 第三方交易号
+  string prepay_id = 11;       // 唤起支付所需参数
+  map<string, string> pay_params = 12;
+  string fail_reason = 13;
+  google.protobuf.Timestamp paid_at = 14;
+  google.protobuf.Timestamp created_at = 15;
+  google.protobuf.Timestamp updated_at = 16;
+}
+
+message PaymentRefund {
+  int64 id = 1;
+  string refund_no = 2;
+  int64 payment_id = 3;
+  int64 order_id = 4;
+  int64 amount_cents = 5;
+  int32 status = 6;
+  string reason = 7;
+  string transaction_id = 8;
+  google.protobuf.Timestamp created_at = 9;
+}
+
+message CreatePaymentRequest {
+  int64 order_id = 1;
+  int64 user_id = 2;
+  int32 channel = 3;    // 1 微信 2 支付宝 3 余额
+  string return_url = 4;
+}
+
+message QueryPaymentRequest {
+  int64 payment_id = 1;
+  int64 order_id = 2;
+  int64 user_id = 3;
+}
+
+message PaymentCallbackRequest {
+  string payment_no = 1;
+  string transaction_id = 2;
+  string signature = 3;
+  string raw_body = 4;
+  int32 status = 5;
+}
+
+message CreateRefundRequest {
+  int64 payment_id = 1;
+  int64 order_id = 2;
+  int64 amount_cents = 3;
+  string reason = 4;
+}
+
+message ListPaymentsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  int32 channel = 3;
+  string keyword = 4;
+  int64 user_id = 5;
+  int64 start_time = 6;
+  int64 end_time = 7;
+}
+
+message ListPaymentsResponse {
+  repeated Payment payments = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+  int64 total_amount_cents = 3;
+  int64 total_refunded_cents = 4;
+}
+
+message PaymentSummaryRequest {
+  int32 days = 1;
+}
+
+message PaymentSummaryResponse {
+  int64 today_count = 1;
+  int64 today_amount_cents = 2;
+  int64 total_count = 3;
+  int64 total_amount_cents = 4;
+  int64 refunded_amount_cents = 5;
+  int64 success_rate = 6; // 百分比整数
+  repeated PaymentTrendPoint trend = 7;
+}
+
+message PaymentTrendPoint {
+  string date = 1;
+  int64 count = 2;
+  int64 amount_cents = 3;
+}
+
+service PaymentService {
+  rpc CreatePayment(CreatePaymentRequest) returns (Payment) {
+    option (google.api.http) = { post: "/api/v1/payments" body: "*" };
+  }
+  rpc QueryPayment(QueryPaymentRequest) returns (Payment) {
+    option (google.api.http) = { get: "/api/v1/payments/query" };
+  }
+  rpc Notify(PaymentCallbackRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { post: "/api/v1/payments/notify" body: "*" };
+  }
+  rpc CreateRefund(CreateRefundRequest) returns (PaymentRefund) {
+    option (google.api.http) = { post: "/api/v1/payments/refund" body: "*" };
+  }
+  rpc ListPayments(ListPaymentsRequest) returns (ListPaymentsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/payments" };
+  }
+  rpc Summary(PaymentSummaryRequest) returns (PaymentSummaryResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/payments/summary" };
+  }
+  rpc ListPayChannels(ListPayChannelsRequest) returns (ListPayChannelsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/pay-channels" };
+  }
+  rpc SavePayChannel(SavePayChannelRequest) returns (PayChannel) {
+    option (google.api.http) = { post: "/api/v1/admin/pay-channels" body: "*" };
+  }
+  rpc DeletePayChannel(DeletePayChannelRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/pay-channels/{id}" };
+  }
+  rpc CreateRecharge(CreateRechargeRequest) returns (RechargeOrder) {
+    option (google.api.http) = { post: "/api/v1/payments/recharge" body: "*" };
+  }
+  rpc ListRecharges(ListRechargesRequest) returns (ListRechargesResponse) {
+    option (google.api.http) = { get: "/api/v1/payments/recharges" };
+  }
+  rpc ListBalanceLogs(ListBalanceLogsRequest) returns (ListBalanceLogsResponse) {
+    option (google.api.http) = { get: "/api/v1/payments/balance-logs" };
+  }
+  rpc GetRechargeConfig(GetRechargeConfigRequest) returns (RechargeConfig) {
+    option (google.api.http) = { get: "/api/v1/payments/recharge-config" };
+  }
+}
+
+// EXTRA_MARKER: 由 scripts/extend-proto.py 追加的消息定义
+
+// ---------------------------------------------------------------------------
+// 支付渠道 / 余额充值 / 余额流水
+// ---------------------------------------------------------------------------
+
+message PayChannel {
+  int64 id = 1;
+  string name = 2;
+  int32 channel = 3; // 对应 common.PaymentChannel
+  string code = 4;
+  string icon = 5;
+  bool enabled = 6;
+  int32 sort = 7;
+  string config = 8; // JSON 配置
+  google.protobuf.Timestamp created_at = 9;
+}
+
+message ListPayChannelsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 channel = 2;
+}
+
+message ListPayChannelsResponse {
+  repeated PayChannel channels = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SavePayChannelRequest {
+  int64 id = 1;
+  string name = 2;
+  int32 channel = 3;
+  string code = 4;
+  string icon = 5;
+  bool enabled = 6;
+  int32 sort = 7;
+  string config = 8;
+}
+
+message DeletePayChannelRequest {
+  int64 id = 1;
+}
+
+message RechargeOrder {
+  int64 id = 1;
+  string recharge_no = 2;
+  int64 user_id = 3;
+  int64 amount_cents = 4;
+  int64 bonus_cents = 5; // 赠送金额
+  int32 status = 6;      // 0 待支付 1 已支付 2 已取消
+  int32 channel = 7;
+  string payment_no = 8;
+  google.protobuf.Timestamp paid_at = 9;
+  google.protobuf.Timestamp created_at = 10;
+}
+
+message CreateRechargeRequest {
+  int64 amount_cents = 1;
+  int32 channel = 2;
+}
+
+message ListRechargesRequest {
+  int64 user_id = 1;
+  shopstack.common.v1.PageRequest page = 2;
+  int32 status = 3;
+}
+
+message ListRechargesResponse {
+  repeated RechargeOrder recharges = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message BalanceLog {
+  int64 id = 1;
+  int64 user_id = 2;
+  int64 change = 3;
+  int64 balance = 4;
+  string title = 5;
+  string biz_type = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message ListBalanceLogsRequest {
+  int64 user_id = 1;
+  shopstack.common.v1.PageRequest page = 2;
+}
+
+message ListBalanceLogsResponse {
+  repeated BalanceLog logs = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+  int64 current_balance = 3;
+}
+
+message GetRechargeConfigRequest {}
+
+message RechargeConfig {
+  int64 min_amount_cents = 1;
+  int64 max_amount_cents = 2;
+  repeated int64 preset_amounts = 3;
+  int64 register_bonus_cents = 4;
+  string first_recharge_bonus_desc = 5;
+}

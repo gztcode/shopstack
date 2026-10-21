@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "物流轨迹",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner",
+    "loading": "../../components/loading/loading",
+    "empty-state": "../../components/empty-state/empty-state"
+  }
+}

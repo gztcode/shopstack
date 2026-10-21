@@ -1,0 +1,2 @@
+<import src="../../templates/promotion-list.wxml" />
+<template is="promotion-list" data="{{view}}" />

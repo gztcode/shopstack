@@ -1,0 +1,34 @@
+<view class="ss-page address-page">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <view class="ss-card addr" wx:for="{{addresses}}" wx:key="id">
+    <view class="addr__head">
+      <text class="addr__name">{{item.receiver}}</text>
+      <text class="addr__phone">{{item.phone}}</text>
+      <text class="ss-tag" wx:if="{{item.is_default}}">默认</text>
+      <text class="ss-tag ss-tag--muted" wx:else>{{item.tag}}</text>
+    </view>
+    <text class="addr__detail">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</text>
+    <text class="addr__postal" wx:if="{{item.postal_code}}">邮编 {{item.postal_code}}</text>
+    <view class="addr__ops">
+      <text class="addr__op" wx:if="{{!item.is_default}}" data-id="{{item.id}}" bindtap="onSetDefault">设为默认</text>
+      <text class="addr__op" data-id="{{item.id}}" bindtap="onEdit">编辑</text>
+      <text class="addr__op addr__op--danger" data-id="{{item.id}}" bindtap="onDelete">删除</text>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !addresses.length}}"
+    icon="📮"
+    title="还没有收货地址"
+    desc="新增地址后即可下单"
+    actionText="新增地址"
+    bind:action="onAdd"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading}}">
+    <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onAdd">新增收货地址</view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "ShopStack 商城",
+  "usingComponents": {
+    "demo-banner": "../../components/demo-banner/demo-banner",
+    "product-card": "../../components/product-card/product-card",
+    "loading": "../../components/loading/loading"
+  }
+}

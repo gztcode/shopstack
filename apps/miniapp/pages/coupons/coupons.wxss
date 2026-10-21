@@ -1,0 +1,81 @@
+.tabs {
+  display: flex;
+  background: var(--ss-color-bg-card);
+  box-shadow: var(--ss-shadow-xs);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tabs__item {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+  position: relative;
+}
+
+.tabs__item--active {
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.tabs__item--active::after {
+  content: '';
+  position: absolute;
+  bottom: 12rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  border-radius: var(--ss-radius-pill);
+  background: var(--ss-color-brand-600);
+}
+
+.list {
+  padding: 24rpx 24rpx 0;
+}
+
+/* 领券中心 ------------------------------------------------------------ */
+.claim {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-card);
+  box-shadow: var(--ss-shadow-xs);
+}
+
+.claim__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.claim__name {
+  font-size: var(--ss-font-size-base);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.claim__code {
+  margin-top: 6rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.claim__count {
+  margin-top: 4rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}
+
+.claim__btn {
+  flex-shrink: 0;
+  width: 160rpx;
+}

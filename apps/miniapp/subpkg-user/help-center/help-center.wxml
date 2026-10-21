@@ -1,0 +1,56 @@
+<view class="ss-page help">
+  <demo-banner />
+
+  <view class="help__search">
+    <input
+      class="help__search-input"
+      placeholder="搜索帮助内容，如「运费」「发票」"
+      placeholder-class="ss-placeholder"
+      value="{{keyword}}"
+      bindinput="onInput"
+    />
+  </view>
+
+  <scroll-view class="help__cats" scroll-x="true" wx:if="{{categories.length}}">
+    <view
+      class="help__cat {{activeCategory === item.id ? 'help__cat--active' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onCategoryTap"
+    >
+      {{item.name}}
+    </view>
+  </scroll-view>
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <view class="help__list" wx:if="{{!loading && articles.length}}">
+    <view
+      class="ss-card help__item"
+      wx:for="{{articles}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onArticleTap"
+    >
+      <view class="help__item-head">
+        <text class="help__item-title ss-ellipsis">{{item.title}}</text>
+        <text class="ss-tag ss-tag--danger" wx:if="{{item.view_count > 100}}">热门</text>
+      </view>
+      <text class="help__item-summary ss-ellipsis-2">{{item.summary}}</text>
+      <view class="help__item-foot">
+        <text class="ss-tag ss-tag--muted">{{item.category_name}}</text>
+        <text class="help__item-time">更新于 {{item.updated_text}}</text>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !articles.length}}"
+    icon="❓"
+    title="没有找到相关内容"
+    desc="换个关键词试试，或者直接给我们反馈问题"
+    actionText="提交反馈"
+    bind:action="onGoFeedback"
+  />
+</view>

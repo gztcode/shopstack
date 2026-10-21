@@ -1,0 +1,349 @@
+syntax = "proto3";
+
+package shopstack.inventory.v1;
+
+option go_package = "github.com/shopstack/platform/gen/go/inventory/v1;inventoryv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "shopstack/common/v1/common.proto";
+
+message Inventory {
+  int64 id = 1;
+  int64 sku_id = 2;
+  int64 product_id = 3;
+  string sku_code = 4;
+  string spec_text = 5;
+  int32 total_stock = 6;
+  int32 available_stock = 7;
+  int32 locked_stock = 8;
+  int32 sold_stock = 9;
+  int32 safety_stock = 10;
+  string warehouse = 11;
+  google.protobuf.Timestamp updated_at = 12;
+}
+
+message InventoryLog {
+  int64 id = 1;
+  int64 sku_id = 2;
+  int64 product_id = 3;
+  string sku_code = 4;
+  int32 change_type = 5;  // 1 入库 2 预扣 3 释放 4 扣减 5 调整 6 退货入库
+  int32 quantity = 6;
+  int32 before_stock = 7;
+  int32 after_stock = 8;
+  string biz_type = 9;
+  string biz_id = 10;
+  string operator = 11;
+  string remark = 12;
+  google.protobuf.Timestamp created_at = 13;
+}
+
+message GetStockRequest {
+  int64 sku_id = 1;
+}
+
+message BatchGetStockRequest {
+  repeated int64 sku_ids = 1;
+}
+
+message BatchGetStockResponse {
+  repeated Inventory inventories = 1;
+}
+
+message ReserveStockRequest {
+  int64 order_id = 1;
+  repeated StockItem items = 2;
+  string biz_type = 3;
+}
+
+message StockItem {
+  int64 sku_id = 1;
+  int32 quantity = 2;
+}
+
+message ReleaseStockRequest {
+  int64 order_id = 1;
+  repeated StockItem items = 2;
+  string reason = 3;
+}
+
+message DeductStockRequest {
+  int64 order_id = 1;
+  repeated StockItem items = 2;
+}
+
+message AdjustStockRequest {
+  int64 sku_id = 1;
+  int32 quantity = 2;   // 目标库存
+  string reason = 3;
+  int32 safety_stock = 4;
+  string warehouse = 5;
+}
+
+message ListInventoryLogsRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int64 sku_id = 2;
+  int64 product_id = 3;
+  string biz_id = 4;
+  int32 change_type = 5;
+}
+
+message ListInventoryLogsResponse {
+  repeated InventoryLog logs = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message ListInventoriesRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+  int64 product_id = 3;
+  int32 low_stock_only = 4;
+}
+
+message ListInventoriesResponse {
+  repeated Inventory inventories = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message StockWarningRequest {
+  int32 threshold = 1;
+}
+
+message StockWarningResponse {
+  repeated Inventory inventories = 1;
+  int32 count = 2;
+}
+
+service InventoryService {
+  rpc GetStock(GetStockRequest) returns (Inventory) {
+    option (google.api.http) = { get: "/api/v1/inventory/{sku_id}" };
+  }
+  rpc BatchGetStock(BatchGetStockRequest) returns (BatchGetStockResponse) {
+    option (google.api.http) = { post: "/api/v1/inventory/batch" body: "*" };
+  }
+  rpc ReserveStock(ReserveStockRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { post: "/api/v1/inventory/reserve" body: "*" };
+  }
+  rpc ReleaseStock(ReleaseStockRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { post: "/api/v1/inventory/release" body: "*" };
+  }
+  rpc DeductStock(DeductStockRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { post: "/api/v1/inventory/deduct" body: "*" };
+  }
+  rpc AdjustStock(AdjustStockRequest) returns (Inventory) {
+    option (google.api.http) = { put: "/api/v1/admin/inventory/adjust" body: "*" };
+  }
+  rpc ListInventories(ListInventoriesRequest) returns (ListInventoriesResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/inventory" };
+  }
+  rpc ListLogs(ListInventoryLogsRequest) returns (ListInventoryLogsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/inventory/logs" };
+  }
+  rpc StockWarning(StockWarningRequest) returns (StockWarningResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/inventory/warning" };
+  }
+  rpc ListWarehouses(ListWarehousesRequest) returns (ListWarehousesResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/warehouses" };
+  }
+  rpc SaveWarehouse(SaveWarehouseRequest) returns (Warehouse) {
+    option (google.api.http) = { post: "/api/v1/admin/warehouses" body: "*" };
+  }
+  rpc DeleteWarehouse(DeleteWarehouseRequest) returns (shopstack.common.v1.OperationResult) {
+    option (google.api.http) = { delete: "/api/v1/admin/warehouses/{id}" };
+  }
+  rpc ListInboundOrders(ListInboundOrdersRequest) returns (ListInboundOrdersResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/inbound-orders" };
+  }
+  rpc CreateInboundOrder(CreateInboundOrderRequest) returns (InboundOrder) {
+    option (google.api.http) = { post: "/api/v1/admin/inbound-orders" body: "*" };
+  }
+  rpc ListOutboundOrders(ListOutboundOrdersRequest) returns (ListOutboundOrdersResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/outbound-orders" };
+  }
+  rpc CreateOutboundOrder(CreateOutboundOrderRequest) returns (OutboundOrder) {
+    option (google.api.http) = { post: "/api/v1/admin/outbound-orders" body: "*" };
+  }
+  rpc ListStockChecks(ListStockChecksRequest) returns (ListStockChecksResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/stock-checks" };
+  }
+  rpc CreateStockCheck(CreateStockCheckRequest) returns (StockCheck) {
+    option (google.api.http) = { post: "/api/v1/admin/stock-checks" body: "*" };
+  }
+  rpc GetStockCheck(GetStockCheckRequest) returns (StockCheckDetail) {
+    option (google.api.http) = { get: "/api/v1/admin/stock-checks/{id}" };
+  }
+  rpc ListStockCheckItems(GetStockCheckRequest) returns (ListStockCheckItemsResponse) {
+    option (google.api.http) = { get: "/api/v1/admin/stock-checks/{id}/items" };
+  }
+}
+
+// EXTRA_MARKER: 由 scripts/extend-proto.py 追加的消息定义
+
+// ---------------------------------------------------------------------------
+// 仓库 / 入库 / 出库 / 盘点
+// ---------------------------------------------------------------------------
+
+message Warehouse {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  string address = 4;
+  string contact = 5;
+  string phone = 6;
+  bool enabled = 7;
+  int32 sort = 8;
+  google.protobuf.Timestamp created_at = 9;
+}
+
+message ListWarehousesRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  string keyword = 2;
+}
+
+message ListWarehousesResponse {
+  repeated Warehouse warehouses = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message SaveWarehouseRequest {
+  int64 id = 1;
+  string code = 2;
+  string name = 3;
+  string address = 4;
+  string contact = 5;
+  string phone = 6;
+  bool enabled = 7;
+  int32 sort = 8;
+}
+
+message DeleteWarehouseRequest {
+  int64 id = 1;
+}
+
+message StockMoveItem {
+  int64 sku_id = 1;
+  string sku_code = 2;
+  string spec_text = 3;
+  int32 quantity = 4;
+}
+
+message InboundOrder {
+  int64 id = 1;
+  string inbound_no = 2;
+  int64 warehouse_id = 3;
+  string warehouse_name = 4;
+  string supplier = 5;
+  int32 status = 6; // 0 待入库 1 已入库 2 已取消
+  int32 total_quantity = 7;
+  string remark = 8;
+  string operator = 9;
+  repeated StockMoveItem items = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+message ListInboundOrdersRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  string keyword = 3;
+}
+
+message ListInboundOrdersResponse {
+  repeated InboundOrder inbound_orders = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message CreateInboundOrderRequest {
+  int64 warehouse_id = 1;
+  string supplier = 2;
+  string remark = 3;
+  repeated StockMoveItem items = 4;
+}
+
+message OutboundOrder {
+  int64 id = 1;
+  string outbound_no = 2;
+  int64 warehouse_id = 3;
+  string warehouse_name = 4;
+  int64 order_id = 5;
+  string order_no = 6;
+  int32 status = 7; // 0 待出库 1 已出库 2 已取消
+  int32 total_quantity = 8;
+  string remark = 9;
+  string operator = 10;
+  repeated StockMoveItem items = 11;
+  google.protobuf.Timestamp created_at = 12;
+}
+
+message ListOutboundOrdersRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  string keyword = 3;
+}
+
+message ListOutboundOrdersResponse {
+  repeated OutboundOrder outbound_orders = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message CreateOutboundOrderRequest {
+  int64 warehouse_id = 1;
+  int64 order_id = 2;
+  string remark = 3;
+  repeated StockMoveItem items = 4;
+}
+
+message StockCheck {
+  int64 id = 1;
+  string check_no = 2;
+  int64 warehouse_id = 3;
+  string warehouse_name = 4;
+  int32 status = 5; // 0 盘点中 1 已完成 2 已取消
+  int32 total_count = 6;
+  int32 diff_count = 7;
+  string remark = 8;
+  string operator = 9;
+  google.protobuf.Timestamp created_at = 10;
+}
+
+message ListStockChecksRequest {
+  shopstack.common.v1.PageRequest page = 1;
+  int32 status = 2;
+  string keyword = 3;
+}
+
+message ListStockChecksResponse {
+  repeated StockCheck stock_checks = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}
+
+message CreateStockCheckRequest {
+  int64 warehouse_id = 1;
+  string remark = 2;
+  repeated StockMoveItem items = 3;
+}
+
+message GetStockCheckRequest {
+  int64 id = 1;
+}
+
+message StockCheckItem {
+  int64 id = 1;
+  int64 stock_check_id = 2;
+  int64 sku_id = 3;
+  string sku_code = 4;
+  string spec_text = 5;
+  int32 book_quantity = 6; // 账面数量
+  int32 actual_quantity = 7; // 实盘数量
+  int32 diff_quantity = 8;
+}
+
+message StockCheckDetail {
+  StockCheck stock_check = 1;
+  repeated StockCheckItem items = 2;
+}
+
+message ListStockCheckItemsResponse {
+  repeated StockCheckItem items = 1;
+  shopstack.common.v1.PageMeta meta = 2;
+}

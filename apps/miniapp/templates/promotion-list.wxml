@@ -1,0 +1,49 @@
+<template name="promotion-list">
+  <view class="ss-page promo">
+    <demo-banner />
+
+    <view class="promo__head">
+      <text class="promo__title">{{view.title}}</text>
+      <text class="promo__desc" wx:if="{{view.desc}}">{{view.desc}}</text>
+    </view>
+
+    <loading wx:if="{{view.loading}}" type="card" rows="2" />
+
+    <view class="promo__list" wx:if="{{!view.loading && view.promotions.length}}">
+      <view class="promo__card" wx:for="{{view.promotions}}" wx:key="id">
+        <image class="promo__banner" src="{{item.banner_image}}" mode="aspectFill" />
+        <view class="promo__body">
+          <view class="promo__title-row">
+            <text class="promo__name ss-ellipsis">{{item.name}}</text>
+            <text class="ss-tag ss-tag--accent">{{item.status_text}}</text>
+          </view>
+          <text class="promo__desc-text">{{item.description}}</text>
+          <view class="promo__meta">
+            <text class="ss-tag">{{item.discount_text}}</text>
+            <text class="ss-tag ss-tag--muted">门槛 ¥{{item.min_amount_text}}</text>
+            <text class="ss-tag ss-tag--muted">{{item.limit_text}}</text>
+          </view>
+          <text class="promo__time">{{item.time_text}}</text>
+          <view class="promo__foot">
+            <text class="promo__sold">已参与 {{item.sold_count}} 次</text>
+            <view class="promo__actions">
+              <view class="ss-btn ss-btn--line ss-btn--sm" data-id="{{item.id}}" bindtap="onSessionTap">查看场次</view>
+              <view class="ss-btn ss-btn--accent ss-btn--sm" data-product-id="{{item.product_id}}" bindtap="onProductTap">看商品</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!view.loading && !view.promotions.length}}"
+      icon="🎁"
+      title="暂时没有进行中的活动"
+      desc="活动开启后会第一时间通知你，先去首页逛逛"
+      actionText="去首页看看"
+      bind:action="onGoHome"
+    />
+
+    <view class="ss-loading-more" wx:if="{{!view.loading && view.promotions.length && !view.hasMore}}">没有更多活动了</view>
+  </view>
+</template>

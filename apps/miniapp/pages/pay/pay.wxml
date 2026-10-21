@@ -1,0 +1,46 @@
+<view class="ss-page pay">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <block wx:if="{{!loading}}">
+    <view class="amount">
+      <text class="amount__label">支付金额</text>
+      <text class="amount__value">¥{{amountText}}</text>
+      <text class="amount__order" wx:if="{{orderNo}}">订单号 {{orderNo}}</text>
+    </view>
+
+    <view class="ss-card block">
+      <text class="block__title">选择支付方式</text>
+      <view
+        class="channel {{channelIndex === index ? 'channel--active' : ''}}"
+        wx:for="{{channels}}"
+        wx:key="value"
+        data-index="{{index}}"
+        bindtap="onChannelTap"
+      >
+        <text class="channel__icon">{{item.value === 1 ? '💚' : '💰'}}</text>
+        <view class="channel__body">
+          <text class="channel__label">{{item.label}}</text>
+          <text class="channel__desc">{{item.desc}}</text>
+        </view>
+        <view class="channel__radio {{channelIndex === index ? 'channel__radio--on' : ''}}">
+          <text class="channel__check" wx:if="{{channelIndex === index}}">✓</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="tips">
+      <text class="tips__title">支付说明</text>
+      <text class="tips__item">· 演示环境下未接入真实商户号，将自动降级为「模拟支付」。</text>
+      <text class="tips__item">· 支付成功后可在订单详情中查看状态与物流轨迹。</text>
+    </view>
+  </block>
+
+  <view class="ss-action-bar" wx:if="{{!loading}}">
+    <view class="ss-btn ss-btn--line bar__btn" bindtap="onLater">稍后支付</view>
+    <view class="ss-btn ss-btn--primary bar__btn {{paying ? 'ss-btn--disabled' : ''}}" bindtap="onPay">
+      {{paying ? '支付中…' : '立即支付'}}
+    </view>
+  </view>
+</view>

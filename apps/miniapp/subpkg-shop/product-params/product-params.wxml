@@ -1,0 +1,26 @@
+<view class="ss-page params">
+  <demo-banner />
+
+  <view class="params__head">
+    <text class="params__title">商品参数</text>
+    <text class="params__subtitle" wx:if="{{title}}">{{title}}</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <view class="ss-card params__card" wx:if="{{!loading && params.length}}">
+    <view class="params__row" wx:for="{{params}}" wx:key="id">
+      <text class="params__name">{{item.name}}</text>
+      <text class="params__value ss-flex-1">{{item.value}}</text>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !params.length}}"
+    icon="📋"
+    title="暂无参数信息"
+    desc="该商品还没有录入规格参数，可以先看看商品详情"
+    actionText="查看商品详情"
+    bind:action="onGoDetail"
+  />
+</view>

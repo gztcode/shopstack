@@ -1,0 +1,84 @@
+<view class="ss-page logistics">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <!-- 选择订单 -->
+  <block wx:if="{{!loading && !orderId}}">
+    <view class="ss-card order" wx:for="{{orders}}" wx:key="id" data-id="{{item.id}}" bindtap="onOrderTap">
+      <view class="order__body">
+        <text class="order__no">{{item.order_no}}</text>
+        <text class="order__time">{{item.created_text}} · 共 {{item.item_count}} 件</text>
+      </view>
+      <view class="order__right">
+        <text class="order__status">{{item.status_text}}</text>
+        <text class="order__amount">¥{{item.total_text}}</text>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!orders.length}}"
+      icon="🚚"
+      title="{{error || '暂无可跟踪的物流'}}"
+      desc="物流服务可能正在维护，稍后再试"
+      actionText="重新加载"
+      bind:action="onRetry"
+    />
+  </block>
+
+  <!-- 物流详情 -->
+  <block wx:if="{{!loading && orderId}}">
+    <view class="ss-card shipment" wx:if="{{shipment}}">
+      <view class="shipment__head">
+        <view class="shipment__info">
+          <text class="shipment__company">{{shipment.company}}</text>
+          <text class="shipment__no" bindtap="onCopyTracking">运单号 {{shipment.tracking_no}}</text>
+        </view>
+        <text class="ss-tag ss-tag--success">{{shipment.status_text}}</text>
+      </view>
+      <view class="shipment__row">
+        <text class="shipment__label">收货人</text>
+        <text class="shipment__value">{{shipment.receiver}} {{shipment.phone}}</text>
+      </view>
+      <view class="shipment__row">
+        <text class="shipment__label">收货地址</text>
+        <text class="shipment__value">{{shipment.address}}</text>
+      </view>
+      <view class="shipment__row">
+        <text class="shipment__label">发货时间</text>
+        <text class="shipment__value">{{shipment.shipped_text || '待发货'}}</text>
+      </view>
+      <view class="shipment__row" wx:if="{{shipment.delivered_text}}">
+        <text class="shipment__label">签收时间</text>
+        <text class="shipment__value">{{shipment.delivered_text}}</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>物流轨迹</text>
+      <text class="ss-section-title__more" bindtap="onChooseOrder">切换订单 ›</text>
+    </view>
+
+    <view class="ss-card track" wx:for="{{tracks}}" wx:key="id">
+      <view class="track__node {{index === 0 ? 'track__node--active' : ''}}"></view>
+      <view class="track__body">
+        <text class="track__desc">{{item.description}}</text>
+        <text class="track__time">{{item.time_text}} · {{item.location}}</text>
+      </view>
+    </view>
+
+    <empty-state
+      wx:if="{{!tracks.length && !shipment}}"
+      icon="🚚"
+      title="{{error || '暂无物流轨迹'}}"
+      desc="物流服务可能正在维护，稍后再试"
+      actionText="重新加载"
+      bind:action="onRetry"
+    />
+
+    <view class="ss-action-bar" wx:if="{{shipment}}">
+      <view class="ss-btn ss-btn--line ss-flex-1" bindtap="onChooseOrder">切换订单</view>
+      <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onOrderDetail">查看订单</view>
+    </view>
+  </block>
+</view>

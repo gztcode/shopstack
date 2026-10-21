@@ -1,0 +1,2 @@
+<import src="../../templates/channel-feed.wxml" />
+<template is="channel-feed" data="{{view}}" />

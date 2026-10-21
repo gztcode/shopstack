@@ -1,0 +1,119 @@
+.join__goods {
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+  display: flex;
+  gap: 20rpx;
+}
+
+.join__cover {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-muted);
+  flex-shrink: 0;
+}
+
+.join__name {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.join__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+
+.join__price {
+  font-size: var(--ss-font-size-xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-danger);
+}
+
+.join__origin {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-quaternary);
+  text-decoration: line-through;
+}
+
+.join__meta {
+  display: block;
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-tertiary);
+}
+
+.join__addresses {
+  margin: 0 24rpx;
+  padding: 8rpx 24rpx;
+}
+
+.join__address {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.join__address:last-child {
+  border-bottom: none;
+}
+
+.join__address--active .join__receiver {
+  color: var(--ss-color-text-brand);
+}
+
+.join__receiver {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.join__detail {
+  display: block;
+  margin-top: 6rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.join__amount {
+  margin: 24rpx 24rpx 0;
+  padding: 8rpx 24rpx;
+}
+
+.join__amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.join__amount-row:last-child {
+  border-bottom: none;
+}
+
+.join__amount-label {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.join__result {
+  margin: 24rpx;
+  padding: 24rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-success-50);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.join__result-title {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-success);
+}

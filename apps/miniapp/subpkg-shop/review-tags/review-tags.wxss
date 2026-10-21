@@ -1,0 +1,50 @@
+.tags__head {
+  padding: 28rpx 24rpx 12rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.tags__title {
+  font-size: var(--ss-font-size-2xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-primary);
+}
+
+.tags__desc {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.tags__card {
+  margin: 12rpx 24rpx 0;
+  padding: 8rpx 24rpx;
+}
+
+.tags__row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.tags__row:last-child {
+  border-bottom: none;
+}
+
+.tags__name {
+  flex: 1;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.tags__count {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.tags__arrow {
+  font-size: var(--ss-font-size-lg);
+  color: var(--ss-color-text-placeholder);
+}

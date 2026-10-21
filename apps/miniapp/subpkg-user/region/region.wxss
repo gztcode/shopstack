@@ -1,0 +1,18 @@
+.region__pickers {
+  margin: 0 24rpx;
+  padding: 0 24rpx;
+}
+
+.region__result {
+  margin: 0 24rpx;
+  padding: 24rpx;
+}
+
+.region__result-text {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.region__actions {
+  margin: 32rpx 24rpx 0;
+}

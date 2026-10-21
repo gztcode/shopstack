@@ -1,0 +1,59 @@
+<view class="ss-page category">
+  <demo-banner />
+
+  <view class="category__body">
+    <!-- 左侧一级分类 -->
+    <scroll-view class="side" scroll-y enable-flex>
+      <view
+        class="side__item {{activeId === item.id ? 'side__item--active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onCategoryTap"
+      >
+        <text class="side__icon">{{item.icon}}</text>
+        <text class="side__name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧商品区 -->
+    <view class="main">
+      <view class="filter">
+        <scroll-view class="filter__sorts" scroll-x enable-flex>
+          <view class="filter__sorts-inner">
+            <view
+              class="filter__sort {{sort === item.key ? 'filter__sort--active' : ''}}"
+              wx:for="{{sorts}}"
+              wx:key="key"
+              data-sort="{{item.key}}"
+              bindtap="onSortTap"
+            >
+              {{item.label}}
+            </view>
+          </view>
+        </scroll-view>
+        <view class="filter__stock {{onlyInStock ? 'filter__stock--on' : ''}}" bindtap="onStockFilter">
+          <text class="filter__checkbox">{{onlyInStock ? '☑' : '☐'}}</text>
+          <text class="filter__stock-text">仅看有货</text>
+        </view>
+      </view>
+
+      <view class="main__title">{{activeName}}</view>
+
+      <loading wx:if="{{loading}}" type="card" rows="2" />
+
+      <view class="ss-grid" wx:if="{{!loading && products.length}}">
+        <view class="ss-grid__col" wx:for="{{products}}" wx:key="id">
+          <product-card product="{{item}}" bind:select="onProductSelect" bind:addcart="onAddCart" />
+        </view>
+      </view>
+
+      <empty-state
+        wx:if="{{!loading && !products.length}}"
+        icon="🔍"
+        title="该分类下暂无商品"
+        desc="换个分类或调整筛选条件试试"
+      />
+    </view>
+  </view>
+</view>

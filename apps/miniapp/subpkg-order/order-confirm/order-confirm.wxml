@@ -1,0 +1,85 @@
+<view class="ss-page confirm">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <block wx:if="{{!loading}}">
+    <view class="ss-section-title">
+      <text>收货地址</text>
+      <text class="ss-section-title__more" bindtap="onEditAddress">管理地址 ›</text>
+    </view>
+
+    <view class="ss-card confirm__addresses">
+      <view
+        class="confirm__address {{address && address.id === item.id ? 'confirm__address--active' : ''}}"
+        wx:for="{{addresses}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onAddressTap"
+      >
+        <view class="ss-flex-1">
+          <text class="confirm__receiver">{{item.receiver}} {{item.phone}}</text>
+          <text class="confirm__detail">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</text>
+        </view>
+        <text class="ss-tag ss-tag--muted" wx:if="{{item.is_default}}">默认</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>商品清单</text>
+      <text class="ss-section-title__more">共 {{items.length}} 种</text>
+    </view>
+
+    <view class="ss-card confirm__items">
+      <view class="confirm__item" wx:for="{{items}}" wx:key="id">
+        <image class="confirm__image" src="{{item.image}}" mode="aspectFill" />
+        <view class="ss-flex-1">
+          <text class="confirm__item-title ss-ellipsis-2">{{item.product_title}}</text>
+          <text class="confirm__item-spec">{{item.spec_text}} × {{item.quantity}}</text>
+        </view>
+        <text class="ss-price">¥{{item.price_text}}</text>
+      </view>
+    </view>
+
+    <view class="ss-section-title">
+      <text>金额明细</text>
+    </view>
+
+    <view class="ss-card confirm__amount">
+      <view class="confirm__amount-row">
+        <text class="confirm__amount-label">商品金额</text>
+        <text class="confirm__amount-value">¥{{totalText}}</text>
+      </view>
+      <view class="confirm__amount-row">
+        <text class="confirm__amount-label">优惠减免</text>
+        <text class="confirm__amount-value">-¥{{discountText}}</text>
+      </view>
+      <view class="confirm__amount-row">
+        <text class="confirm__amount-label">运费</text>
+        <text class="confirm__amount-value">¥{{freightText}}</text>
+      </view>
+      <view class="confirm__amount-row">
+        <text class="confirm__amount-label">应付金额</text>
+        <text class="ss-price">¥{{payableText}}</text>
+      </view>
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !items.length}}"
+    icon="🛒"
+    title="没有待确认的商品"
+    desc="回到购物车挑选商品后再来确认订单"
+    actionText="去购物车"
+    bind:action="onGoCart"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading && items.length}}">
+    <view class="ss-action-bar__info">
+      <text class="ss-action-bar__label">应付</text>
+      <text class="ss-price ss-action-bar__value">¥{{payableText}}</text>
+    </view>
+    <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onSubmit">{{submitting ? '提交中' : '提交订单'}}</view>
+  </view>
+  <view class="ss-action-bar__spacer" wx:if="{{!loading && items.length}}"></view>
+</view>

@@ -1,0 +1,184 @@
+<view class="ss-page detail">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <block wx:if="{{!loading && product.id}}">
+    <!-- 轮播图 -->
+    <swiper class="gallery" indicator-dots indicator-color="rgba(255,255,255,0.4)" indicator-active-color="#FFFFFF" circular>
+      <swiper-item wx:for="{{images}}" wx:key="*this">
+        <image class="gallery__img" src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+
+    <!-- 价格与标题 -->
+    <view class="ss-card block">
+      <view class="price-row">
+        <text class="price">¥{{priceText}}</text>
+        <text class="origin" wx:if="{{originText !== priceText}}">¥{{originText}}</text>
+        <text class="stock" wx:if="{{stock > 0}}">库存 {{stock}} 件</text>
+        <text class="stock stock--none" wx:else>暂时缺货</text>
+      </view>
+      <text class="title">{{product.title}}</text>
+      <text class="subtitle" wx:if="{{product.subtitle}}">{{product.subtitle}}</text>
+      <view class="tags" wx:if="{{product.tags && product.tags.length}}">
+        <text class="tag" wx:for="{{product.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+      <view class="meta">
+        <text class="meta__item">已售 {{product.sales_count}}</text>
+        <text class="meta__item">{{product.category_name}}</text>
+      </view>
+    </view>
+
+    <!-- 规格选择 -->
+    <view class="ss-card block">
+      <view class="row row--between">
+        <text class="row__label">规格</text>
+        <text class="row__value">{{selectedText}}</text>
+      </view>
+      <view class="spec" wx:for="{{specGroups}}" wx:for-item="group" wx:key="name">
+        <text class="spec__name">{{group.name}}</text>
+        <view class="spec__values">
+          <view
+            class="spec__value {{selectedSpecs[group.name] === option.value ? 'spec__value--active' : ''}} {{option.enabled ? '' : 'spec__value--disabled'}}"
+            wx:for="{{group.values}}"
+            wx:for-item="option"
+            wx:key="value"
+            data-group="{{group.name}}"
+            data-value="{{option.value}}"
+            data-enabled="{{option.enabled}}"
+            bindtap="onSpecTap"
+          >
+            {{option.value}}
+          </view>
+        </view>
+      </view>
+      <view class="row row--between">
+        <text class="row__label">数量</text>
+        <quantity-stepper value="{{quantity}}" min="1" max="{{stock || 1}}" bind:change="onQuantityChange" />
+      </view>
+    </view>
+
+    <!-- 商品参数 -->
+    <view class="ss-card block" wx:if="{{attributes.length}}">
+      <text class="block__title">商品参数</text>
+      <view class="attr" wx:for="{{attributes}}" wx:key="id">
+        <text class="attr__name">{{item.name}}</text>
+        <text class="attr__value">{{item.value}}</text>
+      </view>
+    </view>
+
+    <!-- 商品描述 -->
+    <view class="ss-card block" wx:if="{{product.description}}">
+      <text class="block__title">商品描述</text>
+      <text class="desc">{{product.description}}</text>
+    </view>
+
+    <!-- 评价 -->
+    <view class="ss-card block">
+      <view class="row row--between">
+        <text class="block__title">商品评价（{{reviewSummary.total}}）</text>
+        <text class="row__more" bindtap="onViewReviews">全部 ›</text>
+      </view>
+      <view class="rating">
+        <view class="rating__score">
+          <text class="rating__num">{{ratingText}}</text>
+          <text class="rating__label">综合评分</text>
+        </view>
+        <view class="rating__bars">
+          <view class="rating__bar">
+            <text class="rating__tag">好评</text>
+            <view class="rating__track"><view class="rating__fill" style="width: {{goodRate}}%"></view></view>
+            <text class="rating__percent">{{goodRate}}%</text>
+          </view>
+          <view class="rating__bar">
+            <text class="rating__tag">中评</text>
+            <view class="rating__track"><view class="rating__fill rating__fill--mid" style="width: {{mediumRate}}%"></view></view>
+            <text class="rating__percent">{{mediumRate}}%</text>
+          </view>
+          <view class="rating__bar">
+            <text class="rating__tag">差评</text>
+            <view class="rating__track"><view class="rating__fill rating__fill--bad" style="width: {{badRate}}%"></view></view>
+            <text class="rating__percent">{{badRate}}%</text>
+          </view>
+        </view>
+      </view>
+      <view class="review" wx:for="{{reviews}}" wx:key="id">
+        <view class="review__head">
+          <text class="review__name">{{item.user_nickname}}</text>
+          <text class="review__stars">{{item.rating}} 星</text>
+        </view>
+        <text class="review__content">{{item.content}}</text>
+        <text class="review__sku" wx:if="{{item.sku_text}}">规格：{{item.sku_text}}</text>
+      </view>
+      <empty-state wx:if="{{!reviews.length}}" icon="💬" title="暂无评价" desc="成为第一个评价的人吧" />
+    </view>
+
+    <!-- 相关推荐 -->
+    <view class="ss-section-title" wx:if="{{related.length}}">
+      <text>相关推荐</text>
+    </view>
+    <view class="ss-grid" wx:if="{{related.length}}">
+      <view class="ss-grid__col" wx:for="{{related}}" wx:key="id">
+        <product-card product="{{item}}" bind:select="onRelatedSelect" />
+      </view>
+    </view>
+
+    <view class="ss-action-bar__spacer"></view>
+  </block>
+
+  <!-- 底部操作栏 -->
+  <view class="ss-action-bar" wx:if="{{!loading && product.id}}">
+    <view class="bar__icon" bindtap="onContactService">
+      <text class="bar__icon-text">🎧</text>
+      <text class="bar__icon-label">客服</text>
+    </view>
+    <view class="bar__icon" bindtap="onToggleFavorite">
+      <text class="bar__icon-text">{{favorited ? '★' : '☆'}}</text>
+      <text class="bar__icon-label">收藏</text>
+    </view>
+    <view class="ss-btn ss-btn--accent bar__btn" bindtap="onOpenPanel" data-mode="cart">加入购物车</view>
+    <view class="ss-btn ss-btn--primary bar__btn" bindtap="onOpenPanel" data-mode="buy">立即购买</view>
+  </view>
+
+  <!-- 规格选择弹层 -->
+  <view class="mask" wx:if="{{panelVisible}}" bindtap="onClosePanel">
+    <view class="panel" catchtap="onStopTap">
+      <view class="panel__head">
+        <view class="panel__info">
+          <text class="panel__price">¥{{priceText}}</text>
+          <text class="panel__stock">库存 {{stock}} 件</text>
+        </view>
+        <text class="panel__close" bindtap="onClosePanel">✕</text>
+      </view>
+      <view class="panel__body">
+        <view class="spec" wx:for="{{specGroups}}" wx:for-item="group" wx:key="name">
+          <text class="spec__name">{{group.name}}</text>
+          <view class="spec__values">
+            <view
+              class="spec__value {{selectedSpecs[group.name] === option.value ? 'spec__value--active' : ''}} {{option.enabled ? '' : 'spec__value--disabled'}}"
+              wx:for="{{group.values}}"
+              wx:for-item="option"
+              wx:key="value"
+              data-group="{{group.name}}"
+              data-value="{{option.value}}"
+              data-enabled="{{option.enabled}}"
+              bindtap="onSpecTap"
+            >
+              {{option.value}}
+            </view>
+          </view>
+        </view>
+        <view class="row row--between panel__quantity">
+          <text class="row__label">购买数量</text>
+          <quantity-stepper value="{{quantity}}" min="1" max="{{stock || 1}}" bind:change="onQuantityChange" />
+        </view>
+      </view>
+      <view class="panel__footer">
+        <view class="ss-btn ss-btn--primary panel__confirm" bindtap="onConfirmSku">
+          {{panelMode === 'buy' ? '立即购买' : '加入购物车'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

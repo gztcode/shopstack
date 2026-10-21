@@ -1,0 +1,38 @@
+<view class="ss-page session">
+  <demo-banner />
+
+  <view class="ss-section-title">
+    <text>活动场次</text>
+    <text class="ss-section-title__more">共 {{sessions.length}} 场</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <view class="session__list" wx:if="{{!loading && sessions.length}}">
+    <view class="ss-card session__card" wx:for="{{sessions}}" wx:key="id">
+      <view class="session__head">
+        <text class="session__name">{{item.name}}</text>
+        <text class="ss-tag {{item.status === 1 ? 'ss-tag--accent' : 'ss-tag--muted'}}">{{item.status_text}}</text>
+      </view>
+      <text class="session__time">{{item.time_text}}</text>
+      <view class="session__progress">
+        <view class="session__bar">
+          <view class="session__bar-inner" style="width: {{item.percent}}%;"></view>
+        </view>
+        <text class="session__stock">已抢 {{item.sold}}/{{item.stock}}，剩余 {{item.left}}</text>
+      </view>
+      <view class="ss-btn ss-btn--primary ss-btn--sm session__btn" data-id="{{item.id}}" bindtap="onJoin">
+        {{item.status === 2 ? '已结束' : '进入会场'}}
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !sessions.length}}"
+    icon="🕒"
+    title="暂无活动场次"
+    desc="场次开启后会在这里展示，先看看其它活动"
+    actionText="查看活动列表"
+    bind:action="onGoList"
+  />
+</view>

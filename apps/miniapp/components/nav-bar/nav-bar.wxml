@@ -1,0 +1,13 @@
+<view class="nav" style="background: {{background}}">
+  <view class="nav__status" style="height: {{statusBarHeight}}px"></view>
+  <view class="nav__bar {{border ? 'nav__bar--border' : ''}}">
+    <view class="nav__back" wx:if="{{showBack}}" bindtap="onBack">
+      <text class="nav__back-icon">‹</text>
+    </view>
+    <view class="nav__back nav__back--placeholder" wx:else></view>
+    <text class="nav__title">{{title}}</text>
+    <view class="nav__right">
+      <slot name="right"></slot>
+    </view>
+  </view>
+</view>

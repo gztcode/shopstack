@@ -1,0 +1,92 @@
+<view class="ss-page invoice">
+  <demo-banner />
+
+  <view class="ss-section-title">
+    <text>发票抬头模板</text>
+    <text class="ss-section-title__more" bindtap="onAdd">+ 新增抬头</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <view class="invoice__list" wx:if="{{!loading && templates.length}}">
+    <view class="ss-card invoice__card" wx:for="{{templates}}" wx:key="id">
+      <view class="invoice__head">
+        <text class="invoice__title ss-ellipsis">{{item.title}}</text>
+        <text class="ss-tag" wx:if="{{item.is_default}}">默认</text>
+      </view>
+      <text class="invoice__meta" wx:if="{{item.tax_no}}">税号 {{item.tax_no}}</text>
+      <text class="invoice__meta">类型 {{item.type === 'company' ? '企业' : '个人'}}</text>
+      <text class="invoice__meta" wx:if="{{item.email}}">邮箱 {{item.email}}</text>
+      <view class="invoice__actions">
+        <view class="ss-btn ss-btn--line ss-btn--sm" data-id="{{item.id}}" bindtap="onEdit">编辑</view>
+        <view class="ss-btn ss-btn--line ss-btn--sm" data-id="{{item.id}}" bindtap="onDelete">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !templates.length}}"
+    icon="🧾"
+    title="还没有发票抬头"
+    desc="添加常用抬头，下单开票时可以直接选用"
+    actionText="新增抬头"
+    bind:action="onAdd"
+  />
+
+  <view class="ss-card invoice__form" wx:if="{{editing}}">
+    <view class="invoice__form-title">{{editId ? '编辑抬头' : '新增抬头'}}</view>
+    <view class="ss-field">
+      <text class="ss-field__label">抬头名称</text>
+      <input
+        class="ss-field__input"
+        placeholder="公司全称或个人姓名"
+        placeholder-class="ss-placeholder"
+        value="{{title}}"
+        bindinput="onInputTitle"
+      />
+    </view>
+    <view class="ss-field">
+      <text class="ss-field__label">税号</text>
+      <input
+        class="ss-field__input"
+        placeholder="企业抬头必填"
+        placeholder-class="ss-placeholder"
+        value="{{taxNo}}"
+        bindinput="onInputTaxNo"
+      />
+    </view>
+    <view class="ss-field">
+      <text class="ss-field__label">邮箱</text>
+      <input
+        class="ss-field__input"
+        placeholder="接收发票的邮箱"
+        placeholder-class="ss-placeholder"
+        value="{{email}}"
+        bindinput="onInputEmail"
+      />
+    </view>
+    <view class="ss-field">
+      <text class="ss-field__label">类型</text>
+      <view class="invoice__types">
+        <view
+          class="invoice__type {{type === 'company' ? 'invoice__type--active' : ''}}"
+          data-type="company"
+          bindtap="onTypeTap"
+        >
+          企业
+        </view>
+        <view
+          class="invoice__type {{type === 'personal' ? 'invoice__type--active' : ''}}"
+          data-type="personal"
+          bindtap="onTypeTap"
+        >
+          个人
+        </view>
+      </view>
+    </view>
+    <view class="invoice__form-actions">
+      <view class="ss-btn ss-btn--line ss-flex-1" bindtap="onCancel">取消</view>
+      <view class="ss-btn ss-btn--primary ss-flex-1" bindtap="onSave">{{saving ? '保存中' : '保存'}}</view>
+    </view>
+  </view>
+</view>

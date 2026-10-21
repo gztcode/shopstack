@@ -1,0 +1,270 @@
+.order-detail {
+  padding-bottom: 0;
+}
+
+.block {
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+}
+
+.block__title {
+  display: block;
+  margin-bottom: 16rpx;
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.row--between {
+  justify-content: space-between;
+}
+
+.row__label {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.row__value {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+/* 状态条 -------------------------------------------------------------- */
+.status {
+  padding: 32rpx 24rpx;
+  background: var(--ss-gradient-brand);
+  color: var(--ss-color-text-inverse);
+}
+
+.status--warning {
+  background: var(--ss-gradient-accent);
+}
+
+.status--success {
+  background: var(--ss-gradient-success);
+}
+
+.status--muted {
+  background: var(--ss-color-neutral-700);
+}
+
+.status--danger {
+  background: var(--ss-gradient-danger);
+}
+
+.status__text {
+  display: block;
+  font-size: var(--ss-font-size-3xl);
+  font-weight: var(--ss-font-weight-bold);
+}
+
+.status__desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-sm);
+  opacity: 0.9;
+}
+
+/* 时间线 -------------------------------------------------------------- */
+.timeline {
+  padding-left: 12rpx;
+}
+
+.timeline__item {
+  display: flex;
+  gap: 20rpx;
+  padding-bottom: 24rpx;
+  position: relative;
+}
+
+.timeline__dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: var(--ss-radius-circle);
+  background: var(--ss-color-brand-500);
+  margin-top: 10rpx;
+  flex-shrink: 0;
+}
+
+.timeline__body {
+  flex: 1;
+  min-width: 0;
+  border-bottom: 1rpx dashed var(--ss-color-border-subtle);
+  padding-bottom: 20rpx;
+}
+
+.timeline__remark {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.timeline__time {
+  display: block;
+  margin-top: 6rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-tertiary);
+}
+
+/* 地址 ---------------------------------------------------------------- */
+.address__row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.address__name {
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}
+
+.address__phone {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-secondary);
+}
+
+.address__detail {
+  display: block;
+  margin-top: 10rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+/* 物流 ---------------------------------------------------------------- */
+.track {
+  margin-top: 14rpx;
+  padding-left: 16rpx;
+  border-left: 4rpx solid var(--ss-color-brand-100);
+}
+
+.track__text {
+  display: block;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+  line-height: var(--ss-font-line-height-relaxed);
+}
+
+/* 商品 ---------------------------------------------------------------- */
+.goods {
+  display: flex;
+  gap: 20rpx;
+  padding: 16rpx 0;
+}
+
+.goods__img {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-color-bg-muted);
+  flex-shrink: 0;
+}
+
+.goods__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.goods__title {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+  line-height: 1.4;
+}
+
+.goods__spec {
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.goods__subtotal {
+  margin-top: 8rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.goods__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.goods__price {
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+  font-family: var(--ss-font-family-numeric);
+}
+
+.goods__qty {
+  margin-top: 4rpx;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+/* 金额 ---------------------------------------------------------------- */
+.amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 0;
+  font-size: var(--ss-font-size-base);
+}
+
+.amount-row__label {
+  color: var(--ss-color-text-secondary);
+}
+
+.amount-row__value {
+  color: var(--ss-color-text-primary);
+  font-family: var(--ss-font-family-numeric);
+}
+
+.amount-row__value--cut {
+  color: var(--ss-color-text-danger);
+}
+
+.amount-row--total {
+  margin-top: 8rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.amount-row__total {
+  font-size: var(--ss-font-size-2xl);
+  font-weight: var(--ss-font-weight-bold);
+  color: var(--ss-color-text-danger);
+  font-family: var(--ss-font-family-numeric);
+}
+
+/* 订单信息 ------------------------------------------------------------ */
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 0;
+  font-size: var(--ss-font-size-sm);
+}
+
+.info-row__label {
+  color: var(--ss-color-text-tertiary);
+}
+
+.info-row__value {
+  color: var(--ss-color-text-secondary);
+}
+
+.bar__btn {
+  flex: 1;
+  height: 72rpx;
+  font-size: var(--ss-font-size-sm);
+  padding: 0 16rpx;
+}

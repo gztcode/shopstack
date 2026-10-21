@@ -1,0 +1,83 @@
+# gateway 服务配置
+service_name: gateway
+env: dev
+
+server:
+  grpc_addr: ":9080"
+  http_addr: ":8080"
+  timeout: 30
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: shopstack
+  password: shopstack
+  database: shopstack
+  charset: utf8mb4
+  max_idle: 10
+  max_open: 100
+  extra:
+    - parseTime=True
+    - loc=Local
+
+redis:
+  addr: 127.0.0.1:6379
+  password: ""
+  db: 0
+  pool_size: 50
+
+rabbitmq:
+  url: amqp://shopstack:shopstack@127.0.0.1:5672/
+  exchange: shopstack.events
+  exchange_type: topic
+  prefetch: 10
+
+nacos:
+  enabled: false
+  server_addr: 127.0.0.1:8848
+  namespace: public
+  group: DEFAULT_GROUP
+  register_ip: 127.0.0.1
+  register_port: 9080
+
+jwt:
+  secret: shopstack-dev-secret-change-me
+  access_expire: 7200
+  refresh_expire: 604800
+  admin_secret: shopstack-dev-admin-secret-change-me
+  admin_access_expire: 7200
+  admin_refresh_expire: 604800
+
+log:
+  level: info
+  format: console
+  output: stdout
+
+third_party:
+  wechat_app_id: ""
+  wechat_app_secret: ""
+  wechat_mch_id: ""
+  wechat_api_key: ""
+  wechat_notify_url: ""
+  sms_provider: mock
+  sms_access_key: ""
+  sms_secret: ""
+  sms_sign_name: ShopStack
+  oss_provider: mock
+  oss_access_key: ""
+  oss_secret_key: ""
+  oss_bucket: ""
+  oss_endpoint: ""
+  oss_public_url: ""
+
+# 下游服务地址（容器内通过环境变量覆盖为服务名）
+services:
+  user: 127.0.0.1:9001
+  product: 127.0.0.1:9002
+  cart: 127.0.0.1:9003
+  order: 127.0.0.1:9004
+  payment: 127.0.0.1:9005
+  inventory: 127.0.0.1:9006
+  marketing: 127.0.0.1:9007
+  logistics: 127.0.0.1:9008
+  notification: 127.0.0.1:9009

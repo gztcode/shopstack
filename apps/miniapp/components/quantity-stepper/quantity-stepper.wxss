@@ -1,0 +1,36 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  border-radius: var(--ss-radius-sm);
+  border: 1rpx solid var(--ss-color-border-default);
+  overflow: hidden;
+  background: var(--ss-color-bg-card);
+}
+
+.stepper--disabled {
+  opacity: 0.5;
+}
+
+.btn {
+  width: 56rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  color: var(--ss-color-text-secondary);
+  background: var(--ss-color-bg-subtle);
+}
+
+.btn--disabled {
+  color: var(--ss-color-text-placeholder);
+}
+
+.num {
+  min-width: 72rpx;
+  text-align: center;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+  font-family: var(--ss-font-family-numeric);
+}

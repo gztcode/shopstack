@@ -1,0 +1,31 @@
+<view class="ss-page article">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <block wx:if="{{!loading && article}}">
+    <view class="ss-card article__head">
+      <text class="article__category">{{article.category_name}}</text>
+      <text class="article__title">{{article.title}}</text>
+      <text class="article__summary">阅读 {{article.view_count}} 次 · 更新于 {{article.updated_text}}</text>
+    </view>
+
+    <view class="ss-card article__body">
+      <text class="article__content">{{article.content}}</text>
+    </view>
+
+    <view class="article__footer">
+      <text class="article__footer-text">没有解决你的问题？</text>
+      <view class="ss-btn ss-btn--ghost ss-btn--sm" bindtap="onGoFeedback">提交反馈</view>
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !article}}"
+    icon="📄"
+    title="文章不存在或已下线"
+    desc="回到帮助中心看看其它常见问题"
+    actionText="返回帮助中心"
+    bind:action="onGoCenter"
+  />
+</view>

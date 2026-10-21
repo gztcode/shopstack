@@ -1,0 +1,41 @@
+<view class="ss-page trace">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="3" />
+
+  <block wx:if="{{!loading && shipment}}">
+    <view class="ss-card trace__shipment">
+      <view class="trace__head">
+        <text class="trace__company">{{shipment.company}}</text>
+        <text class="ss-tag ss-tag--accent">{{shipment.status_text}}</text>
+      </view>
+      <text class="trace__no">运单号 {{shipment.tracking_no}}</text>
+      <text class="trace__receiver">{{shipment.receiver}} {{shipment.phone}}</text>
+      <text class="trace__address">{{shipment.address}}</text>
+      <text class="trace__time">发货时间 {{shipment.shipped_text}}</text>
+    </view>
+
+    <view class="ss-section-title">
+      <text>物流轨迹</text>
+    </view>
+
+    <view class="ss-card trace__timeline">
+      <view class="trace__node" wx:for="{{tracks}}" wx:key="id">
+        <view class="trace__dot {{index === 0 ? 'trace__dot--active' : ''}}"></view>
+        <view class="ss-flex-1">
+          <text class="trace__desc {{index === 0 ? 'trace__desc--active' : ''}}">{{item.description}}</text>
+          <text class="trace__meta">{{item.occurred_text}} · {{item.location}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <empty-state
+    wx:if="{{!loading && !shipment}}"
+    icon="🚚"
+    title="暂无物流信息"
+    desc="商家发货后会自动更新轨迹，也可以按运单号查询"
+    actionText="按运单号查询"
+    bind:action="onGoQuery"
+  />
+</view>

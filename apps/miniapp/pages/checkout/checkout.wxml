@@ -1,0 +1,116 @@
+<view class="ss-page checkout">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="list" rows="2" />
+
+  <block wx:if="{{!loading}}">
+    <!-- 收货地址 -->
+    <view class="ss-card block" bindtap="onChooseAddress">
+      <view class="address" wx:if="{{address}}">
+        <view class="address__row">
+          <text class="address__name">{{address.receiver}}</text>
+          <text class="address__phone">{{address.phone}}</text>
+          <text class="ss-tag" wx:if="{{address.is_default}}">默认</text>
+        </view>
+        <text class="address__detail">{{address.province}}{{address.city}}{{address.district}}{{address.detail}}</text>
+      </view>
+      <view class="address address--empty" wx:else>
+        <text class="address__none">还没有收货地址，点击新增</text>
+      </view>
+      <view class="address__arrow">›</view>
+    </view>
+
+    <!-- 商品清单 -->
+    <view class="ss-card block">
+      <text class="block__title">商品清单</text>
+      <view class="goods" wx:for="{{items}}" wx:key="sku_id">
+        <image class="goods__img" src="{{item.image}}" mode="aspectFill" />
+        <view class="goods__body">
+          <text class="goods__title ss-ellipsis-2">{{item.product_title}}</text>
+          <text class="goods__spec">{{item.spec_text}}</text>
+          <view class="goods__footer">
+            <text class="goods__price">¥{{item.price_text}}</text>
+            <text class="goods__qty">x{{item.quantity}}</text>
+          </view>
+        </view>
+      </view>
+      <empty-state wx:if="{{!items.length}}" icon="🧺" title="没有待结算的商品" />
+    </view>
+
+    <!-- 优惠券 -->
+    <view class="ss-card block row row--between" bindtap="onOpenCoupon">
+      <text class="row__label">优惠券</text>
+      <text class="row__value">
+        {{selectedCoupon ? selectedCoupon.coupon.name : (availableCoupons.length ? availableCoupons.length + ' 张可用' : '暂无可用')}}
+      </text>
+    </view>
+
+    <!-- 备注 -->
+    <view class="ss-card block">
+      <text class="block__title">订单备注</text>
+      <textarea
+        class="ss-textarea"
+        placeholder="选填，可填写对商家的特殊要求"
+        maxlength="100"
+        value="{{remark}}"
+        bindinput="onRemarkInput"
+      />
+    </view>
+
+    <!-- 金额明细 -->
+    <view class="ss-card block">
+      <view class="amount-row">
+        <text class="amount-row__label">商品总额</text>
+        <text class="amount-row__value">¥{{totalAmountText}}</text>
+      </view>
+      <view class="amount-row">
+        <text class="amount-row__label">优惠减免</text>
+        <text class="amount-row__value amount-row__value--cut">-¥{{discountText}}</text>
+      </view>
+      <view class="amount-row">
+        <text class="amount-row__label">运费</text>
+        <text class="amount-row__value">¥{{freightText}}</text>
+      </view>
+      <view class="amount-row amount-row--total">
+        <text class="amount-row__label">应付金额</text>
+        <text class="amount-row__total">¥{{payableText}}</text>
+      </view>
+    </view>
+
+    <view class="ss-action-bar__spacer"></view>
+  </block>
+
+  <!-- 底部提交栏 -->
+  <view class="ss-action-bar" wx:if="{{!loading}}">
+    <view class="ss-flex-1">
+      <view class="bar__amount">
+        <text class="bar__label">应付</text>
+        <text class="bar__price">¥{{payableText}}</text>
+      </view>
+      <text class="bar__count">共 {{items.length}} 种商品</text>
+    </view>
+    <view class="ss-btn ss-btn--primary bar__btn {{submitting ? 'ss-btn--disabled' : ''}}" bindtap="onSubmit">
+      {{submitting ? '提交中…' : '提交订单'}}
+    </view>
+  </view>
+
+  <!-- 优惠券选择面板 -->
+  <view class="mask" wx:if="{{couponVisible}}" bindtap="onCloseCoupon">
+    <view class="panel" catchtap="onStopTap">
+      <view class="panel__head">
+        <text class="panel__title">选择优惠券</text>
+        <text class="panel__close" bindtap="onCloseCoupon">✕</text>
+      </view>
+      <scroll-view class="panel__scroll" scroll-y>
+        <view class="panel__none" bindtap="onClearCoupon">不使用优惠券</view>
+        <coupon-item
+          wx:for="{{availableCoupons}}"
+          wx:key="id"
+          coupon="{{item}}"
+          selected="{{selectedCoupon ? selectedCoupon.coupon_id === item.coupon_id : false}}"
+          bind:select="onSelectCoupon"
+        />
+      </scroll-view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+<view class="ss-page task">
+  <demo-banner />
+
+  <loading wx:if="{{loading}}" type="detail" />
+
+  <view class="ss-card task__card" wx:if="{{!loading && task}}">
+    <text class="task__name">{{task.name}}</text>
+    <text class="task__desc">{{task.description}}</text>
+
+    <view class="task__reward">
+      <text class="task__reward-value">+{{task.reward_points}}</text>
+      <text class="task__reward-label">完成任务可获得积分</text>
+    </view>
+
+    <view class="task__progress">
+      <view class="task__bar">
+        <view class="task__bar-inner" style="width: {{task.percent}}%;"></view>
+      </view>
+      <text class="task__progress-text">{{task.progress_text}}</text>
+    </view>
+
+    <view class="task__meta">
+      <text class="ss-tag {{task.claimed ? 'ss-tag--success' : 'ss-tag--accent'}}">{{task.status_text}}</text>
+      <text class="task__claimed" wx:if="{{task.claimed_text}}">{{task.claimed_text}}</text>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !task}}"
+    icon="📋"
+    title="任务不存在或已下架"
+    desc="返回任务中心看看还有哪些可以参与"
+    actionText="返回任务中心"
+    bind:action="onGoList"
+  />
+
+  <view class="ss-action-bar" wx:if="{{!loading && task}}">
+    <view class="ss-btn ss-btn--line ss-flex-1" bindtap="onGoLink">{{task.action_text}}</view>
+    <view
+      class="ss-btn ss-btn--primary ss-flex-1 {{task.claimed ? 'ss-btn--disabled' : ''}}"
+      bindtap="onClaim"
+    >
+      {{claiming ? '领取中' : (task.claimed ? '奖励已领取' : '领取奖励')}}
+    </view>
+  </view>
+  <view class="ss-action-bar__spacer" wx:if="{{!loading && task}}"></view>
+</view>

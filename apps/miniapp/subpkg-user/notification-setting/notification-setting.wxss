@@ -1,0 +1,29 @@
+.setting__group {
+  margin: 0 24rpx;
+  padding: 8rpx 24rpx;
+}
+
+.setting__row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--ss-color-border-subtle);
+}
+
+.setting__row:last-child {
+  border-bottom: none;
+}
+
+.setting__label {
+  display: block;
+  font-size: var(--ss-font-size-base);
+  color: var(--ss-color-text-primary);
+}
+
+.setting__desc {
+  display: block;
+  margin-top: 4rpx;
+  font-size: var(--ss-font-size-xs);
+  color: var(--ss-color-text-quaternary);
+}

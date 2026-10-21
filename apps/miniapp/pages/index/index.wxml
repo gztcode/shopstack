@@ -1,0 +1,64 @@
+<view class="ss-page index">
+  <demo-banner />
+
+  <!-- 搜索栏 -->
+  <view class="search" bindtap="onSearchTap">
+    <text class="search__icon">🔍</text>
+    <text class="search__placeholder">搜索商品、品牌或分类</text>
+  </view>
+
+  <!-- 分类快捷入口 -->
+  <scroll-view class="entries" scroll-x enable-flex wx:if="{{entries.length}}">
+    <view class="entries__inner">
+      <view class="entry" wx:for="{{entries}}" wx:key="id" data-id="{{item.id}}" bindtap="onEntryTap">
+        <text class="entry__icon">{{item.icon}}</text>
+        <text class="entry__name">{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 轮播图 -->
+  <view class="banner-wrap" wx:if="{{banners.length}}">
+    <swiper class="banner" indicator-dots indicator-color="rgba(255,255,255,0.4)" indicator-active-color="#FFFFFF" autoplay circular interval="4000" duration="500">
+      <swiper-item wx:for="{{banners}}" wx:key="id" data-link="{{item.link}}" bindtap="onBannerTap">
+        <image class="banner__img" src="{{item.image}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- 促销 / 秒杀 -->
+  <view class="flash" wx:if="{{flashSale.title}}">
+    <view class="flash__head">
+      <view class="flash__title-box">
+        <text class="flash__title">{{flashSale.title}}</text>
+        <text class="flash__desc">{{flashSale.desc}}</text>
+      </view>
+      <text class="flash__end" wx:if="{{flashSale.endTime}}">截止 {{flashSale.endTime}}</text>
+    </view>
+    <scroll-view class="flash__scroll" scroll-x enable-flex>
+      <view class="flash__inner">
+        <view class="flash__item" wx:for="{{flashProducts}}" wx:key="id" data-id="{{item.id}}" bindtap="onProductSelect">
+          <image class="flash__img" src="{{item.cover}}" mode="aspectFill" />
+          <text class="flash__name">{{item.title}}</text>
+          <text class="flash__price">¥{{item.priceText}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 推荐商品 -->
+  <view class="ss-section-title">
+    <text>为你推荐</text>
+    <text class="ss-section-title__more" bindtap="onMoreProducts">查看更多 ›</text>
+  </view>
+
+  <view class="ss-grid" wx:if="{{products.length}}">
+    <view class="ss-grid__col" wx:for="{{products}}" wx:key="id">
+      <product-card product="{{item}}" bind:select="onProductSelect" bind:addcart="onAddCart" />
+    </view>
+  </view>
+
+  <loading wx:if="{{loading}}" type="card" rows="3" />
+
+  <view class="ss-loading-more" wx:if="{{!loading && !products.length}}">暂无商品</view>
+</view>

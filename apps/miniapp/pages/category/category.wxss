@@ -1,0 +1,128 @@
+.category__body {
+  display: flex;
+  height: calc(100vh - var(--ss-size-header-mobile));
+  min-height: 100vh;
+}
+
+/* 左侧分类 ------------------------------------------------------------ */
+.side {
+  width: 200rpx;
+  flex-shrink: 0;
+  background: var(--ss-color-bg-subtle);
+  height: 100%;
+}
+
+.side__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+  padding: 28rpx 12rpx;
+  position: relative;
+}
+
+.side__item--active {
+  background: var(--ss-color-bg-card);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-brand);
+}
+
+.side__item--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 40rpx;
+  border-radius: 0 var(--ss-radius-xs) var(--ss-radius-xs) 0;
+  background: var(--ss-color-brand-600);
+}
+
+.side__icon {
+  font-size: 40rpx;
+  line-height: 1;
+}
+
+.side__name {
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+  text-align: center;
+}
+
+.side__item--active .side__name {
+  color: var(--ss-color-text-brand);
+}
+
+/* 右侧主区 ------------------------------------------------------------ */
+.main {
+  flex: 1;
+  min-width: 0;
+  background: var(--ss-color-bg-page);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx 20rpx;
+  background: var(--ss-color-bg-card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.filter__sorts {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.filter__sorts-inner {
+  display: flex;
+  gap: 8rpx;
+}
+
+.filter__sort {
+  padding: 8rpx 18rpx;
+  border-radius: var(--ss-radius-pill);
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-secondary);
+  background: var(--ss-color-bg-subtle);
+}
+
+.filter__sort--active {
+  background: var(--ss-color-brand-50);
+  color: var(--ss-color-text-brand);
+  font-weight: var(--ss-font-weight-semibold);
+}
+
+.filter__stock {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  flex-shrink: 0;
+  font-size: var(--ss-font-size-sm);
+  color: var(--ss-color-text-tertiary);
+}
+
+.filter__stock--on {
+  color: var(--ss-color-text-brand);
+}
+
+.filter__checkbox {
+  font-size: 26rpx;
+}
+
+.filter__stock-text {
+  white-space: nowrap;
+}
+
+.main__title {
+  padding: 20rpx 24rpx 0;
+  font-size: var(--ss-font-size-lg);
+  font-weight: var(--ss-font-weight-semibold);
+  color: var(--ss-color-text-primary);
+}

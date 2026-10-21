@@ -1,0 +1,20 @@
+<view class="card {{compact ? 'card--compact' : ''}}" bindtap="onTap">
+  <view class="cover-wrap">
+    <image class="cover" src="{{product.cover}}" mode="aspectFill" lazy-load />
+    <view class="cover__tag" wx:if="{{tagText}}">{{tagText}}</view>
+  </view>
+  <view class="body">
+    <text class="title ss-ellipsis-2">{{product.title}}</text>
+    <text class="subtitle ss-ellipsis" wx:if="{{product.subtitle}}">{{product.subtitle}}</text>
+    <view class="price-row">
+      <text class="price">¥{{priceText}}</text>
+      <text class="origin" wx:if="{{originText}}">¥{{originText}}</text>
+    </view>
+    <view class="footer">
+      <text class="sales">{{salesText}}</text>
+      <view class="add" wx:if="{{showAdd}}" catchtap="onAdd">
+        <text class="add__icon">＋</text>
+      </view>
+    </view>
+  </view>
+</view>

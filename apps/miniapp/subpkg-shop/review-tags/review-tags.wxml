@@ -1,0 +1,33 @@
+<view class="ss-page tags">
+  <demo-banner />
+
+  <view class="tags__head">
+    <text class="tags__title">评价标签</text>
+    <text class="tags__desc">点击标签查看对应评价内容</text>
+  </view>
+
+  <loading wx:if="{{loading}}" type="list" rows="4" />
+
+  <view class="ss-card tags__card" wx:if="{{!loading && tags.length}}">
+    <view
+      class="tags__row"
+      wx:for="{{tags}}"
+      wx:key="id"
+      data-name="{{item.name}}"
+      bindtap="onTagTap"
+    >
+      <text class="tags__name">{{item.name}}</text>
+      <text class="tags__count">标签 {{item.sort}}</text>
+      <text class="tags__arrow">›</text>
+    </view>
+  </view>
+
+  <empty-state
+    wx:if="{{!loading && !tags.length}}"
+    icon="🏷️"
+    title="暂无评价标签"
+    desc="可以先看看全部评价，标签会随评价自动生成"
+    actionText="查看全部评价"
+    bind:action="onGoAll"
+  />
+</view>

@@ -18,6 +18,7 @@
 
 ## 目录
 
+- [页面截图](#页面截图)
 - [架构概览](#架构概览)
 - [快速启动](#快速启动)
 - [演示账号](#演示账号)
@@ -27,6 +28,106 @@
 - [验证与测试](#验证与测试)
 - [第三方服务降级策略](#第三方服务降级策略)
 - [文档索引](#文档索引)
+
+---
+
+## 页面截图
+
+四端全部页面都在**真实后端**（9 个微服务 + API 网关）下实机跑通并逐页截图，共 **320 张单页截图 + 13 张总览册**。截图不是设计稿，是运行时截屏——巡检结果 **0 渲染失败、0 页面异常、0 控制台报错**。
+
+| 端 | 截图数 | 巡检结果 | 截图环境 |
+| --- | --- | --- | --- |
+| Flutter 移动端 | 80 张 | 0 异常 | iOS 模拟器（`flutter drive` 集成测试） |
+| 微信小程序 | 80 张 | 80/80 ok，0 控制台报错 | 微信开发者工具（automator 自动化） |
+| Vue3 Web 用户端 | 79 张 | 79/79 ok，0 控制台报错 | Chromium（Playwright） |
+| React 后台管理 | 81 张 | 81/81 ok，0 控制台报错 | Chromium（Playwright） |
+
+> 页面清单口径为 322 个路由，自动巡检实际渲染 320 个页面，差额为个别未纳入巡检的中间态路由。
+
+### 截图总览册
+
+<img src="docs/screenshots/_sheets/_cover.png" width="900" alt="ShopStack 四端页面截图总览封面">
+
+### Flutter 移动端（80 页）
+
+<img src="docs/screenshots/_sheets/flutter-1.png" width="900" alt="Flutter 移动端截图总览册 1">
+<img src="docs/screenshots/_sheets/flutter-2.png" width="900" alt="Flutter 移动端截图总览册 2">
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/flutter/03-home.png" width="230"><br><sub>首页</sub></td>
+    <td align="center"><img src="docs/screenshots/flutter/08-product-7.png" width="230"><br><sub>商品详情</sub></td>
+    <td align="center"><img src="docs/screenshots/flutter/05-cart.png" width="230"><br><sub>购物车</sub></td>
+    <td align="center"><img src="docs/screenshots/flutter/12-order-1.png" width="230"><br><sub>订单详情</sub></td>
+  </tr>
+</table>
+
+### 微信小程序（80 页）
+
+<img src="docs/screenshots/_sheets/miniapp-1.png" width="900" alt="微信小程序截图总览册 1">
+<img src="docs/screenshots/_sheets/miniapp-2.png" width="900" alt="微信小程序截图总览册 2">
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/miniapp/01-pages-index-index.png" width="230"><br><sub>首页</sub></td>
+    <td align="center"><img src="docs/screenshots/miniapp/11-pages-detail-detail.png" width="230"><br><sub>商品详情</sub></td>
+    <td align="center"><img src="docs/screenshots/miniapp/12-pages-cart-cart.png" width="230"><br><sub>购物车</sub></td>
+    <td align="center"><img src="docs/screenshots/miniapp/68-subpkg-order-order-confirm-order-confirm.png" width="230"><br><sub>确认订单</sub></td>
+  </tr>
+</table>
+
+### Vue3 Web 用户端（79 页）
+
+<img src="docs/screenshots/_sheets/vue3-1.png" width="900" alt="Vue3 用户端截图总览册 1">
+<img src="docs/screenshots/_sheets/vue3-2.png" width="900" alt="Vue3 用户端截图总览册 2">
+<img src="docs/screenshots/_sheets/vue3-3.png" width="900" alt="Vue3 用户端截图总览册 3">
+<img src="docs/screenshots/_sheets/vue3-4.png" width="900" alt="Vue3 用户端截图总览册 4">
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/vue3/01-home.png" width="230"><br><sub>首页</sub></td>
+    <td align="center"><img src="docs/screenshots/vue3/03-product-7.png" width="230"><br><sub>商品详情</sub></td>
+    <td align="center"><img src="docs/screenshots/vue3/05-cart.png" width="230"><br><sub>购物车</sub></td>
+    <td align="center"><img src="docs/screenshots/vue3/09-order-1.png" width="230"><br><sub>订单详情</sub></td>
+  </tr>
+</table>
+
+### React 后台管理（81 页）
+
+<img src="docs/screenshots/_sheets/react-1.png" width="900" alt="React 后台管理截图总览册 1">
+<img src="docs/screenshots/_sheets/react-2.png" width="900" alt="React 后台管理截图总览册 2">
+<img src="docs/screenshots/_sheets/react-3.png" width="900" alt="React 后台管理截图总览册 3">
+<img src="docs/screenshots/_sheets/react-4.png" width="900" alt="React 后台管理截图总览册 4">
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/react/03-dashboard.png" width="230"><br><sub>数据看板</sub></td>
+    <td align="center"><img src="docs/screenshots/react/04-products.png" width="230"><br><sub>商品管理</sub></td>
+    <td align="center"><img src="docs/screenshots/react/07-orders.png" width="230"><br><sub>订单管理</sub></td>
+    <td align="center"><img src="docs/screenshots/react/45-orders-stats-channel.png" width="230"><br><sub>订单统计</sub></td>
+  </tr>
+</table>
+
+### 全量截图
+
+320 张单页截图按端分目录存放，附一个可直接打开的缩略图浏览页和逐页巡检报告：
+
+```text
+docs/screenshots/
+├── index.html      # 320 缩略图网格浏览页（点击缩略图看原图）
+├── _sheets/        # 13 张总览册（含 _cover.png 封面）
+├── _reports/       # 3 份自动巡检报告（JSON：逐页状态 + 控制台报错）
+├── flutter/        # 80 张
+├── miniapp/        # 80 张
+├── react/          # 81 张
+└── vue3/           # 79 张
+```
+
+克隆后用浏览器打开浏览页即可翻阅全部截图：
+
+```bash
+open docs/screenshots/index.html
+```
 
 ---
 

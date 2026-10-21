@@ -1,0 +1,555 @@
+[
+  {
+    "route": "/",
+    "file": "docs/screenshots/vue3/01-home.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/category/1",
+    "file": "docs/screenshots/vue3/02-category-1.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/product/7",
+    "file": "docs/screenshots/vue3/03-product-7.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/search",
+    "file": "docs/screenshots/vue3/04-search.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/cart",
+    "file": "docs/screenshots/vue3/05-cart.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/checkout",
+    "file": "docs/screenshots/vue3/06-checkout.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/payment/1",
+    "file": "docs/screenshots/vue3/07-payment-1.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order",
+    "file": "docs/screenshots/vue3/08-order.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order/1",
+    "file": "docs/screenshots/vue3/09-order-1.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user",
+    "file": "docs/screenshots/vue3/10-user.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/address",
+    "file": "docs/screenshots/vue3/11-user-address.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/favorites",
+    "file": "docs/screenshots/vue3/12-user-favorites.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/coupons",
+    "file": "docs/screenshots/vue3/13-user-coupons.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/notification",
+    "file": "docs/screenshots/vue3/14-user-notification.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/login",
+    "file": "docs/screenshots/vue3/15-login.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/points",
+    "file": "docs/screenshots/vue3/16-points.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/invoices",
+    "file": "docs/screenshots/vue3/17-invoices.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics",
+    "file": "docs/screenshots/vue3/18-logistics.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/coupon-center",
+    "file": "docs/screenshots/vue3/19-coupon-center.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/reviews",
+    "file": "docs/screenshots/vue3/20-reviews.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/refund",
+    "file": "docs/screenshots/vue3/21-refund.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/pay-result",
+    "file": "docs/screenshots/vue3/22-pay-result.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/flash-sale",
+    "file": "docs/screenshots/vue3/23-flash-sale.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/group-buy",
+    "file": "docs/screenshots/vue3/24-group-buy.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/member",
+    "file": "docs/screenshots/vue3/25-member.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/history",
+    "file": "docs/screenshots/vue3/26-history.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/compare",
+    "file": "docs/screenshots/vue3/27-compare.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/categories",
+    "file": "docs/screenshots/vue3/28-categories.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order-trace",
+    "file": "docs/screenshots/vue3/29-order-trace.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channels",
+    "file": "docs/screenshots/vue3/30-channels.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/recommend",
+    "file": "docs/screenshots/vue3/31-channel-recommend.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/newest",
+    "file": "docs/screenshots/vue3/32-channel-newest.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/hot",
+    "file": "docs/screenshots/vue3/33-channel-hot.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/flash",
+    "file": "docs/screenshots/vue3/34-channel-flash.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/presale",
+    "file": "docs/screenshots/vue3/35-channel-presale.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/clearance",
+    "file": "docs/screenshots/vue3/36-channel-clearance.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/freeship",
+    "file": "docs/screenshots/vue3/37-channel-freeship.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/cross",
+    "file": "docs/screenshots/vue3/38-channel-cross.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channel/fresh",
+    "file": "docs/screenshots/vue3/39-channel-fresh.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/product/7/params",
+    "file": "docs/screenshots/vue3/40-product-7-params.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/product/7/questions",
+    "file": "docs/screenshots/vue3/41-product-7-questions.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review/all",
+    "file": "docs/screenshots/vue3/42-review-all.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review/good",
+    "file": "docs/screenshots/vue3/43-review-good.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review/medium",
+    "file": "docs/screenshots/vue3/44-review-medium.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review/bad",
+    "file": "docs/screenshots/vue3/45-review-bad.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review/image",
+    "file": "docs/screenshots/vue3/46-review-image.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review/reply",
+    "file": "docs/screenshots/vue3/47-review-reply.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review/tags",
+    "file": "docs/screenshots/vue3/48-review-tags.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/sign-in",
+    "file": "docs/screenshots/vue3/49-sign-in.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/task-center",
+    "file": "docs/screenshots/vue3/50-task-center.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/promotion-list",
+    "file": "docs/screenshots/vue3/51-promotion-list.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/flash-sale-list",
+    "file": "docs/screenshots/vue3/52-flash-sale-list.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/presale",
+    "file": "docs/screenshots/vue3/53-presale.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/group-buy-list",
+    "file": "docs/screenshots/vue3/54-group-buy-list.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/group-buy-detail/1",
+    "file": "docs/screenshots/vue3/55-group-buy-detail-1.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/promotion-session/1",
+    "file": "docs/screenshots/vue3/56-promotion-session-1.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order/all",
+    "file": "docs/screenshots/vue3/57-order-all.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order/pay",
+    "file": "docs/screenshots/vue3/58-order-pay.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order/ship",
+    "file": "docs/screenshots/vue3/59-order-ship.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order/receive",
+    "file": "docs/screenshots/vue3/60-order-receive.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order/done",
+    "file": "docs/screenshots/vue3/61-order-done.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order/refunding",
+    "file": "docs/screenshots/vue3/62-order-refunding.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/after-sales",
+    "file": "docs/screenshots/vue3/63-after-sales.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/after-sales/apply",
+    "file": "docs/screenshots/vue3/64-after-sales-apply.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/after-sales/1",
+    "file": "docs/screenshots/vue3/65-after-sales-1.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/refund-reasons",
+    "file": "docs/screenshots/vue3/66-refund-reasons.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics-traces",
+    "file": "docs/screenshots/vue3/67-logistics-traces.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/freight-calc",
+    "file": "docs/screenshots/vue3/68-freight-calc.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/level",
+    "file": "docs/screenshots/vue3/69-user-level.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/growth-logs",
+    "file": "docs/screenshots/vue3/70-user-growth-logs.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/invoice-templates",
+    "file": "docs/screenshots/vue3/71-user-invoice-templates.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/notification-settings",
+    "file": "docs/screenshots/vue3/72-user-notification-settings.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/security",
+    "file": "docs/screenshots/vue3/73-user-security.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/realname",
+    "file": "docs/screenshots/vue3/74-user-realname.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user/feedback",
+    "file": "docs/screenshots/vue3/75-user-feedback.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/help-center",
+    "file": "docs/screenshots/vue3/76-help-center.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/help-article/1",
+    "file": "docs/screenshots/vue3/77-help-article-1.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/regions",
+    "file": "docs/screenshots/vue3/78-regions.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/recharge",
+    "file": "docs/screenshots/vue3/79-recharge.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  }
+]

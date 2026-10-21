@@ -1,0 +1,482 @@
+[
+  {
+    "route": "pages/index/index",
+    "file": "docs/screenshots/miniapp/01-pages-index-index.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/points/points",
+    "file": "docs/screenshots/miniapp/02-pages-points-points.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/invoices/invoices",
+    "file": "docs/screenshots/miniapp/03-pages-invoices-invoices.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/logistics/logistics",
+    "file": "docs/screenshots/miniapp/04-pages-logistics-logistics.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/coupon-center/coupon-center",
+    "file": "docs/screenshots/miniapp/05-pages-coupon-center-coupon-center.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/reviews/reviews",
+    "file": "docs/screenshots/miniapp/06-pages-reviews-reviews.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/refund/refund",
+    "file": "docs/screenshots/miniapp/07-pages-refund-refund.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/pay-result/pay-result",
+    "file": "docs/screenshots/miniapp/08-pages-pay-result-pay-result.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/history/history",
+    "file": "docs/screenshots/miniapp/09-pages-history-history.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/category/category",
+    "file": "docs/screenshots/miniapp/10-pages-category-category.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/detail/detail",
+    "file": "docs/screenshots/miniapp/11-pages-detail-detail.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/cart/cart",
+    "file": "docs/screenshots/miniapp/12-pages-cart-cart.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/checkout/checkout",
+    "file": "docs/screenshots/miniapp/13-pages-checkout-checkout.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/pay/pay",
+    "file": "docs/screenshots/miniapp/14-pages-pay-pay.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/order/order",
+    "file": "docs/screenshots/miniapp/15-pages-order-order.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/order-detail/order-detail",
+    "file": "docs/screenshots/miniapp/16-pages-order-detail-order-detail.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/login/login",
+    "file": "docs/screenshots/miniapp/17-pages-login-login.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/profile/profile",
+    "file": "docs/screenshots/miniapp/18-pages-profile-profile.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/address/address",
+    "file": "docs/screenshots/miniapp/19-pages-address-address.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/address-edit/address-edit",
+    "file": "docs/screenshots/miniapp/20-pages-address-edit-address-edit.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/favorites/favorites",
+    "file": "docs/screenshots/miniapp/21-pages-favorites-favorites.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/coupons/coupons",
+    "file": "docs/screenshots/miniapp/22-pages-coupons-coupons.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/notifications/notifications",
+    "file": "docs/screenshots/miniapp/23-pages-notifications-notifications.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/search/search",
+    "file": "docs/screenshots/miniapp/24-pages-search-search.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/sign-in/sign-in",
+    "file": "docs/screenshots/miniapp/25-pages-sign-in-sign-in.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "pages/order-all/order-all",
+    "file": "docs/screenshots/miniapp/26-pages-order-all-order-all.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channels/channels",
+    "file": "docs/screenshots/miniapp/27-subpkg-shop-channels-channels.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-recommend/channel-recommend",
+    "file": "docs/screenshots/miniapp/28-subpkg-shop-channel-recommend-channel-recommend.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-newest/channel-newest",
+    "file": "docs/screenshots/miniapp/29-subpkg-shop-channel-newest-channel-newest.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-hot/channel-hot",
+    "file": "docs/screenshots/miniapp/30-subpkg-shop-channel-hot-channel-hot.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-flash/channel-flash",
+    "file": "docs/screenshots/miniapp/31-subpkg-shop-channel-flash-channel-flash.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-presale/channel-presale",
+    "file": "docs/screenshots/miniapp/32-subpkg-shop-channel-presale-channel-presale.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-clearance/channel-clearance",
+    "file": "docs/screenshots/miniapp/33-subpkg-shop-channel-clearance-channel-clearance.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-freeship/channel-freeship",
+    "file": "docs/screenshots/miniapp/34-subpkg-shop-channel-freeship-channel-freeship.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-cross/channel-cross",
+    "file": "docs/screenshots/miniapp/35-subpkg-shop-channel-cross-channel-cross.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/channel-fresh/channel-fresh",
+    "file": "docs/screenshots/miniapp/36-subpkg-shop-channel-fresh-channel-fresh.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/product-params/product-params",
+    "file": "docs/screenshots/miniapp/37-subpkg-shop-product-params-product-params.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/product-questions/product-questions",
+    "file": "docs/screenshots/miniapp/38-subpkg-shop-product-questions-product-questions.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/review-all/review-all",
+    "file": "docs/screenshots/miniapp/39-subpkg-shop-review-all-review-all.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/review-good/review-good",
+    "file": "docs/screenshots/miniapp/40-subpkg-shop-review-good-review-good.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/review-medium/review-medium",
+    "file": "docs/screenshots/miniapp/41-subpkg-shop-review-medium-review-medium.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/review-bad/review-bad",
+    "file": "docs/screenshots/miniapp/42-subpkg-shop-review-bad-review-bad.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/review-image/review-image",
+    "file": "docs/screenshots/miniapp/43-subpkg-shop-review-image-review-image.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/review-reply/review-reply",
+    "file": "docs/screenshots/miniapp/44-subpkg-shop-review-reply-review-reply.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/my-reviews/my-reviews",
+    "file": "docs/screenshots/miniapp/45-subpkg-shop-my-reviews-my-reviews.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-shop/review-tags/review-tags",
+    "file": "docs/screenshots/miniapp/46-subpkg-shop-review-tags-review-tags.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/sign-in-calendar/sign-in-calendar",
+    "file": "docs/screenshots/miniapp/47-subpkg-order-sign-in-calendar-sign-in-calendar.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/task-center/task-center",
+    "file": "docs/screenshots/miniapp/48-subpkg-order-task-center-task-center.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/task-detail/task-detail",
+    "file": "docs/screenshots/miniapp/49-subpkg-order-task-detail-task-detail.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/promotion-list/promotion-list",
+    "file": "docs/screenshots/miniapp/50-subpkg-order-promotion-list-promotion-list.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/promotion-flash/promotion-flash",
+    "file": "docs/screenshots/miniapp/51-subpkg-order-promotion-flash-promotion-flash.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/promotion-presale/promotion-presale",
+    "file": "docs/screenshots/miniapp/52-subpkg-order-promotion-presale-promotion-presale.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/group-buy-list/group-buy-list",
+    "file": "docs/screenshots/miniapp/53-subpkg-order-group-buy-list-group-buy-list.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/group-buy-detail/group-buy-detail",
+    "file": "docs/screenshots/miniapp/54-subpkg-order-group-buy-detail-group-buy-detail.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/group-buy-join/group-buy-join",
+    "file": "docs/screenshots/miniapp/55-subpkg-order-group-buy-join-group-buy-join.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/promotion-session/promotion-session",
+    "file": "docs/screenshots/miniapp/56-subpkg-order-promotion-session-promotion-session.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/my-group-buy/my-group-buy",
+    "file": "docs/screenshots/miniapp/57-subpkg-order-my-group-buy-my-group-buy.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/order-pay/order-pay",
+    "file": "docs/screenshots/miniapp/58-subpkg-order-order-pay-order-pay.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/order-ship/order-ship",
+    "file": "docs/screenshots/miniapp/59-subpkg-order-order-ship-order-ship.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/order-receive/order-receive",
+    "file": "docs/screenshots/miniapp/60-subpkg-order-order-receive-order-receive.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/order-done/order-done",
+    "file": "docs/screenshots/miniapp/61-subpkg-order-order-done-order-done.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/order-cancel/order-cancel",
+    "file": "docs/screenshots/miniapp/62-subpkg-order-order-cancel-order-cancel.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/order-refunding/order-refunding",
+    "file": "docs/screenshots/miniapp/63-subpkg-order-order-refunding-order-refunding.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/after-sale-list/after-sale-list",
+    "file": "docs/screenshots/miniapp/64-subpkg-order-after-sale-list-after-sale-list.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/after-sale-detail/after-sale-detail",
+    "file": "docs/screenshots/miniapp/65-subpkg-order-after-sale-detail-after-sale-detail.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/after-sale-apply/after-sale-apply",
+    "file": "docs/screenshots/miniapp/66-subpkg-order-after-sale-apply-after-sale-apply.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/refund-reason/refund-reason",
+    "file": "docs/screenshots/miniapp/67-subpkg-order-refund-reason-refund-reason.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/order-confirm/order-confirm",
+    "file": "docs/screenshots/miniapp/68-subpkg-order-order-confirm-order-confirm.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/logistics-trace/logistics-trace",
+    "file": "docs/screenshots/miniapp/69-subpkg-order-logistics-trace-logistics-trace.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-order/logistics-track/logistics-track",
+    "file": "docs/screenshots/miniapp/70-subpkg-order-logistics-track-logistics-track.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/user-level/user-level",
+    "file": "docs/screenshots/miniapp/71-subpkg-user-user-level-user-level.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/growth-logs/growth-logs",
+    "file": "docs/screenshots/miniapp/72-subpkg-user-growth-logs-growth-logs.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/invoice-template/invoice-template",
+    "file": "docs/screenshots/miniapp/73-subpkg-user-invoice-template-invoice-template.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/notification-setting/notification-setting",
+    "file": "docs/screenshots/miniapp/74-subpkg-user-notification-setting-notification-setting.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/account-security/account-security",
+    "file": "docs/screenshots/miniapp/75-subpkg-user-account-security-account-security.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/realname/realname",
+    "file": "docs/screenshots/miniapp/76-subpkg-user-realname-realname.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/feedback/feedback",
+    "file": "docs/screenshots/miniapp/77-subpkg-user-feedback-feedback.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/help-center/help-center",
+    "file": "docs/screenshots/miniapp/78-subpkg-user-help-center-help-center.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/help-article/help-article",
+    "file": "docs/screenshots/miniapp/79-subpkg-user-help-article-help-article.png",
+    "status": "ok",
+    "error": ""
+  },
+  {
+    "route": "subpkg-user/region/region",
+    "file": "docs/screenshots/miniapp/80-subpkg-user-region-region.png",
+    "status": "ok",
+    "error": ""
+  }
+]

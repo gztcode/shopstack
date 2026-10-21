@@ -1,0 +1,569 @@
+[
+  {
+    "route": "/login",
+    "file": "docs/screenshots/react/01-login.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/forbidden",
+    "file": "docs/screenshots/react/02-forbidden.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/dashboard",
+    "file": "docs/screenshots/react/03-dashboard.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/products",
+    "file": "docs/screenshots/react/04-products.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/categories",
+    "file": "docs/screenshots/react/05-categories.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/reviews",
+    "file": "docs/screenshots/react/06-reviews.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/orders",
+    "file": "docs/screenshots/react/07-orders.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/refunds",
+    "file": "docs/screenshots/react/08-refunds.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/payments",
+    "file": "docs/screenshots/react/09-payments.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/users",
+    "file": "docs/screenshots/react/10-users.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/inventory",
+    "file": "docs/screenshots/react/11-inventory.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/coupons",
+    "file": "docs/screenshots/react/12-coupons.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/promotions",
+    "file": "docs/screenshots/react/13-promotions.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/banners",
+    "file": "docs/screenshots/react/14-banners.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics",
+    "file": "docs/screenshots/react/15-logistics.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/system/roles",
+    "file": "docs/screenshots/react/16-system-roles.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/system/audit-logs",
+    "file": "docs/screenshots/react/17-system-audit-logs.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/system/sms",
+    "file": "docs/screenshots/react/18-system-sms.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/materials",
+    "file": "docs/screenshots/react/19-materials.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/invoices",
+    "file": "docs/screenshots/react/20-invoices.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/analytics",
+    "file": "docs/screenshots/react/21-analytics.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/settings",
+    "file": "docs/screenshots/react/22-settings.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/skus",
+    "file": "docs/screenshots/react/23-skus.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/products/detail",
+    "file": "docs/screenshots/react/24-products-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/system/permissions",
+    "file": "docs/screenshots/react/25-system-permissions.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/inventory/logs",
+    "file": "docs/screenshots/react/26-inventory-logs.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics/track",
+    "file": "docs/screenshots/react/27-logistics-track.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/system/sms/send",
+    "file": "docs/screenshots/react/28-system-sms-send.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channels",
+    "file": "docs/screenshots/react/29-channels.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/channels/products",
+    "file": "docs/screenshots/react/30-channels-products.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/review-tags",
+    "file": "docs/screenshots/react/31-review-tags.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/guarantees",
+    "file": "docs/screenshots/react/32-guarantees.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/questions",
+    "file": "docs/screenshots/react/33-questions.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/questions/answer",
+    "file": "docs/screenshots/react/34-questions-answer.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/promotion-sessions",
+    "file": "docs/screenshots/react/35-promotion-sessions.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/group-buys",
+    "file": "docs/screenshots/react/36-group-buys.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/group-buys/detail",
+    "file": "docs/screenshots/react/37-group-buys-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/marketing-tasks",
+    "file": "docs/screenshots/react/38-marketing-tasks.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/sign-in-config",
+    "file": "docs/screenshots/react/39-sign-in-config.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/product-params",
+    "file": "docs/screenshots/react/40-product-params.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/after-sales",
+    "file": "docs/screenshots/react/41-after-sales.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/after-sales/detail",
+    "file": "docs/screenshots/react/42-after-sales-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/refund-reasons",
+    "file": "docs/screenshots/react/43-refund-reasons.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/orders/list",
+    "file": "docs/screenshots/react/44-orders-list.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/orders/stats/channel",
+    "file": "docs/screenshots/react/45-orders-stats-channel.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/orders/stats/hour",
+    "file": "docs/screenshots/react/46-orders-stats-hour.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/orders/stats/region",
+    "file": "docs/screenshots/react/47-orders-stats-region.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/order-logs",
+    "file": "docs/screenshots/react/48-order-logs.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/pay-channels",
+    "file": "docs/screenshots/react/49-pay-channels.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/recharge-orders",
+    "file": "docs/screenshots/react/50-recharge-orders.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/balance-logs",
+    "file": "docs/screenshots/react/51-balance-logs.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/return-shipments",
+    "file": "docs/screenshots/react/52-return-shipments.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/warehouses",
+    "file": "docs/screenshots/react/53-warehouses.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/inbound-orders",
+    "file": "docs/screenshots/react/54-inbound-orders.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/inbound-orders/detail",
+    "file": "docs/screenshots/react/55-inbound-orders-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/inbound-orders/create",
+    "file": "docs/screenshots/react/56-inbound-orders-create.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/outbound-orders",
+    "file": "docs/screenshots/react/57-outbound-orders.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/outbound-orders/detail",
+    "file": "docs/screenshots/react/58-outbound-orders-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/outbound-orders/create",
+    "file": "docs/screenshots/react/59-outbound-orders-create.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/stock-checks",
+    "file": "docs/screenshots/react/60-stock-checks.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/stock-checks/detail",
+    "file": "docs/screenshots/react/61-stock-checks-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/stock-checks/items",
+    "file": "docs/screenshots/react/62-stock-checks-items.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user-levels",
+    "file": "docs/screenshots/react/63-user-levels.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user-levels/detail",
+    "file": "docs/screenshots/react/64-user-levels-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/user-levels/stats",
+    "file": "docs/screenshots/react/65-user-levels-stats.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/users/by-level",
+    "file": "docs/screenshots/react/66-users-by-level.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/growth-logs",
+    "file": "docs/screenshots/react/67-growth-logs.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/feedbacks",
+    "file": "docs/screenshots/react/68-feedbacks.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/feedbacks/detail",
+    "file": "docs/screenshots/react/69-feedbacks-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/group-buys/members",
+    "file": "docs/screenshots/react/70-group-buys-members.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics/companies",
+    "file": "docs/screenshots/react/71-logistics-companies.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics/ranges",
+    "file": "docs/screenshots/react/72-logistics-ranges.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics/templates",
+    "file": "docs/screenshots/react/73-logistics-templates.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics/templates/detail",
+    "file": "docs/screenshots/react/74-logistics-templates-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/logistics/freight",
+    "file": "docs/screenshots/react/75-logistics-freight.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/notification-templates",
+    "file": "docs/screenshots/react/76-notification-templates.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/sms-templates",
+    "file": "docs/screenshots/react/77-sms-templates.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/sensitive-words",
+    "file": "docs/screenshots/react/78-sensitive-words.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/notification-categories",
+    "file": "docs/screenshots/react/79-notification-categories.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/shipments",
+    "file": "docs/screenshots/react/80-shipments.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  },
+  {
+    "route": "/shipments/detail",
+    "file": "docs/screenshots/react/81-shipments-detail.png",
+    "status": "ok",
+    "consoleErrors": [],
+    "error": ""
+  }
+]

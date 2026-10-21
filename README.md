@@ -19,6 +19,7 @@
 ## 目录
 
 - [页面截图](#页面截图)
+- [AI 协作过程](#ai-协作过程)
 - [架构概览](#架构概览)
 - [快速启动](#快速启动)
 - [演示账号](#演示账号)
@@ -128,6 +129,49 @@ docs/screenshots/
 ```bash
 open docs/screenshots/index.html
 ```
+
+---
+
+## AI 协作过程
+
+本项目**全程由 AI 驱动开发**，完整会话记录已随仓库公开，可逐条复核。
+
+### 使用的 AI 技术
+
+| 项 | 值 |
+| --- | --- |
+| 编码助手 | **MiniMax Code**（MCode） |
+| 驱动模型 | **MiniMax M3.1-Flash**（`MiniMax-M3.1-Flash`） |
+| 上下文窗口 | 512,000 tokens |
+| 协作模式 | 主 Agent（root）+ **15 个并行子 Agent**（worker / explore / verifier），文件所有权互不重叠 |
+| 工具面 | Bash、Read / Write / Edit、Glob / Grep、Task（多 Agent 调度）、Task 管理、MCP 工具、浏览器控制 |
+
+### 协作规模
+
+| 指标 | 主会话 | 子 Agent 合计 |
+| --- | --- | --- |
+| 会话数 | 1 | 15 |
+| 消息条数 | 3,898 | 3,427 |
+| 用户轮次 | 120 | — |
+| AI 回复 | 1,808 | — |
+| 工具调用返回 | 1,852 | 1,832 |
+
+- 时间跨度：**2026-10-20 11:35 → 2026-10-21 12:41**（约 25 小时连续开发）
+- Token 消耗：累计约 **4.06 亿**（input 253 万 / output 92 万 / cache read 4.02 亿）
+- 主 Agent 工具调用 Top：bash 356、task_output 56、edit 54、read 40、write 19
+- 上下文压缩：共 **8 代**压缩摘要，完整保留在会话记录里
+
+### 记录内容
+
+| 文件 | 内容 |
+| --- | --- |
+| [docs/ai-session/index.md](docs/ai-session/index.md) | 全部记录的分卷索引（主会话 10 卷 + 15 个子 Agent） |
+| [docs/ai-session/compaction-summaries.md](docs/ai-session/compaction-summaries.md) | 8 代上下文压缩摘要——被压缩掉的早期历史唯一留存 |
+| [docs/ai-session/subagents/](docs/ai-session/subagents/) | 15 个子 Agent 的独立会话记录（四端开发、后端补齐、契约扩展等） |
+| [docs/ai-session/stats.json](docs/ai-session/stats.json) | 机器可读统计：消息数、Token 用量、工具调用分布 |
+| [scripts/export-ai-session.mjs](scripts/export-ai-session.mjs) | 导出脚本，可复现整个打包过程 |
+
+记录中本机绝对路径已替换为 `<WORKSPACE>` / `<MINIMAX_DATA_DIR>` / `<HOME>` 占位符。
 
 ---
 
